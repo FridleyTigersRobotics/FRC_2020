@@ -5,9 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include "Constants.h"
 #include "subsystems/IntakeSubsystem.h"
 
-IntakeSubsystem::IntakeSubsystem() {}
+IntakeSubsystem::IntakeSubsystem() :
+    m_motorIntakeRotate{ IntakeConstants::kIntakeRotateMotorPwmId },
+    m_motorIntakeExtend{ IntakeConstants::kIntakeExtendMotorPwmId }
+    {}
 
 // This method will be called once per scheduler run
 void IntakeSubsystem::Periodic() {}

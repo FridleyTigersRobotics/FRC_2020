@@ -8,6 +8,7 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <frc/PWMVictorSPX.h>
 
 class IntakeSubsystem : public frc2::SubsystemBase {
  public:
@@ -19,6 +20,6 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   void Periodic();
 
  private:
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
+   frc::PWMVictorSPX  m_motorIntakeRotate;
+   frc::PWMVictorSPX  m_motorIntakeExtend;
 };

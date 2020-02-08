@@ -5,9 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include "Constants.h"
 #include "subsystems/ShooterSubsystem.h"
 
-ShooterSubsystem::ShooterSubsystem() {}
+ShooterSubsystem::ShooterSubsystem( )  : 
+    m_motorShooterLeft { ShooterConstants::kLeftMotorCanId  },
+    m_motorShooterRight{ ShooterConstants::kRightMotorCanId } 
+    {}
 
 // This method will be called once per scheduler run
 void ShooterSubsystem::Periodic() {}

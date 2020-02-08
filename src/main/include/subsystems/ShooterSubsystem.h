@@ -8,17 +8,17 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <frc/SpeedControllerGroup.h>
+#include <ctre/Phoenix.h>
 
 class ShooterSubsystem : public frc2::SubsystemBase {
  public:
-  ShooterSubsystem();
+  ShooterSubsystem( );
 
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic();
+  void Periodic() override;
 
  private:
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
+   // CAN
+   ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;
+   ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterRight;
 };

@@ -7,5 +7,5 @@
 
 #include "commands/ExampleCommand.h"
 
-ExampleCommand::ExampleCommand(ExampleSubsystem* subsystem)
+ExampleCommand::ExampleCommand(ShooterSubsystem* subsystem)
     : m_subsystem{subsystem} {}
