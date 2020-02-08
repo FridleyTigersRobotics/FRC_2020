@@ -27,6 +27,8 @@ constexpr int kRightMotor2Port = 3;
 namespace ShooterConstants {
 constexpr int kLeftMotorCanId  = 0;
 constexpr int kRightMotorCanId = 1;
+
+constexpr int kLoaderMotorPwmId = 5;
 }  // namespace ShooterConstants
 
 namespace IntakeConstants {

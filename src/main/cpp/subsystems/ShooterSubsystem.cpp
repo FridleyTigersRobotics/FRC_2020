@@ -9,8 +9,9 @@
 #include "subsystems/ShooterSubsystem.h"
 
 ShooterSubsystem::ShooterSubsystem( )  : 
-    m_motorShooterLeft { ShooterConstants::kLeftMotorCanId  },
-    m_motorShooterRight{ ShooterConstants::kRightMotorCanId } 
+    m_motorShooterLeft  { ShooterConstants::kLeftMotorCanId  },
+    m_motorShooterRight { ShooterConstants::kRightMotorCanId },
+    m_motorShooterLoader{ ShooterConstants::kLoaderMotorPwmId }
     {}
 
 // This method will be called once per scheduler run

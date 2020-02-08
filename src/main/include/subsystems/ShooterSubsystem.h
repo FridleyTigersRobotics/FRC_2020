@@ -8,7 +8,7 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <frc/SpeedControllerGroup.h>
+#include <frc/PWMVictorSPX.h>
 #include <ctre/Phoenix.h>
 
 class ShooterSubsystem : public frc2::SubsystemBase {
@@ -18,7 +18,7 @@ class ShooterSubsystem : public frc2::SubsystemBase {
   void Periodic() override;
 
  private:
-   // CAN
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterRight;
+   frc::PWMVictorSPX                           m_motorShooterLoader;
 };
