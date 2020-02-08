@@ -5,9 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <frc/XboxController.h>
+#include <frc2/command/button/JoystickButton.h>
+
+
 #include "RobotContainer.h"
 #include "commands/DefaultDrive.h"
-
+#include "commands/SpinupShooter.h"
+#include "commands/SpindownShooter.h"
 
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_shooterSubsystem) {
   // Initialize all of your commands and subsystems here
@@ -27,6 +32,20 @@ RobotContainer::RobotContainer() : m_autonomousCommand(&m_shooterSubsystem) {
 
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
+
+  // NOTE: Using `new` here will leak these commands if they are ever no longer
+  // needed. This is usually a non-issue as button-bindings tend to be permanent
+  // - however, if you wish to avoid this, the commands should be
+  // stack-allocated and declared as members of RobotContainer.
+
+  // Spin up shooter when the 'A' button is pressed.
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
+      .WhenPressed( new SpinUpShooter( &m_shooterSubsystem ) );
+
+  // Spin down shooter when the 'A' button is released.
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
+      .WhenReleased( new SpinDownShooter( &m_shooterSubsystem ) );
+
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
