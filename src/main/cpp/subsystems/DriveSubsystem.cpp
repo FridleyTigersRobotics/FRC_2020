@@ -7,7 +7,23 @@
 
 #include "subsystems/DriveSubsystem.h"
 
-DriveSubsystem::DriveSubsystem() {}
+using namespace DriveConstants;
+
+DriveSubsystem::DriveSubsystem()
+    : m_left1{kLeftMotor1Port},
+      m_left2{kLeftMotor2Port},
+      m_right1{kRightMotor1Port},
+      m_right2{kRightMotor2Port}
+      {}
 
 // This method will be called once per scheduler run
 void DriveSubsystem::Periodic() {}
+
+void DriveSubsystem::ArcadeDrive(double fwd, double rot) {
+  m_drive.ArcadeDrive(fwd, rot);
+}
+
+void DriveSubsystem::SetMaxOutput(double maxOutput) {
+  m_drive.SetMaxOutput(maxOutput);
+}
+

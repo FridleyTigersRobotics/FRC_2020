@@ -16,3 +16,9 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
+namespace DriveConstants {
+constexpr int kLeftMotor1Port = 0;
+constexpr int kLeftMotor2Port = 1;
+constexpr int kRightMotor1Port = 2;
+constexpr int kRightMotor2Port = 3;
+}
