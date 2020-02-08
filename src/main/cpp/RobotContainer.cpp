@@ -6,11 +6,20 @@
 /*----------------------------------------------------------------------------*/
 
 #include "RobotContainer.h"
+#include "commands/DefaultDrive.h"
+
 
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_shooterSubsystem) {
   // Initialize all of your commands and subsystems here
 
-
+  // Set up default drive command
+  m_driveSubsystem.SetDefaultCommand(
+    DefaultDrive(
+      &m_driveSubsystem,
+      [this] { return m_driverController.GetY(frc::GenericHID::kLeftHand);  },
+      [this] { return m_driverController.GetX(frc::GenericHID::kRightHand); }
+    )
+  );
 
   // Configure the button bindings
   ConfigureButtonBindings();

@@ -7,9 +7,12 @@
 
 #pragma once
 
+#include "Constants.h"
 #include <frc2/command/Command.h>
-
+#include <frc/XboxController.h>
 #include "commands/ExampleCommand.h"
+
+#include "subsystems/DriveSubsystem.h"
 #include "subsystems/ShooterSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
 
@@ -28,9 +31,12 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
+  DriveSubsystem   m_driveSubsystem;
   ShooterSubsystem m_shooterSubsystem;
   IntakeSubsystem  m_intakeSubsystem;
   ExampleCommand   m_autonomousCommand;
+
+  frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
 
   void ConfigureButtonBindings();
 };

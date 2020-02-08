@@ -25,6 +25,8 @@ class ShooterSubsystem : public frc2::SubsystemBase {
   bool IsShooterReady();
   int GetRotationValue();
 
+  
+
  private:
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterRight;

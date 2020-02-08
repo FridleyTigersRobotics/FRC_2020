@@ -38,11 +38,13 @@ constexpr float ShooterRpmTarget = 500.0f;
 constexpr float ShooterRpmMin    = 480.0f;
 constexpr float ShooterRpmMax    = 520.0f;
 
-
 }  // namespace ShooterConstants
 
 namespace IntakeConstants {
 constexpr int kIntakeRotateMotorPwmId = 6;
 constexpr int kIntakeExtendMotorPwmId = 7;
-}  // namespace ShooterConstants
+}  // namespace IntakeConstants
 
+namespace DriverStationConstants {
+constexpr int kDriverControllerPort = 0;
+}  // namespace DriverStationConstants
