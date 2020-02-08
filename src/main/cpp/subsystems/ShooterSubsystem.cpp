@@ -12,8 +12,10 @@ ShooterSubsystem::ShooterSubsystem( )  :
     m_motorShooterLeft  { ShooterConstants::kLeftMotorCanId  },
     m_motorShooterRight { ShooterConstants::kRightMotorCanId },
     m_motorShooterLoader{ ShooterConstants::kLoaderMotorPwmId },
-    m_jdRotationA       { ShooterConstants::kJDRotationA },
-    m_jdRotationB       { ShooterConstants::kJDRotationB }
+    m_ajdA       { ShooterConstants::kjda },
+    m_ajdB       { ShooterConstants::kjdb },
+    m_jdA        { m_ajdA },
+    m_jdB        { m_ajdB }
     {}
 
 // This method will be called once per scheduler run
@@ -65,8 +67,17 @@ bool ShooterSubsystem::IsShooterReady() {
     return ready;
 }
 
-int ShooterSubsystem::GetRotationValue() {
-   int rotA = m_jdRotationA.GetValue();
-   int rotB = m_jdRotationB.GetValue();
-   return rotA+rotB;
+double ShooterSubsystem::GetRotationDegreeA() {
+   return m_jdA.GetDistance();
+}
+
+double ShooterSubsystem::GetRotationDegreeB() {
+   return m_jdB.GetDistance();
+}
+
+void ShooterSubsystem::ResetEncoder() {
+    m_jdA.Reset();  //Reset the Encoder distance to Zero
+    m_jdB.Reset();
+    m_jdA.SetDistancePerRotation(ShooterConstants::kDistPerRotation);
+    m_jdB.SetDistancePerRotation(ShooterConstants::kDistPerRotation);
 }

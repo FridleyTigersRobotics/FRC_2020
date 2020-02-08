@@ -27,8 +27,9 @@ constexpr int kRightMotor2Port = 3;
 namespace ShooterConstants {
 constexpr int kLeftMotorCanId  = 0;
 constexpr int kRightMotorCanId = 1;
-constexpr int kJDRotationA = 0; //analog input channel for John Deere rotation sensor
-constexpr int kJDRotationB = 1;
+constexpr int kjda = 0; //analog input channel A for John Deere rotation sensor
+constexpr int kjdb = 1; //analog input channel B for John Deere rotation sensor
+constexpr double kDistPerRotation = 360;  //how far the nechanism travels in 1 rotation of the encoder in angular degrees
 
 constexpr int kLoaderMotorPwmId = 5;
 constexpr int kSensorId         = 0;
