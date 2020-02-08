@@ -10,6 +10,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc/PWMVictorSPX.h>
 #include <ctre/Phoenix.h>
+#include <frc/AnalogInput.h>
 
 class ShooterSubsystem : public frc2::SubsystemBase {
  public:
@@ -22,9 +23,12 @@ class ShooterSubsystem : public frc2::SubsystemBase {
   void SpindownShooter();
 
   bool IsShooterReady();
+  int GetRotationValue();
 
  private:
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterRight;
    frc::PWMVictorSPX                           m_motorShooterLoader;
+   frc::AnalogInput                            m_jdRotationA;
+   frc::AnalogInput                            m_jdRotationB;
 };

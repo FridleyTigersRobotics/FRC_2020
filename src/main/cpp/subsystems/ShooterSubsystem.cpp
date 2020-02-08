@@ -11,7 +11,9 @@
 ShooterSubsystem::ShooterSubsystem( )  : 
     m_motorShooterLeft  { ShooterConstants::kLeftMotorCanId  },
     m_motorShooterRight { ShooterConstants::kRightMotorCanId },
-    m_motorShooterLoader{ ShooterConstants::kLoaderMotorPwmId }
+    m_motorShooterLoader{ ShooterConstants::kLoaderMotorPwmId },
+    m_jdRotationA       { ShooterConstants::kJDRotationA },
+    m_jdRotationB       { ShooterConstants::kJDRotationB }
     {}
 
 // This method will be called once per scheduler run
@@ -63,3 +65,8 @@ bool ShooterSubsystem::IsShooterReady() {
     return ready;
 }
 
+int ShooterSubsystem::GetRotationValue() {
+   int rotA = m_jdRotationA.GetValue();
+   int rotB = m_jdRotationB.GetValue();
+   return rotA+rotB;
+}
