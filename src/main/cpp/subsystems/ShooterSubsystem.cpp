@@ -16,3 +16,50 @@ ShooterSubsystem::ShooterSubsystem( )  :
 
 // This method will be called once per scheduler run
 void ShooterSubsystem::Periodic() {}
+
+
+void ShooterSubsystem::SpinupShooter() {
+
+    m_motorShooterLeft.Set(  
+        ctre::phoenix::motorcontrol::ControlMode::Velocity,
+        ShooterConstants::ShooterRpmTarget
+    );
+    m_motorShooterRight.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::Velocity,
+        ShooterConstants::ShooterRpmTarget
+    );
+}
+
+
+void ShooterSubsystem::SpindownShooter() {
+    m_motorShooterLeft.NeutralOutput( );
+    m_motorShooterRight.NeutralOutput( );
+}
+
+
+bool ShooterSubsystem::IsShooterReady() {
+    float const rpmLeft = \
+        m_motorShooterLeft.GetSelectedSensorVelocity( 
+            ShooterConstants::kSensorId );
+
+    float const rpmRight = \
+        m_motorShooterRight.GetSelectedSensorVelocity( 
+            ShooterConstants::kSensorId );
+            
+    bool ready = true;
+
+    if ( rpmLeft < ShooterConstants::ShooterRpmMin &&
+         rpmLeft > ShooterConstants::ShooterRpmMax )
+    {
+        ready = false;
+    }
+
+    if ( rpmRight < ShooterConstants::ShooterRpmMin &&
+         rpmRight > ShooterConstants::ShooterRpmMax )
+    {
+        ready = false;
+    }
+
+    return ready;
+}
+

@@ -27,8 +27,15 @@ constexpr int kRightMotor2Port = 3;
 namespace ShooterConstants {
 constexpr int kLeftMotorCanId  = 0;
 constexpr int kRightMotorCanId = 1;
-
 constexpr int kLoaderMotorPwmId = 5;
+constexpr int kSensorId         = 0;
+
+
+constexpr float ShooterRpmTarget = 500.0f;
+constexpr float ShooterRpmMin    = 480.0f;
+constexpr float ShooterRpmMax    = 520.0f;
+
+
 }  // namespace ShooterConstants
 
 namespace IntakeConstants {

@@ -17,6 +17,12 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   void Periodic() override;
 
+  void SpinupShooter();
+
+  void SpindownShooter();
+
+  bool IsShooterReady();
+
  private:
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterRight;
