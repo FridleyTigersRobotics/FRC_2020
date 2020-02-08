@@ -17,4 +17,7 @@
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "java.validate.enable": false,
   "problems.decorations.enabled": false,
+  "files.associations": {
+    "*.tcc": "cpp"
+  },
 }

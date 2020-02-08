@@ -49,3 +49,9 @@ constexpr int kIntakeExtendMotorPwmId = 7;
 namespace DriverStationConstants {
 constexpr int kDriverControllerPort = 0;
 }  // namespace DriverStationConstants
+
+namespace Controlpanelconstants {
+constexpr int kControlpanelmotorport = 8;
+constexpr int kControlpanelliftport = 0;
+
+}  // namespace DriverStationConstants

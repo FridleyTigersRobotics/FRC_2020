@@ -13,6 +13,9 @@
 #include "commands/DefaultDrive.h"
 #include "commands/SpinupShooter.h"
 #include "commands/SpindownShooter.h"
+#include "commands/ControlPanelRaise.h"
+
+
 
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_shooterSubsystem) {
   // Initialize all of your commands and subsystems here
@@ -45,6 +48,10 @@ void RobotContainer::ConfigureButtonBindings() {
   // Spin down shooter when the 'A' button is released.
   frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
       .WhenReleased( new SpinDownShooter( &m_shooterSubsystem ) );
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
+      .WhenPressed( new ControlPanelRaise( &m_ControlPanelsubsystem ) );
+
 
 }
 

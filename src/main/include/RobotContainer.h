@@ -15,6 +15,7 @@
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ShooterSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
+#include "subsystems/ControlPanelSubsystem.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -35,6 +36,7 @@ class RobotContainer {
   ShooterSubsystem m_shooterSubsystem;
   IntakeSubsystem  m_intakeSubsystem;
   ExampleCommand   m_autonomousCommand;
+  ControlPanelSubsystem m_ControlPanelsubsystem; 
 
   frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
 
