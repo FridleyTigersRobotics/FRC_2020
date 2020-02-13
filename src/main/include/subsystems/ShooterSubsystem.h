@@ -25,6 +25,12 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   bool IsShooterReady();
 
+  void AngleShooterUp(); 
+
+  void AngleShooterDown();
+
+  void StopShooterAngle() ;
+
   double GetRotationDegreeA();
 
   double GetRotationDegreeB();
@@ -37,6 +43,7 @@ class ShooterSubsystem : public frc2::SubsystemBase {
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterRight;
    frc::PWMVictorSPX                           m_motorShooterLoader;
+   frc::PWMVictorSPX                           m_motorAngle;
    frc::AnalogInput                            m_ajdA;
    frc::AnalogInput                            m_ajdB;
    frc::AnalogEncoder                          m_jdA;

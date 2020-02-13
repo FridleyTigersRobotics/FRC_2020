@@ -16,7 +16,7 @@
 #include "subsystems/ShooterSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/ControlPanelSubsystem.h"
-
+#include "subsystems/IndexerSubsystem.h"
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -35,10 +35,12 @@ class RobotContainer {
   DriveSubsystem   m_driveSubsystem;
   ShooterSubsystem m_shooterSubsystem;
   IntakeSubsystem  m_intakeSubsystem;
+  IndexerSubsystem  m_indexerSubsystem;
   ExampleCommand   m_autonomousCommand;
   ControlPanelSubsystem m_ControlPanelsubsystem; 
 
   frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
+  frc::XboxController m_shooterController{ 1 };
 
   void ConfigureButtonBindings();
 };

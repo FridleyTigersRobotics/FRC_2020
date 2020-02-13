@@ -11,16 +11,18 @@ using namespace DriveConstants;
 
 DriveSubsystem::DriveSubsystem()
     : m_left1{kLeftMotor1Port},
-      m_left2{kLeftMotor2Port},
-      m_right1{kRightMotor1Port},
-      m_right2{kRightMotor2Port}
-      {}
+      m_left2{kRightMotor1Port},
+      m_right1{kLeftMotor2Port},
+      m_right2{kRightMotor2Port} 
+{
+  m_drive.SetMaxOutput(1);
+}
 
 // This method will be called once per scheduler run
 void DriveSubsystem::Periodic() {}
 
 void DriveSubsystem::ArcadeDrive(double fwd, double rot) {
-  m_drive.ArcadeDrive(fwd, rot);
+  m_drive.ArcadeDrive(-fwd, rot);
 }
 
 void DriveSubsystem::SetMaxOutput(double maxOutput) {

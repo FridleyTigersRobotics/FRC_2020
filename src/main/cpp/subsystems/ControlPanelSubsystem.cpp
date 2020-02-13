@@ -10,19 +10,19 @@
 #include "Robot.h"
 
 ControlPanelSubsystem::ControlPanelSubsystem():
-m_Controllift {1, Controlpanelconstants::kControlpanelliftport},
+//m_Controllift {1, Controlpanelconstants::kControlpanelliftport},
 m_Controlmotor {Controlpanelconstants::kControlpanelmotorport}
 {}
 
 
 void ControlPanelSubsystem::LiftControlPanelArm() {
     std::cout << "LiftControlPanelArm\n";
-m_Controllift.Set(true);
+//m_Controllift.Set(true);
 }
 
 void ControlPanelSubsystem::LowerControlPanelArm() {
     std::cout << "LowerControlPanelArm\n";
-m_Controllift.Set(false);
+//m_Controllift.Set(false);
 }
 
 

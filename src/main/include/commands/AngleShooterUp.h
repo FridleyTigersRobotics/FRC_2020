@@ -7,22 +7,18 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
-#include <frc/PWMVictorSPX.h>
+#include <frc2/command/CommandHelper.h>
+#include <frc2/command/InstantCommand.h>
+#include "subsystems/ShooterSubsystem.h"
 
-class IntakeSubsystem : public frc2::SubsystemBase {
+class AngleShooterUp
+    : public frc2::CommandHelper<frc2::InstantCommand,
+                                 AngleShooterUp> {
  public:
-  IntakeSubsystem();
+  AngleShooterUp(ShooterSubsystem* m_subsystem);
 
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic();
+  void Initialize() override;
 
-  void StartIntake();
-  void StopIntake();
-
- private:
-   frc::PWMVictorSPX  m_motorIntakeRotate;
-   //frc::PWMVictorSPX  m_motorIntakeExtend;
+    private:
+  ShooterSubsystem* m_ShooterSubsystem;
 };
