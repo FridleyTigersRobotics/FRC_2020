@@ -18,6 +18,7 @@
   "java.validate.enable": false,
   "problems.decorations.enabled": false,
   "files.associations": {
+<<<<<<< HEAD
     "cmath": "cpp",
     "cstddef": "cpp",
     "cstdint": "cpp",
@@ -53,5 +54,8 @@
     "xstring": "cpp",
     "xtr1common": "cpp",
     "xutility": "cpp"
+=======
+    "*.tcc": "cpp"
+>>>>>>> a2bbbdda160127d0051b5b32211817668b685d67
   },
 }

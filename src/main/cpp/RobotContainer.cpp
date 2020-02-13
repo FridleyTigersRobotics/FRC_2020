@@ -13,6 +13,7 @@
 #include "commands/DefaultDrive.h"
 #include "commands/SpinupShooter.h"
 #include "commands/SpindownShooter.h"
+<<<<<<< HEAD
 #include "commands/ToggleIndexer.h"
 #include "commands/ToggleIndexerReverse.h"
 #include "commands/AngleShooterUp.h"
@@ -22,6 +23,10 @@
 
 #include "commands/StopIntake.h"
 #include "commands/ToggleIntake.h"
+=======
+#include "commands/ControlPanelRaise.h"
+
+>>>>>>> a2bbbdda160127d0051b5b32211817668b685d67
 
 
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_shooterSubsystem) {
@@ -58,6 +63,7 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton( &m_shooterController, (int)3 )
       .WhenReleased( new SpinDownShooter( &m_shooterSubsystem ) );
 
+<<<<<<< HEAD
 
 
 
@@ -105,6 +111,12 @@ void RobotContainer::ConfigureButtonBindings() {
 
 
   #endif
+=======
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
+      .WhenPressed( new ControlPanelRaise( &m_ControlPanelsubsystem ) );
+
+
+>>>>>>> a2bbbdda160127d0051b5b32211817668b685d67
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
