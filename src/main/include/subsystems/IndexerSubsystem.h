@@ -8,8 +8,6 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <ctre/Phoenix.h>
-#include <frc/PWMVictorSPX.h>
 
 class IndexerSubsystem : public frc2::SubsystemBase {
  public:
@@ -19,14 +17,8 @@ class IndexerSubsystem : public frc2::SubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
-  void StartIndexer();
-  void StopIndexer();
-  void StartIndexerReverse();
 
  private:
-  ctre::phoenix::motorcontrol::can::TalonSRX m_conveyorMotor;
-  frc::PWMVictorSPX                           m_motorShooterLoader;
-  
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

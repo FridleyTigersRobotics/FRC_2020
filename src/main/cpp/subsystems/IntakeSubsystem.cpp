@@ -9,18 +9,9 @@
 #include "subsystems/IntakeSubsystem.h"
 
 IntakeSubsystem::IntakeSubsystem() :
-    m_motorIntakeRotate{ IntakeConstants::kIntakeRotateMotorPwmId }
-    //m_motorIntakeExtend{ IntakeConstants::kIntakeExtendMotorPwmId }
+    m_motorIntakeRotate{ IntakeConstants::kIntakeRotateMotorPwmId },
+    m_motorIntakeExtend{ IntakeConstants::kIntakeExtendMotorPwmId }
     {}
 
 // This method will be called once per scheduler run
 void IntakeSubsystem::Periodic() {}
-
-void IntakeSubsystem::StartIntake() {
-    m_motorIntakeRotate.Set( 0.3 );
-}
-
-void IntakeSubsystem::StopIntake() {
-    m_motorIntakeRotate.Set( 0.0 );
-}   
-

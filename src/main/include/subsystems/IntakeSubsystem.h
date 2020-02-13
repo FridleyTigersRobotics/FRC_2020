@@ -19,10 +19,7 @@ class IntakeSubsystem : public frc2::SubsystemBase {
    */
   void Periodic();
 
-  void StartIntake();
-  void StopIntake();
-
  private:
    frc::PWMVictorSPX  m_motorIntakeRotate;
-   //frc::PWMVictorSPX  m_motorIntakeExtend;
+   frc::PWMVictorSPX  m_motorIntakeExtend;
 };
