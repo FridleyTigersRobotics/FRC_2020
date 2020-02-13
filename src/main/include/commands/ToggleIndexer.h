@@ -7,22 +7,20 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
-#include <frc/PWMVictorSPX.h>
+#include <frc2/command/CommandHelper.h>
+#include <frc2/command/InstantCommand.h>
+#include "subsystems/IndexerSubsystem.h"
 
-class IntakeSubsystem : public frc2::SubsystemBase {
+class ToggleIndexer
+    : public frc2::CommandHelper<frc2::InstantCommand,
+                                 ToggleIndexer> {
  public:
-  IntakeSubsystem();
+  ToggleIndexer( IndexerSubsystem* subsystem );
 
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic();
+  void Initialize() override;
 
-  void StartIntake();
-  void StopIntake();
+private:
+  IndexerSubsystem* m_IndexerSubsystem;
+  bool indexerRotating;
 
- private:
-   frc::PWMVictorSPX  m_motorIntakeRotate;
-   //frc::PWMVictorSPX  m_motorIntakeExtend;
 };

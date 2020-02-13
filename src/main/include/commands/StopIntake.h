@@ -7,22 +7,19 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
-#include <frc/PWMVictorSPX.h>
+#include <frc2/command/CommandHelper.h>
+#include <frc2/command/InstantCommand.h>
+#include "subsystems/IntakeSubsystem.h"
 
-class IntakeSubsystem : public frc2::SubsystemBase {
+class StopIntake
+    : public frc2::CommandHelper<frc2::InstantCommand,
+                                 StopIntake> {
  public:
-  IntakeSubsystem();
+  StopIntake(IntakeSubsystem* subsystem);
 
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic();
+  void Initialize() override;
 
-  void StartIntake();
-  void StopIntake();
+  private:
+  IntakeSubsystem * m_IntakeSubsystem;
 
- private:
-   frc::PWMVictorSPX  m_motorIntakeRotate;
-   //frc::PWMVictorSPX  m_motorIntakeExtend;
 };

@@ -15,6 +15,7 @@
 #include "subsystems/DriveSubsystem.h"
 #include "subsystems/ShooterSubsystem.h"
 #include "subsystems/IntakeSubsystem.h"
+#include "subsystems/IndexerSubsystem.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -31,12 +32,14 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
-  DriveSubsystem   m_driveSubsystem;
-  ShooterSubsystem m_shooterSubsystem;
-  IntakeSubsystem  m_intakeSubsystem;
-  ExampleCommand   m_autonomousCommand;
+  DriveSubsystem    m_driveSubsystem;
+  ShooterSubsystem  m_shooterSubsystem;
+  IntakeSubsystem   m_intakeSubsystem;
+  IndexerSubsystem  m_indexerSubsystem;
+  ExampleCommand    m_autonomousCommand;
 
   frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
+  frc::XboxController m_shooterController{ 1 };
 
   void ConfigureButtonBindings();
 };

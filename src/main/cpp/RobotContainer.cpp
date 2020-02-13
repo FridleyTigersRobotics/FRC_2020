@@ -13,6 +13,16 @@
 #include "commands/DefaultDrive.h"
 #include "commands/SpinupShooter.h"
 #include "commands/SpindownShooter.h"
+#include "commands/ToggleIndexer.h"
+#include "commands/ToggleIndexerReverse.h"
+#include "commands/AngleShooterUp.h"
+#include "commands/AngleShooterDown.h"
+#include "commands/StopShooterAngle.h"
+#include "commands/StopIndexer.h"
+
+#include "commands/StopIntake.h"
+#include "commands/ToggleIntake.h"
+
 
 RobotContainer::RobotContainer() : m_autonomousCommand(&m_shooterSubsystem) {
   // Initialize all of your commands and subsystems here
@@ -38,14 +48,63 @@ void RobotContainer::ConfigureButtonBindings() {
   // - however, if you wish to avoid this, the commands should be
   // stack-allocated and declared as members of RobotContainer.
 
+
+  #if 1
   // Spin up shooter when the 'A' button is pressed.
-  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
+  frc2::JoystickButton( &m_shooterController, (int)3 )
       .WhenPressed( new SpinUpShooter( &m_shooterSubsystem ) );
 
   // Spin down shooter when the 'A' button is released.
-  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
+  frc2::JoystickButton( &m_shooterController, (int)3 )
       .WhenReleased( new SpinDownShooter( &m_shooterSubsystem ) );
 
+
+
+
+  frc2::JoystickButton( &m_shooterController, (int)1 )
+      .WhenPressed( new ToggleIndexer( &m_indexerSubsystem ) );
+
+  frc2::JoystickButton( &m_shooterController, (int)1 )
+      .WhenReleased( new StopIndexer( &m_indexerSubsystem ) );
+
+
+
+
+  frc2::JoystickButton( &m_shooterController, (int)2 )
+      .WhenPressed( new ToggleIndexerReverse( &m_indexerSubsystem ) );
+
+  frc2::JoystickButton( &m_shooterController, (int)2 )
+      .WhenReleased( new StopIndexer( &m_indexerSubsystem ) );
+
+
+
+
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kBumperRight  )
+      .WhenPressed( new AngleShooterUp( &m_shooterSubsystem ) );
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kBumperRight )
+      .WhenReleased( new StopShooterAngle( &m_shooterSubsystem ) );
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kBumperLeft )
+      .WhenPressed( new AngleShooterDown( &m_shooterSubsystem ) );
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kBumperLeft )
+      .WhenReleased( new StopShooterAngle( &m_shooterSubsystem ) );
+
+
+
+
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
+      .WhenPressed( new ToggleIntake( &m_intakeSubsystem ) );
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
+      .WhenReleased( new StopIntake( &m_intakeSubsystem ) );
+
+
+
+  #endif
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

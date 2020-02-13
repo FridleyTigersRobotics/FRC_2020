@@ -5,22 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Constants.h"
+#include "commands/ToggleIntake.h"
 #include "subsystems/IntakeSubsystem.h"
 
-IntakeSubsystem::IntakeSubsystem() :
-    m_motorIntakeRotate{ IntakeConstants::kIntakeRotateMotorPwmId }
-    //m_motorIntakeExtend{ IntakeConstants::kIntakeExtendMotorPwmId }
-    {}
-
-// This method will be called once per scheduler run
-void IntakeSubsystem::Periodic() {}
-
-void IntakeSubsystem::StartIntake() {
-    m_motorIntakeRotate.Set( 0.3 );
+// NOTE:  Consider using this command inline, rather than writing a subclass.
+// For more information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+ToggleIntake::ToggleIntake(IntakeSubsystem* subsystem) :
+  m_IntakeSubsystem{subsystem}
+ {
+  // Use addRequirements() here to declare subsystem dependencies.
 }
 
-void IntakeSubsystem::StopIntake() {
-    m_motorIntakeRotate.Set( 0.0 );
-}   
+// Called when the command is initially scheduled.
+void ToggleIntake::Initialize() {
+  m_IntakeSubsystem->StartIntake();
 
+}

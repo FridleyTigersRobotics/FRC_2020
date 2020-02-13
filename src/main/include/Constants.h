@@ -18,19 +18,21 @@
  */
 
 namespace DriveConstants {
-constexpr int kLeftMotor1Port = 0;
-constexpr int kLeftMotor2Port = 1;
-constexpr int kRightMotor1Port = 2;
+constexpr int kLeftMotor1Port  = 0;
+constexpr int kRightMotor1Port = 1;
+constexpr int kLeftMotor2Port  = 2;
 constexpr int kRightMotor2Port = 3;
 }
 
 namespace ShooterConstants {
-constexpr int kLeftMotorCanId  = 0;
-constexpr int kRightMotorCanId = 1;
+constexpr int kLeftMotorCanId  = 1;
+constexpr int kRightMotorCanId = 2;
 constexpr int kJDRotationA = 0; //analog input channel for John Deere rotation sensor
 constexpr int kJDRotationB = 1;
 
-constexpr int kLoaderMotorPwmId = 5;
+constexpr int kLoaderMotorPwmId = 4;
+constexpr int kAnglePwmId       = 5;
+
 constexpr int kSensorId         = 0;
 
 
@@ -42,9 +44,13 @@ constexpr float ShooterRpmMax    = 520.0f;
 
 namespace IntakeConstants {
 constexpr int kIntakeRotateMotorPwmId = 6;
-constexpr int kIntakeExtendMotorPwmId = 7;
+//constexpr int kIntakeExtendMotorPwmId = 7;
 }  // namespace IntakeConstants
 
 namespace DriverStationConstants {
 constexpr int kDriverControllerPort = 0;
 }  // namespace DriverStationConstants
+
+namespace IndexerSubsystemConstants {
+constexpr int kIndexerMotorCanId  = 3;
+}  // namespace IndexerSubsystemConstants

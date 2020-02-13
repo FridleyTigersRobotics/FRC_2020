@@ -7,14 +7,18 @@
 
 #include "Constants.h"
 #include "subsystems/ShooterSubsystem.h"
+#include "stdio.h"
 
 ShooterSubsystem::ShooterSubsystem( )  : 
     m_motorShooterLeft  { ShooterConstants::kLeftMotorCanId  },
     m_motorShooterRight { ShooterConstants::kRightMotorCanId },
-    m_motorShooterLoader{ ShooterConstants::kLoaderMotorPwmId },
+    //_motorShooterLoader{ ShooterConstants::kLoaderMotorPwmId },
     m_jdRotationA       { ShooterConstants::kJDRotationA },
-    m_jdRotationB       { ShooterConstants::kJDRotationB }
-    {}
+    m_jdRotationB       { ShooterConstants::kJDRotationB },
+    m_motorAngle        { ShooterConstants::kAnglePwmId }
+    {
+
+    }
 
 // This method will be called once per scheduler run
 void ShooterSubsystem::Periodic() {}
@@ -24,7 +28,7 @@ void ShooterSubsystem::SpinupShooter() {
 
     m_motorShooterLeft.Set(  
         ctre::phoenix::motorcontrol::ControlMode::Velocity,
-        ShooterConstants::ShooterRpmTarget
+        -ShooterConstants::ShooterRpmTarget
     );
     m_motorShooterRight.Set( 
         ctre::phoenix::motorcontrol::ControlMode::Velocity,
@@ -36,6 +40,25 @@ void ShooterSubsystem::SpinupShooter() {
 void ShooterSubsystem::SpindownShooter() {
     m_motorShooterLeft.NeutralOutput( );
     m_motorShooterRight.NeutralOutput( );
+}
+
+
+void ShooterSubsystem::AngleShooterUp() 
+{
+    //std::cout << "AngleShooterUp\n";
+    m_motorAngle.Set( 1.0 );
+}
+
+void ShooterSubsystem::AngleShooterDown() 
+{
+    //std::cout << "AngleShooterDown\n";
+    m_motorAngle.Set( -1.0 );
+}
+
+void ShooterSubsystem::StopShooterAngle() 
+{   
+    //std::cout << "StopShooterAngle\n";
+    m_motorAngle.Set( 0.0 );
 }
 
 
