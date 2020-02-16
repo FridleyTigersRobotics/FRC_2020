@@ -37,7 +37,7 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   void ResetEncoder();
 
-  
+  void TiltToTarget();
 
  private:
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;

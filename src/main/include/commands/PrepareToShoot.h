@@ -10,7 +10,9 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "subsystems/ShooterSubsystem.h"
+#include <subsystems/DriveSubsystem.h> 
+#include <subsystems/ShooterSubsystem.h> 
+
 
 /**
  * An example command.
@@ -19,10 +21,11 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class SpinDownShooter
-    : public frc2::CommandHelper<frc2::CommandBase, SpinDownShooter> {
+class PrepareToShoot
+    : public frc2::CommandHelper<frc2::CommandBase, PrepareToShoot> {
  public:
-  SpinDownShooter(ShooterSubsystem* subsystem);
+  PrepareToShoot( DriveSubsystem*   driveSubsystem,
+                  ShooterSubsystem* shooterSubsystem );
 
   void Initialize() override;
 
@@ -31,7 +34,8 @@ class SpinDownShooter
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-  
-private:
-  ShooterSubsystem* m_shooter;  
+
+ private:
+  DriveSubsystem* m_driveSubsystem; 
+  ShooterSubsystem* m_shooterSubsystem;
 };

@@ -7,8 +7,14 @@
 
 #include "Robot.h"
 
+#include <stdio.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
+
+
+#include "networktables/NetworkTable.h"
+#include "networktables/NetworkTableEntry.h"
+#include "networktables/NetworkTableInstance.h"
 
 void Robot::RobotInit() {}
 
@@ -20,7 +26,9 @@ void Robot::RobotInit() {}
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
+void Robot::RobotPeriodic() { 
+  frc2::CommandScheduler::GetInstance().Run(); 
+  }
 
 /**
  * This function is called once each time the robot enters Disabled mode. You
@@ -43,9 +51,15 @@ void Robot::AutonomousInit() {
   }
 }
 
+  nt::NetworkTableEntry xEntry;
+
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {
+  auto inst  = nt::NetworkTableInstance::GetDefault();
+  auto table = inst.GetTable("x_coord");
+    xEntry = table->GetEntry("val");
+
   // This makes sure that the autonomous stops running when
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
@@ -55,6 +69,7 @@ void Robot::TeleopInit() {
     m_autonomousCommand = nullptr;
   }
 }
+
 
 /**
  * This function is called periodically during operator control.

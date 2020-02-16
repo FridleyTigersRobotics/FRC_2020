@@ -8,25 +8,16 @@
 #include <frc/XboxController.h>
 #include <frc2/command/button/JoystickButton.h>
 
-
-#include "RobotContainer.h"
-#include "commands/DefaultDrive.h"
-#include "commands/SpinupShooter.h"
-#include "commands/SpindownShooter.h"
-#include "commands/ToggleIndexer.h"
-#include "commands/ToggleIndexerReverse.h"
-#include "commands/AngleShooterUp.h"
-#include "commands/AngleShooterDown.h"
-#include "commands/StopShooterAngle.h"
-#include "commands/StopIndexer.h"
-
-#include "commands/StopIntake.h"
-#include "commands/ToggleIntake.h"
-#include "commands/ControlPanelRaise.h"
+#include <RobotContainer.h>
 
 
 
-RobotContainer::RobotContainer() : m_autonomousCommand(&m_shooterSubsystem) {
+RobotContainer::RobotContainer() : 
+  m_prepareToShootCommand( 
+    &m_driveSubsystem,
+    &m_shooterSubsystem
+  )
+{
   // Initialize all of your commands and subsystems here
 
   // Set up default drive command
@@ -50,7 +41,10 @@ void RobotContainer::ConfigureButtonBindings() {
   // - however, if you wish to avoid this, the commands should be
   // stack-allocated and declared as members of RobotContainer.
 
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
+      .WhileHeld( m_prepareToShootCommand );
 
+#if 0
   // Spin up shooter when the 'A' button is pressed.
   frc2::JoystickButton( &m_shooterController, (int)3 )
       .WhenPressed( new SpinUpShooter( &m_shooterSubsystem ) );
@@ -105,10 +99,11 @@ void RobotContainer::ConfigureButtonBindings() {
 
   frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
       .WhenPressed( new ControlPanelRaise( &m_ControlPanelsubsystem ) );
-
+#endif
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return &m_autonomousCommand;
+  //return &m_autonomousCommand;
+  return nullptr;
 }

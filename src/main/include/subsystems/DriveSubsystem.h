@@ -41,6 +41,8 @@ class DriveSubsystem : public frc2::SubsystemBase {
    */
   void SetMaxOutput(double maxOutput);
 
+  void RotateToTarget();
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

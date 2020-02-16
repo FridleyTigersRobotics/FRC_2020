@@ -7,16 +7,20 @@
 
 #pragma once
 
-#include "Constants.h"
+#include <Constants.h>
 #include <frc2/command/Command.h>
 #include <frc/XboxController.h>
-#include "commands/ExampleCommand.h"
 
-#include "subsystems/DriveSubsystem.h"
-#include "subsystems/ShooterSubsystem.h"
-#include "subsystems/IntakeSubsystem.h"
-#include "subsystems/ControlPanelSubsystem.h"
-#include "subsystems/IndexerSubsystem.h"
+#include <subsystems/DriveSubsystem.h>
+#include <subsystems/ShooterSubsystem.h>
+#include <subsystems/IntakeSubsystem.h>
+#include <subsystems/ControlPanelSubsystem.h>
+#include <subsystems/IndexerSubsystem.h>
+
+#include "commands/DefaultDrive.h"
+#include "commands/PrepareToShoot.h"
+#include "commands/ControlPanelRaise.h"
+
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -30,17 +34,21 @@ class RobotContainer {
 
   frc2::Command* GetAutonomousCommand();
 
- private:
+ //private:
   // The robot's subsystems and commands are defined here...
   DriveSubsystem   m_driveSubsystem;
   ShooterSubsystem m_shooterSubsystem;
   IntakeSubsystem  m_intakeSubsystem;
   IndexerSubsystem  m_indexerSubsystem;
-  ExampleCommand   m_autonomousCommand;
   ControlPanelSubsystem m_ControlPanelsubsystem; 
 
   frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
-  frc::XboxController m_shooterController{ 1 };
+  // frc::XboxController m_shooterController{ 1 };
 
   void ConfigureButtonBindings();
+
+
+  // Commands
+  PrepareToShoot m_prepareToShootCommand;
+
 };

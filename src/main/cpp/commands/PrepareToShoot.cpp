@@ -5,24 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SpinDownShooter.h"
+#include "commands/PrepareToShoot.h"
 
-SpinDownShooter::SpinDownShooter(ShooterSubsystem* subsystem) :
-  m_shooter{subsystem}
+PrepareToShoot::PrepareToShoot( DriveSubsystem*   driveSubsystem,
+                                ShooterSubsystem* shooterSubsystem )
+ :
+  m_driveSubsystem{driveSubsystem},
+  m_shooterSubsystem{shooterSubsystem}
 {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements({driveSubsystem, shooterSubsystem});
 }
 
+
 // Called when the command is initially scheduled.
-void SpinDownShooter::Initialize() {
-  m_shooter->SpindownShooter();
+void PrepareToShoot::Initialize() {
+  m_shooterSubsystem->SpinupShooter();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SpinDownShooter::Execute() {}
+void PrepareToShoot::Execute() {
+  m_driveSubsystem->RotateToTarget();
+}
 
 // Called once the command ends or is interrupted.
-void SpinDownShooter::End(bool interrupted) {}
+void PrepareToShoot::End(bool interrupted) {
+  m_driveSubsystem->ArcadeDrive( 0.0, 0.0 );
+  m_shooterSubsystem->SpindownShooter();
+}
 
 // Returns true when the command should end.
-bool SpinDownShooter::IsFinished() { return true; }
+bool PrepareToShoot::IsFinished() { return false; }

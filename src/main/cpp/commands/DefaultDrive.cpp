@@ -16,6 +16,7 @@ DefaultDrive::DefaultDrive(DriveSubsystem* subsystem,
 }
 
 void DefaultDrive::Execute() {
+  //std::cout << "defaultDrive: " << m_forward() << " " << m_rotation() << "\n";
   m_drive->ArcadeDrive(m_forward(), m_rotation());
 }
 

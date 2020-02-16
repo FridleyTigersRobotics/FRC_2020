@@ -102,3 +102,11 @@ void ShooterSubsystem::ResetEncoder() {
     m_jdA.SetDistancePerRotation(ShooterConstants::kDistPerRotation);
     m_jdB.SetDistancePerRotation(ShooterConstants::kDistPerRotation);
 }
+
+
+void ShooterSubsystem::TiltToTarget() {
+    
+}
+
+
+
