@@ -12,7 +12,12 @@
 
 
 
-RobotContainer::RobotContainer() : 
+RobotContainer::RobotContainer() :
+  m_defaultDriveCommand(
+    &m_driveSubsystem,
+    [this] { return m_driverController.GetY( frc::GenericHID::kLeftHand );  },
+    [this] { return m_driverController.GetX( frc::GenericHID::kRightHand ); }
+  ),
   m_prepareToShootCommand( 
     &m_driveSubsystem,
     &m_shooterSubsystem
@@ -20,14 +25,8 @@ RobotContainer::RobotContainer() :
 {
   // Initialize all of your commands and subsystems here
 
-  // Set up default drive command
-  m_driveSubsystem.SetDefaultCommand(
-    DefaultDrive(
-      &m_driveSubsystem,
-      [this] { return m_driverController.GetY(frc::GenericHID::kLeftHand);  },
-      [this] { return m_driverController.GetX(frc::GenericHID::kRightHand); }
-    )
-  );
+  // Set up default subsystem commands
+  m_driveSubsystem.SetDefaultCommand( m_defaultDriveCommand );
 
   // Configure the button bindings
   ConfigureButtonBindings();

@@ -34,7 +34,7 @@ class RobotContainer {
 
   frc2::Command* GetAutonomousCommand();
 
- //private:
+ private:
   // The robot's subsystems and commands are defined here...
   DriveSubsystem   m_driveSubsystem;
   ShooterSubsystem m_shooterSubsystem;
@@ -49,6 +49,7 @@ class RobotContainer {
 
 
   // Commands
+  DefaultDrive   m_defaultDriveCommand;
   PrepareToShoot m_prepareToShootCommand;
 
 };
