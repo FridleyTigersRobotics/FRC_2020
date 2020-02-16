@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/DriveSubsystem.h"
+#include <subsystems/DriveSubsystem.h>
 #include <stdio.h>
 
 using namespace DriveConstants;
@@ -34,9 +34,17 @@ void DriveSubsystem::SetMaxOutput(double maxOutput) {
 
 void DriveSubsystem::RotateToTarget()
 {
+  bool const debugOutput = false;
+
   extern nt::NetworkTableEntry xEntry;
   double const xVal = xEntry.GetDouble( -1.0 );
-  std::cout << "xVal: " << xVal << "\n";
+
+  if ( debugOutput )
+  {
+    std::cout << "xVal: " << xVal << "\n";
+  }
+  
+
   if ( xVal < 0 )
   {
     m_drive.ArcadeDrive( 0.0, 0.0 );
@@ -45,7 +53,11 @@ void DriveSubsystem::RotateToTarget()
   {
     double const center = 320;
     double const offset = xVal - center;
-    std::cout << "offset: " << offset << " " << fabs( offset ) << "\n";
+    if ( debugOutput )
+    {
+      std::cout << "offset: " << offset << " " << fabs( offset ) << "\n";
+    }
+
     if ( fabs( offset ) > 20 )
     {
       double const minSpeed = 0.3;
@@ -54,12 +66,12 @@ void DriveSubsystem::RotateToTarget()
 
       if ( offset > 0 )
       {
-        std::cout << "rot: " << -finalSpeed  << "\n";
+        //std::cout << "rot: " << -finalSpeed  << "\n";
         m_drive.ArcadeDrive( 0.0, -finalSpeed );
       }
       else
       {
-        std::cout << "rot: " << finalSpeed  << "\n";
+        //std::cout << "rot: " << finalSpeed  << "\n";
         m_drive.ArcadeDrive( 0.0, finalSpeed );
       }
       

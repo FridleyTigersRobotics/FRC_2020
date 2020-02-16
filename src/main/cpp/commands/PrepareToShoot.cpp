@@ -26,12 +26,14 @@ void PrepareToShoot::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void PrepareToShoot::Execute() {
   m_driveSubsystem->RotateToTarget();
+  m_shooterSubsystem->TiltToTarget();
 }
 
 // Called once the command ends or is interrupted.
 void PrepareToShoot::End(bool interrupted) {
   m_driveSubsystem->ArcadeDrive( 0.0, 0.0 );
   m_shooterSubsystem->SpindownShooter();
+  m_shooterSubsystem->StopShooterAngle();
 }
 
 // Returns true when the command should end.

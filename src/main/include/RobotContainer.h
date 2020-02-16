@@ -7,9 +7,10 @@
 
 #pragma once
 
-#include <Constants.h>
 #include <frc2/command/Command.h>
 #include <frc/XboxController.h>
+
+#include <Constants.h>
 
 #include <subsystems/DriveSubsystem.h>
 #include <subsystems/ShooterSubsystem.h>
@@ -17,9 +18,10 @@
 #include <subsystems/ControlPanelSubsystem.h>
 #include <subsystems/IndexerSubsystem.h>
 
-#include "commands/DefaultDrive.h"
-#include "commands/PrepareToShoot.h"
-#include "commands/ControlPanelRaise.h"
+#include <commands/DefaultDrive.h>
+#include <commands/PrepareToShoot.h>
+#include <commands/ControlPanelRaise.h>
+#include <commands/IntakePowerCells.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -49,7 +51,8 @@ class RobotContainer {
 
 
   // Commands
-  DefaultDrive   m_defaultDriveCommand;
-  PrepareToShoot m_prepareToShootCommand;
+  DefaultDrive     m_defaultDriveCommand;
+  PrepareToShoot   m_prepareToShootCommand;
+  IntakePowerCells m_intakePowerCellsCommand;
 
 };

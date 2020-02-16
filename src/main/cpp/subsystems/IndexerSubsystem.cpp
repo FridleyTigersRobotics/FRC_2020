@@ -9,12 +9,18 @@
 #include <ctre/Phoenix.h>
 
 IndexerSubsystem::IndexerSubsystem():
-    m_conveyorMotor{IndexerSubsystemConstants::kIndexerMotorCanId},
+    m_conveyorMotor{ IndexerSubsystemConstants::kIndexerMotorCanId },
     m_motorShooterLoader{  ShooterConstants::kLoaderMotorPwmId }
-{}
+{
+
+}
 
 // This method will be called once per scheduler run
-void IndexerSubsystem::Periodic() {}
+void IndexerSubsystem::Periodic() {
+    
+
+
+}
 
 void IndexerSubsystem::StartIndexer() {
     m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5 );

@@ -48,4 +48,7 @@ class ShooterSubsystem : public frc2::SubsystemBase {
    frc::AnalogInput                            m_ajdB;
    frc::AnalogEncoder                          m_jdA;
    frc::AnalogEncoder                          m_jdB;
+
+  double CalculateTargetAngleFromCameraValue( double );
+
 };

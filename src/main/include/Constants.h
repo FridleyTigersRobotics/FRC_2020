@@ -18,46 +18,48 @@
  */
 
 namespace DriveConstants {
-constexpr int kLeftMotor1Port  = 4;
-constexpr int kRightMotor1Port = 3;
-constexpr int kLeftMotor2Port  = 6;
-constexpr int kRightMotor2Port = 5;
+    constexpr int kLeftMotor1Port  = 4;
+    constexpr int kRightMotor1Port = 3;
+    constexpr int kLeftMotor2Port  = 6;
+    constexpr int kRightMotor2Port = 5;
 }
 
 namespace ShooterConstants {
-constexpr int kLeftMotorCanId  = 1;
-constexpr int kRightMotorCanId = 2;
-constexpr int kjda = 0; //analog input channel A for John Deere rotation sensor
-constexpr int kjdb = 1; //analog input channel B for John Deere rotation sensor
-constexpr double kDistPerRotation = 360;  //how far the nechanism travels in 1 rotation of the encoder in angular degrees
+    constexpr int kLeftMotorCanId  = 1;
+    constexpr int kRightMotorCanId = 2;
+    constexpr int kjda = 0; //analog input channel A for John Deere rotation sensor
+    constexpr int kjdb = 1; //analog input channel B for John Deere rotation sensor
+    constexpr double kDistPerRotation = 360;  //how far the nechanism travels in 1 rotation of the encoder in angular degrees
 
-constexpr int kLoaderMotorPwmId = 0;
-constexpr int kAnglePwmId       = 1;
+    constexpr int kLoaderMotorPwmId = 0;
+    constexpr int kAnglePwmId       = 1;
 
-constexpr int kSensorId         = 0;
+    constexpr int kSensorId         = 0;
 
 
-constexpr float ShooterRpmTarget = 500.0f;
-constexpr float ShooterRpmMin    = 480.0f;
-constexpr float ShooterRpmMax    = 520.0f;
+    constexpr float ShooterRpmTarget = 500.0f;
+    constexpr float ShooterRpmMin    = 480.0f;
+    constexpr float ShooterRpmMax    = 520.0f;
 
 }  // namespace ShooterConstants
 
 namespace IntakeConstants {
-constexpr int kIntakeRotateMotorPwmId = 2;
-//constexpr int kIntakeExtendMotorPwmId = 7;
+    constexpr int kIntakeRotateMotorPwmId = 2;
+    constexpr int kIntakeExtendMotorPwmId = 7;
+    constexpr int kIntakeTopLimitAnalogPort = 0;
+    constexpr int kIntakeBotLimitAnalogPort = 0;
 }  // namespace IntakeConstants
 
 namespace DriverStationConstants {
-constexpr int kDriverControllerPort = 0;
+    constexpr int kDriverControllerPort = 0;
 }  // namespace DriverStationConstants
 
 namespace IndexerSubsystemConstants {
-constexpr int kIndexerMotorCanId  = 3;
+    constexpr int kIndexerMotorCanId  = 3;
 }  // namespace IndexerSubsystemConstants
 
 namespace Controlpanelconstants {
-constexpr int kControlpanelmotorport = 8;
-constexpr int kControlpanelliftport = 0;
+    constexpr int kControlpanelmotorport = 8;
+    constexpr int kControlpanelliftport = 0;
 
 }  // namespace Controlpanelconstants

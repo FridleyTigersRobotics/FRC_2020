@@ -13,15 +13,19 @@
 
 
 RobotContainer::RobotContainer() :
-  m_defaultDriveCommand(
+  m_defaultDriveCommand{
     &m_driveSubsystem,
     [this] { return m_driverController.GetY( frc::GenericHID::kLeftHand );  },
     [this] { return m_driverController.GetX( frc::GenericHID::kRightHand ); }
-  ),
-  m_prepareToShootCommand( 
+  },
+  m_prepareToShootCommand{
     &m_driveSubsystem,
     &m_shooterSubsystem
-  )
+  },
+  m_intakePowerCellsCommand{
+    &m_intakeSubsystem,
+    &m_indexerSubsystem
+  }
 {
   // Initialize all of your commands and subsystems here
 
@@ -42,6 +46,11 @@ void RobotContainer::ConfigureButtonBindings() {
 
   frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
       .WhileHeld( m_prepareToShootCommand );
+
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
+      .WhileHeld( m_intakePowerCellsCommand );
+
 
 #if 0
   // Spin up shooter when the 'A' button is pressed.

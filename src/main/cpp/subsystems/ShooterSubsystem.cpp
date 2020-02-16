@@ -104,8 +104,18 @@ void ShooterSubsystem::ResetEncoder() {
 }
 
 
+
+double ShooterSubsystem::CalculateTargetAngleFromCameraValue( double cameraValue ) {
+    double const cameraValueMax = 480;  
+    return 45.0 * ( cameraValueMax - cameraValue ) / cameraValueMax;
+}
+
+
 void ShooterSubsystem::TiltToTarget() {
-    
+   extern nt::NetworkTableEntry yEntry;
+   double const yVal = yEntry.GetDouble( -1.0 );
+   double const angle = CalculateTargetAngleFromCameraValue( yVal );
+   //std::cout << "yVal: " << yVal << " " << angle << "\n"; 
 }
 
 
