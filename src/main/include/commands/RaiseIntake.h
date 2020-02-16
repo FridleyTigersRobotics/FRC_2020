@@ -10,7 +10,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include <subsystems/ControlPanelSubsystem.h>
+#include <subsystems/IntakeSubsystem.h>
 
 /**
  * An example command.
@@ -19,10 +19,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ControlPanelRaise
-    : public frc2::CommandHelper<frc2::CommandBase, ControlPanelRaise> {
+class RaiseIntake
+    : public frc2::CommandHelper<frc2::CommandBase, RaiseIntake> {
  public:
-  ControlPanelRaise(ControlPanelSubsystem* Subsystem);
+  RaiseIntake( IntakeSubsystem*  intakeSubsystem );
 
   void Initialize() override;
 
@@ -32,8 +32,6 @@ class ControlPanelRaise
 
   bool IsFinished() override;
 
-private:
-       ControlPanelSubsystem* m_ControlSubsystem;
-
+ private:
+  IntakeSubsystem*  m_intakeSubsystem;
 };
-

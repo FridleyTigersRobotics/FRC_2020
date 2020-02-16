@@ -25,12 +25,23 @@ RobotContainer::RobotContainer() :
   m_intakePowerCellsCommand{
     &m_intakeSubsystem,
     &m_indexerSubsystem
+  },
+  m_controlPanelRaiseCommand{
+    &m_controlPanelSubsystem
+  },
+  m_controlPanelLowerCommand{
+    &m_controlPanelSubsystem
+  },
+  m_raiseIntakeCommand{
+    &m_intakeSubsystem
   }
 {
   // Initialize all of your commands and subsystems here
 
   // Set up default subsystem commands
   m_driveSubsystem.SetDefaultCommand( m_defaultDriveCommand );
+  m_controlPanelSubsystem.SetDefaultCommand( m_controlPanelLowerCommand );
+  m_intakeSubsystem.SetDefaultCommand( m_raiseIntakeCommand );
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -51,6 +62,9 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
       .WhileHeld( m_intakePowerCellsCommand );
 
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kY )
+      .WhileHeld( m_controlPanelRaiseCommand );
 
 #if 0
   // Spin up shooter when the 'A' button is pressed.

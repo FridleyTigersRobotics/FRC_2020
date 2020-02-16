@@ -8,7 +8,7 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <frc/AnalogInput.h>
+#include <frc/DigitalInput.h>
 #include <frc/PWMVictorSPX.h>
 
 
@@ -27,6 +27,8 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   void LowerIntake();
   void RaiseIntake();
 
+  void MoveIntake();
+
  private:
 
   bool IsTopLimitEngaged();
@@ -37,7 +39,7 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   frc::PWMVictorSPX  m_motorIntakeRotate;
   frc::PWMVictorSPX  m_motorIntakeExtend;
    
-  frc::AnalogInput   m_topLimitSwitch;
-  frc::AnalogInput   m_botLimitSwitch;
+  frc::DigitalInput  m_topLimitSwitch;
+  frc::DigitalInput  m_botLimitSwitch;
 
 };

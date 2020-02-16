@@ -10,20 +10,25 @@
 
 ControlPanelRaise::ControlPanelRaise(ControlPanelSubsystem* Subsystem):
  m_ControlSubsystem{Subsystem}
- {
-  // Use addRequirements() here to declare subsystem dependencies.
+{
+  AddRequirements( { Subsystem } );
 }
 
 // Called when the command is initially scheduled.
 void ControlPanelRaise::Initialize() {
-  m_ControlSubsystem->LiftControlPanelArm();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ControlPanelRaise::Execute() {}
+void ControlPanelRaise::Execute() 
+{
+  m_ControlSubsystem->LiftControlPanelArm();
+}
 
 // Called once the command ends or is interrupted.
-void ControlPanelRaise::End(bool interrupted) {}
+void ControlPanelRaise::End(bool interrupted) 
+{
+  m_ControlSubsystem->StopLift();
+}
 
 // Returns true when the command should end.
-bool ControlPanelRaise::IsFinished() { return true; }
+bool ControlPanelRaise::IsFinished() { return false; }

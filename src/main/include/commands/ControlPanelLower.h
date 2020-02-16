@@ -19,10 +19,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ControlPanelRaise
-    : public frc2::CommandHelper<frc2::CommandBase, ControlPanelRaise> {
+class ControlPanelLower
+    : public frc2::CommandHelper<frc2::CommandBase, ControlPanelLower> {
  public:
-  ControlPanelRaise(ControlPanelSubsystem* Subsystem);
+  ControlPanelLower(ControlPanelSubsystem* Subsystem);
 
   void Initialize() override;
 
@@ -34,6 +34,4 @@ class ControlPanelRaise
 
 private:
        ControlPanelSubsystem* m_ControlSubsystem;
-
 };
-

@@ -11,8 +11,8 @@
 IntakeSubsystem::IntakeSubsystem() :
     m_motorIntakeRotate{ IntakeConstants::kIntakeRotateMotorPwmId },
     m_motorIntakeExtend{ IntakeConstants::kIntakeExtendMotorPwmId },
-    m_topLimitSwitch   { IntakeConstants::kIntakeTopLimitAnalogPort },
-    m_botLimitSwitch   { IntakeConstants::kIntakeTopLimitAnalogPort }
+    m_topLimitSwitch   { IntakeConstants::kIntakeTopLimitDioPort },
+    m_botLimitSwitch   { IntakeConstants::kIntakeBotLimitDioPort }
 {
     m_engageIntake = false;
 }
@@ -20,24 +20,7 @@ IntakeSubsystem::IntakeSubsystem() :
 // This method will be called once per scheduler run
 void IntakeSubsystem::Periodic() 
 {
-    double extendMotorSpeed = 0.0;
 
-    if ( m_engageIntake == true )
-    {
-        if ( IsBotLimitEngaged() == false )
-        {
-            extendMotorSpeed = -0.5;
-        }
-    }
-    else
-    {
-        if ( IsTopLimitEngaged() == false )
-        {
-            extendMotorSpeed = 0.5;
-        } 
-    }
-
-    m_motorIntakeExtend.Set( extendMotorSpeed );
 }
 
 void IntakeSubsystem::StartIntake() {
@@ -49,23 +32,51 @@ void IntakeSubsystem::StopIntake() {
 }   
 
 
-void IntakeSubsystem::LowerIntake() {
-    m_engageIntake = true;
+void IntakeSubsystem::LowerIntake() 
+{
+    double extendMotorSpeed = 0.0;
+    if ( IsBotLimitEngaged() == false )
+    {
+        extendMotorSpeed = -0.5;
+    }
+    m_motorIntakeExtend.Set( extendMotorSpeed );
 }
 
-void IntakeSubsystem::RaiseIntake() {
-    m_engageIntake = false;
+void IntakeSubsystem::RaiseIntake() 
+{
+    double extendMotorSpeed = 0.0;
+
+    if ( IsTopLimitEngaged() == false )
+    {
+        extendMotorSpeed = 0.5;
+    } 
+    m_motorIntakeExtend.Set( extendMotorSpeed );
 }   
+
+void IntakeSubsystem::MoveIntake()
+{
+    double extendMotorSpeed = 0.0;
+
+    if ( m_engageIntake == true )
+    {
+
+    }
+    else
+    {
+
+    }
+
+}
 
 
 
 bool IntakeSubsystem::IsTopLimitEngaged() 
 {
-    return m_topLimitSwitch.GetValue() > 0.5 ? true : false;
+    return m_topLimitSwitch.Get();
 }   
 
 bool IntakeSubsystem::IsBotLimitEngaged() 
 {
-    return m_botLimitSwitch.GetValue() > 0.5 ? true : false;
+    return m_botLimitSwitch.Get();
 }   
 

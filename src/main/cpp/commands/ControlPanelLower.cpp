@@ -5,34 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/IntakePowerCells.h"
+#include "commands/ControlPanelLower.h"
 
-IntakePowerCells::IntakePowerCells( IntakeSubsystem*  intakeSubsystem,
-                                    IndexerSubsystem* indexerSubsystem ) :
-  m_intakeSubsystem {intakeSubsystem},
-  m_indexerSubsystem{indexerSubsystem}
+ControlPanelLower::ControlPanelLower(ControlPanelSubsystem* Subsystem):
+ m_ControlSubsystem{Subsystem}
 {
-  AddRequirements( { intakeSubsystem, indexerSubsystem } );
+  AddRequirements( { Subsystem } );
 }
 
 // Called when the command is initially scheduled.
-void IntakePowerCells::Initialize() 
+void ControlPanelLower::Initialize() 
 {
   
 }
 
 // Called repeatedly when this Command is scheduled to run
-void IntakePowerCells::Execute() 
+void ControlPanelLower::Execute() 
 {
-  m_intakeSubsystem->MoveIntake();
+  m_ControlSubsystem->LowerControlPanelArm();
 }
 
 // Called once the command ends or is interrupted.
-void IntakePowerCells::End(bool interrupted) 
+void ControlPanelLower::End(bool interrupted) 
 {
-  m_intakeSubsystem->RaiseIntake();
-  m_intakeSubsystem->StopIntake();
+  m_ControlSubsystem->StopLift();
 }
 
 // Returns true when the command should end.
-bool IntakePowerCells::IsFinished() { return false; }
+bool ControlPanelLower::IsFinished() { return false; }

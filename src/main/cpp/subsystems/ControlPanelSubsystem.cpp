@@ -4,29 +4,64 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-#include "Constants.h"
-#include "subsystems/ControlPanelSubsystem.h"
+#include <stdio.h>
+
 #include <frc/PWMVictorSPX.h>
-#include "Robot.h"
+
+#include <Constants.h>
+
+#include <subsystems/ControlPanelSubsystem.h>
 
 ControlPanelSubsystem::ControlPanelSubsystem():
-//m_Controllift {1, Controlpanelconstants::kControlpanelliftport},
-m_Controlmotor {Controlpanelconstants::kControlpanelmotorport}
-{}
-
-
-void ControlPanelSubsystem::LiftControlPanelArm() {
-    std::cout << "LiftControlPanelArm\n";
-//m_Controllift.Set(true);
-}
-
-void ControlPanelSubsystem::LowerControlPanelArm() {
-    std::cout << "LowerControlPanelArm\n";
-//m_Controllift.Set(false);
+   m_liftMotor { Controlpanelconstants::kControlPanelLiftMotorPwmPort },
+   m_spinMotor { Controlpanelconstants::kControlPanelSpinMotorCanId },
+   m_topLimitSwitch   { Controlpanelconstants::kIntakeTopLimitDioPort },
+   m_botLimitSwitch   { Controlpanelconstants::kIntakeBotLimitDioPort }
+{
+    m_engageControlPanelManipulator = false;
+    m_movementRequested = false;
 }
 
 
+void ControlPanelSubsystem::LiftControlPanelArm() 
+{
+    double extendMotorSpeed = 0.0;
+    if ( IsTopLimitEngaged() == false )
+    {
+        extendMotorSpeed = -1.0;
+    } 
+    m_liftMotor.Set( extendMotorSpeed );
+}
 
+void ControlPanelSubsystem::LowerControlPanelArm() 
+{
+    double extendMotorSpeed = 0.0;
+    if ( IsBotLimitEngaged() == false )
+    {
+        extendMotorSpeed = 1.0;
+    }
+    m_liftMotor.Set( extendMotorSpeed );
+}
+
+
+bool ControlPanelSubsystem::IsTopLimitEngaged() 
+{
+    return m_topLimitSwitch.Get();
+}   
+
+bool ControlPanelSubsystem::IsBotLimitEngaged() 
+{
+    return m_botLimitSwitch.Get();
+}   
+
+void ControlPanelSubsystem::StopLift()
+{
+    double extendMotorSpeed = 0.0;
+    m_liftMotor.Set( extendMotorSpeed );
+}
 
 // This method will be called once per scheduler run
-void ControlPanelSubsystem::Periodic() {}
+void ControlPanelSubsystem::Periodic() 
+{
+
+}

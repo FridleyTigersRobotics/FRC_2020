@@ -20,8 +20,10 @@
 
 #include <commands/DefaultDrive.h>
 #include <commands/PrepareToShoot.h>
+#include <commands/ControlPanelLower.h>
 #include <commands/ControlPanelRaise.h>
 #include <commands/IntakePowerCells.h>
+#include <commands/RaiseIntake.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -42,7 +44,7 @@ class RobotContainer {
   ShooterSubsystem m_shooterSubsystem;
   IntakeSubsystem  m_intakeSubsystem;
   IndexerSubsystem  m_indexerSubsystem;
-  ControlPanelSubsystem m_ControlPanelsubsystem; 
+  ControlPanelSubsystem m_controlPanelSubsystem; 
 
   frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
   // frc::XboxController m_shooterController{ 1 };
@@ -51,8 +53,10 @@ class RobotContainer {
 
 
   // Commands
-  DefaultDrive     m_defaultDriveCommand;
-  PrepareToShoot   m_prepareToShootCommand;
-  IntakePowerCells m_intakePowerCellsCommand;
-
+  DefaultDrive      m_defaultDriveCommand;
+  PrepareToShoot    m_prepareToShootCommand;
+  IntakePowerCells  m_intakePowerCellsCommand;
+  ControlPanelRaise m_controlPanelRaiseCommand;
+  ControlPanelLower m_controlPanelLowerCommand;
+  RaiseIntake       m_raiseIntakeCommand;
 };

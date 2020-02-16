@@ -31,7 +31,7 @@ namespace ShooterConstants {
     constexpr int kjdb = 1; //analog input channel B for John Deere rotation sensor
     constexpr double kDistPerRotation = 360;  //how far the nechanism travels in 1 rotation of the encoder in angular degrees
 
-    constexpr int kLoaderMotorPwmId = 0;
+    constexpr int kLoaderMotorPwmId = 9;
     constexpr int kAnglePwmId       = 1;
 
     constexpr int kSensorId         = 0;
@@ -46,8 +46,8 @@ namespace ShooterConstants {
 namespace IntakeConstants {
     constexpr int kIntakeRotateMotorPwmId = 2;
     constexpr int kIntakeExtendMotorPwmId = 7;
-    constexpr int kIntakeTopLimitAnalogPort = 0;
-    constexpr int kIntakeBotLimitAnalogPort = 0;
+    constexpr int kIntakeTopLimitDioPort = 2;
+    constexpr int kIntakeBotLimitDioPort = 3;
 }  // namespace IntakeConstants
 
 namespace DriverStationConstants {
@@ -59,7 +59,8 @@ namespace IndexerSubsystemConstants {
 }  // namespace IndexerSubsystemConstants
 
 namespace Controlpanelconstants {
-    constexpr int kControlpanelmotorport = 8;
-    constexpr int kControlpanelliftport = 0;
-
+    constexpr int kControlPanelLiftMotorPwmPort = 0;
+    constexpr int kControlPanelSpinMotorCanId   = 1;
+    constexpr int kIntakeTopLimitDioPort        = 1;
+    constexpr int kIntakeBotLimitDioPort        = 0;
 }  // namespace Controlpanelconstants

@@ -12,7 +12,6 @@
 ShooterSubsystem::ShooterSubsystem( )  : 
     m_motorShooterLeft  { ShooterConstants::kLeftMotorCanId  },
     m_motorShooterRight { ShooterConstants::kRightMotorCanId },
-    m_motorShooterLoader{ ShooterConstants::kLoaderMotorPwmId },
     m_ajdA       { ShooterConstants::kjda },
     m_ajdB       { ShooterConstants::kjdb },
     m_jdA        { m_ajdA },

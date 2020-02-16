@@ -8,8 +8,10 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+#include <frc/DigitalInput.h>
 #include <frc/Solenoid.h>
 #include <frc/PWMVictorSPX.h>
+#include <ctre/Phoenix.h>
 
 class ControlPanelSubsystem : public frc2::SubsystemBase {
  public:
@@ -21,11 +23,18 @@ class ControlPanelSubsystem : public frc2::SubsystemBase {
   void Periodic();
   void LiftControlPanelArm();
   void LowerControlPanelArm();
+  void StopLift();
+
  private:
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
-   
-   //frc::Solenoid m_Controllift; 
-   frc::PWMVictorSPX m_Controlmotor;
-   
+   frc::PWMVictorSPX m_liftMotor;
+   ctre::phoenix::motorcontrol::can::TalonSRX m_spinMotor;
+   frc::DigitalInput m_topLimitSwitch;
+   frc::DigitalInput m_botLimitSwitch;
+
+   bool m_engageControlPanelManipulator;
+   bool m_movementRequested;
+
+   bool IsTopLimitEngaged();
+   bool IsBotLimitEngaged();
+
 };

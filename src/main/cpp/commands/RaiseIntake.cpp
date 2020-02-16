@@ -5,34 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/IntakePowerCells.h"
+#include "commands/RaiseIntake.h"
 
-IntakePowerCells::IntakePowerCells( IntakeSubsystem*  intakeSubsystem,
-                                    IndexerSubsystem* indexerSubsystem ) :
-  m_intakeSubsystem {intakeSubsystem},
-  m_indexerSubsystem{indexerSubsystem}
+RaiseIntake::RaiseIntake( IntakeSubsystem*  intakeSubsystem ) :
+  m_intakeSubsystem {intakeSubsystem}
 {
-  AddRequirements( { intakeSubsystem, indexerSubsystem } );
+  AddRequirements( { intakeSubsystem } );
 }
 
 // Called when the command is initially scheduled.
-void IntakePowerCells::Initialize() 
-{
-  
-}
+void RaiseIntake::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void IntakePowerCells::Execute() 
+void RaiseIntake::Execute() 
 {
-  m_intakeSubsystem->MoveIntake();
+  m_intakeSubsystem->RaiseIntake();
 }
 
 // Called once the command ends or is interrupted.
-void IntakePowerCells::End(bool interrupted) 
-{
-  m_intakeSubsystem->RaiseIntake();
-  m_intakeSubsystem->StopIntake();
-}
+void RaiseIntake::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool IntakePowerCells::IsFinished() { return false; }
+bool RaiseIntake::IsFinished() { return false; }
