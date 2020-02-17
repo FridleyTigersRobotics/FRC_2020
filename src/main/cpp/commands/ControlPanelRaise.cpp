@@ -22,12 +22,22 @@ void ControlPanelRaise::Initialize() {
 void ControlPanelRaise::Execute() 
 {
   m_ControlSubsystem->LiftControlPanelArm();
+
+  if ( m_ControlSubsystem->IsTopLimitEngaged() )
+  {
+    m_ControlSubsystem->StartSpinning();
+  }
+  else
+  {
+    m_ControlSubsystem->StopSpinning();
+  }
 }
 
 // Called once the command ends or is interrupted.
 void ControlPanelRaise::End(bool interrupted) 
 {
   m_ControlSubsystem->StopLift();
+  m_ControlSubsystem->StopSpinning();
 }
 
 // Returns true when the command should end.

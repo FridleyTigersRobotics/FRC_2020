@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <frc/I2C.h>
+
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other
@@ -55,12 +57,13 @@ namespace DriverStationConstants {
 }  // namespace DriverStationConstants
 
 namespace IndexerSubsystemConstants {
-    constexpr int kIndexerMotorCanId  = 4;
+    constexpr int kIndexerMotorCanId  = 5;
 }  // namespace IndexerSubsystemConstants
 
 namespace Controlpanelconstants {
-    constexpr int kControlPanelLiftMotorPwmPort = 12;
-    constexpr int kControlPanelSpinMotorCanId   = 4;
-    constexpr int kIntakeTopLimitDioPort        = 1;
-    constexpr int kIntakeBotLimitDioPort        = 0;
+    constexpr int kControlPanelLiftMotorCanId = 6;
+    constexpr int kControlPanelSpinMotorCanId = 4;
+    constexpr int kIntakeTopLimitDioPort      = 1;
+    constexpr int kIntakeBotLimitDioPort      = 0;
+    constexpr auto i2cPort = frc::I2C::Port::kOnboard;
 }  // namespace Controlpanelconstants

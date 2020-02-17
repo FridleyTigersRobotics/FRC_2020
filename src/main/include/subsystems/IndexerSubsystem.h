@@ -24,9 +24,10 @@ class IndexerSubsystem : public frc2::SubsystemBase {
   void StartIndexerReverse();
 
  private:
-  ctre::phoenix::motorcontrol::can::TalonSRX m_conveyorMotor;
-  ctre::phoenix::motorcontrol::can::TalonSRX m_motorShooterLoader;
+  ctre::phoenix::motorcontrol::can::VictorSPX m_conveyorMotor;
+  ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLoader;
   
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
+ 

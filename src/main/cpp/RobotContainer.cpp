@@ -15,8 +15,8 @@
 RobotContainer::RobotContainer() :
   m_defaultDriveCommand{
     &m_driveSubsystem,
-    [this] { return m_driverController.GetY( frc::GenericHID::kLeftHand );  },
-    [this] { return m_driverController.GetX( frc::GenericHID::kRightHand ); }
+    [this] { return -m_driverController.GetY( frc::GenericHID::kLeftHand );  },
+    [this] { return -m_driverController.GetX( frc::GenericHID::kRightHand ); }
   },
   m_prepareToShootCommand{
     &m_driveSubsystem,

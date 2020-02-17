@@ -12,6 +12,7 @@
 #include <frc/Solenoid.h>
 #include <frc/PWMVictorSPX.h>
 #include <ctre/Phoenix.h>
+#include <rev/ColorSensorV3.h>
 
 class ControlPanelSubsystem : public frc2::SubsystemBase {
  public:
@@ -26,12 +27,14 @@ class ControlPanelSubsystem : public frc2::SubsystemBase {
   void StopLift();
   bool IsTopLimitEngaged();
   bool IsBotLimitEngaged();
+  void StartSpinning();
+  void StopSpinning();
 
 
  private:
-  frc::PWMVictorSPX m_liftMotor;
-  ctre::phoenix::motorcontrol::can::TalonSRX m_spinMotor;
+  ctre::phoenix::motorcontrol::can::VictorSPX m_liftMotor;
+  ctre::phoenix::motorcontrol::can::TalonSRX  m_spinMotor;
   frc::DigitalInput m_topLimitSwitch;
   frc::DigitalInput m_botLimitSwitch;
-
+  rev::ColorSensorV3 m_colorSensor;
 };
