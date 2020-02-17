@@ -54,15 +54,18 @@ void Robot::AutonomousInit() {
 
 nt::NetworkTableEntry xEntry;
 nt::NetworkTableEntry yEntry;
+nt::NetworkTableEntry ledStateEntry;
 
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {
   auto inst  = nt::NetworkTableInstance::GetDefault();
   auto table = inst.GetTable("targetCoords");
+  auto ledTable = inst.GetTable("ledState");
   xEntry = table->GetEntry("xVal");
   yEntry = table->GetEntry("yVal");
-
+  ledStateEntry = ledTable->GetEntry("val");
+  
   // This makes sure that the autonomous stops running when
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove

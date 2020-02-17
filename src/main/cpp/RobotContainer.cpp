@@ -20,7 +20,10 @@ RobotContainer::RobotContainer() :
   },
   m_prepareToShootCommand{
     &m_driveSubsystem,
-    &m_shooterSubsystem
+    &m_shooterSubsystem,
+    &m_intakeSubsystem,
+    &m_indexerSubsystem,
+    [this] { return m_driverController.GetBumper( frc::GenericHID::kLeftHand ); }
   },
   m_intakePowerCellsCommand{
     &m_intakeSubsystem,

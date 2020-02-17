@@ -10,11 +10,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include <subsystems/DriveSubsystem.h> 
-#include <subsystems/IntakeSubsystem.h> 
-#include <subsystems/IndexerSubsystem.h> 
-#include <subsystems/ShooterSubsystem.h> 
-
+#include <subsystems/ShooterSubsystem.h>
 
 /**
  * An example command.
@@ -23,14 +19,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class PrepareToShoot
-    : public frc2::CommandHelper<frc2::CommandBase, PrepareToShoot> {
+class ChangeShooterAngle
+    : public frc2::CommandHelper<frc2::CommandBase, ChangeShooterAngle> {
  public:
-  PrepareToShoot( DriveSubsystem*   driveSubsystem,
-                  ShooterSubsystem* shooterSubsystem,
-                  IntakeSubsystem*  intakeSubsystem,
-                  IndexerSubsystem* indexerSubsystem,
-                  std::function<bool()> shoot  );
+  ChangeShooterAngle(ShooterSubsystem* shooterSubsystem);
 
   void Initialize() override;
 
@@ -39,11 +31,7 @@ class PrepareToShoot
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-
  private:
-  DriveSubsystem*   m_driveSubsystem; 
   ShooterSubsystem* m_shooterSubsystem;
-  IntakeSubsystem*  m_intakeSubsystem;
-  IndexerSubsystem* m_indexerSubsystem;
-  std::function<bool()> m_shoot;
+
 };

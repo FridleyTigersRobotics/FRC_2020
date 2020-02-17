@@ -34,7 +34,7 @@ void DriveSubsystem::SetMaxOutput(double maxOutput) {
 
 void DriveSubsystem::RotateToTarget()
 {
-  bool const debugOutput = false;
+  bool const debugOutput = true;
 
   extern nt::NetworkTableEntry xEntry;
   double const xVal = xEntry.GetDouble( -1.0 );
@@ -60,18 +60,18 @@ void DriveSubsystem::RotateToTarget()
 
     if ( fabs( offset ) > 20 )
     {
-      double const minSpeed = 0.3;
+      double const minSpeed = 0.4;
       double const speed = fabs( offset ) / 300;
       double const finalSpeed = ( speed < minSpeed ) ? minSpeed : speed;
 
       if ( offset > 0 )
       {
-        //std::cout << "rot: " << -finalSpeed  << "\n";
+        std::cout << "rot: " << -finalSpeed  << "\n";
         m_drive.ArcadeDrive( 0.0, -finalSpeed );
       }
       else
       {
-        //std::cout << "rot: " << finalSpeed  << "\n";
+        std::cout << "rot: " << finalSpeed  << "\n";
         m_drive.ArcadeDrive( 0.0, finalSpeed );
       }
       

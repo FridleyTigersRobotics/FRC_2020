@@ -25,7 +25,7 @@ class IndexerSubsystem : public frc2::SubsystemBase {
 
  private:
   ctre::phoenix::motorcontrol::can::TalonSRX m_conveyorMotor;
-  frc::PWMVictorSPX                           m_motorShooterLoader;
+  ctre::phoenix::motorcontrol::can::TalonSRX m_motorShooterLoader;
   
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

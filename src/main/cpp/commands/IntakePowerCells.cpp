@@ -18,19 +18,26 @@ IntakePowerCells::IntakePowerCells( IntakeSubsystem*  intakeSubsystem,
 // Called when the command is initially scheduled.
 void IntakePowerCells::Initialize() 
 {
-  
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 void IntakePowerCells::Execute() 
 {
-  m_intakeSubsystem->MoveIntake();
+  if ( m_intakeSubsystem->IsBotLimitEngaged() == false )
+  {
+      m_intakeSubsystem->LowerIntake();
+  }
+  else
+  {
+    m_intakeSubsystem->HoldIntake();
+    m_intakeSubsystem->StartIntake();
+  }
 }
 
 // Called once the command ends or is interrupted.
 void IntakePowerCells::End(bool interrupted) 
 {
-  m_intakeSubsystem->RaiseIntake();
   m_intakeSubsystem->StopIntake();
 }
 

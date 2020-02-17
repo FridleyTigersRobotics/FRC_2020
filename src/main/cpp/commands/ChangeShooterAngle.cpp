@@ -5,27 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <stdio.h>
+#include "commands/ChangeShooterAngle.h"
 
-#include "commands/RaiseIntake.h"
-
-RaiseIntake::RaiseIntake( IntakeSubsystem*  intakeSubsystem ) :
-  m_intakeSubsystem {intakeSubsystem}
+ChangeShooterAngle::ChangeShooterAngle( ShooterSubsystem* shooterSubsystem ) :
+  m_shooterSubsystem{shooterSubsystem}
 {
-  AddRequirements( { intakeSubsystem } );
+  // Use addRequirements() here to declare subsystem dependencies.
 }
 
 // Called when the command is initially scheduled.
-void RaiseIntake::Initialize() {}
+void ChangeShooterAngle::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void RaiseIntake::Execute() 
-{
-  m_intakeSubsystem->RaiseIntake();
-}
+void ChangeShooterAngle::Execute() {}
 
 // Called once the command ends or is interrupted.
-void RaiseIntake::End(bool interrupted) {}
+void ChangeShooterAngle::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool RaiseIntake::IsFinished() { return false; }
+bool ChangeShooterAngle::IsFinished() { return false; }

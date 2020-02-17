@@ -12,11 +12,11 @@
 ShooterSubsystem::ShooterSubsystem( )  : 
     m_motorShooterLeft  { ShooterConstants::kLeftMotorCanId  },
     m_motorShooterRight { ShooterConstants::kRightMotorCanId },
+    m_motorAngle { ShooterConstants::kAnglePwmId },
     m_ajdA       { ShooterConstants::kjda },
     m_ajdB       { ShooterConstants::kjdb },
     m_jdA        { m_ajdA },
-    m_jdB        { m_ajdB },
-    m_motorAngle { ShooterConstants::kAnglePwmId }
+    m_jdB        { m_ajdB }
     {}
 
 // This method will be called once per scheduler run
@@ -26,12 +26,16 @@ void ShooterSubsystem::Periodic() {}
 void ShooterSubsystem::SpinupShooter() {
 
     m_motorShooterLeft.Set(  
-        ctre::phoenix::motorcontrol::ControlMode::Velocity,
-        -ShooterConstants::ShooterRpmTarget
+        //ctre::phoenix::motorcontrol::ControlMode::Velocity,
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        //-ShooterConstants::ShooterRpmTarget
+        -0.2
     );
     m_motorShooterRight.Set( 
-        ctre::phoenix::motorcontrol::ControlMode::Velocity,
-        ShooterConstants::ShooterRpmTarget
+        //ctre::phoenix::motorcontrol::ControlMode::Velocity,
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        //ShooterConstants::ShooterRpmTarget
+        0.2
     );
 }
 

@@ -26,16 +26,12 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   
   void LowerIntake();
   void RaiseIntake();
-
-  void MoveIntake();
-
- private:
+  void HoldIntake();
 
   bool IsTopLimitEngaged();
   bool IsBotLimitEngaged();
 
-  bool m_engageIntake;
-
+ private:
   frc::PWMVictorSPX  m_motorIntakeRotate;
   frc::PWMVictorSPX  m_motorIntakeExtend;
    

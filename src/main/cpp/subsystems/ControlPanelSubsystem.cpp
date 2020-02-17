@@ -18,8 +18,7 @@ ControlPanelSubsystem::ControlPanelSubsystem():
    m_topLimitSwitch   { Controlpanelconstants::kIntakeTopLimitDioPort },
    m_botLimitSwitch   { Controlpanelconstants::kIntakeBotLimitDioPort }
 {
-    m_engageControlPanelManipulator = false;
-    m_movementRequested = false;
+    
 }
 
 
@@ -61,7 +60,4 @@ void ControlPanelSubsystem::StopLift()
 }
 
 // This method will be called once per scheduler run
-void ControlPanelSubsystem::Periodic() 
-{
-
-}
+void ControlPanelSubsystem::Periodic() { }

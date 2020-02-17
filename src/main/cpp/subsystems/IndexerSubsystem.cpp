@@ -10,30 +10,30 @@
 
 IndexerSubsystem::IndexerSubsystem():
     m_conveyorMotor{ IndexerSubsystemConstants::kIndexerMotorCanId },
-    m_motorShooterLoader{  ShooterConstants::kLoaderMotorPwmId }
+    m_motorShooterLoader{  ShooterConstants::kLoaderMotorCanId }
 {
 
 }
 
 // This method will be called once per scheduler run
 void IndexerSubsystem::Periodic() {
-    
+
 
 
 }
 
 void IndexerSubsystem::StartIndexer() {
     m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5 );
-    m_motorShooterLoader.Set( -1.0 );
+    m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -1.0 );
 }
 
 void IndexerSubsystem::StopIndexer() {
     m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0 );
-    m_motorShooterLoader.Set( 0.0 );
+    m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0 );
 }
 
 void IndexerSubsystem::StartIndexerReverse() {
     m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.5 );
-    m_motorShooterLoader.Set( 1.0 );
+    m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1.0 );
 }
 

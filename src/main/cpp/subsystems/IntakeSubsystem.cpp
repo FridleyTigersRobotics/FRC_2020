@@ -4,6 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+#include <stdio.h>
 
 #include <Constants.h>
 #include <subsystems/IntakeSubsystem.h>
@@ -14,14 +15,11 @@ IntakeSubsystem::IntakeSubsystem() :
     m_topLimitSwitch   { IntakeConstants::kIntakeTopLimitDioPort },
     m_botLimitSwitch   { IntakeConstants::kIntakeBotLimitDioPort }
 {
-    m_engageIntake = false;
+
 }
 
 // This method will be called once per scheduler run
-void IntakeSubsystem::Periodic() 
-{
-
-}
+void IntakeSubsystem::Periodic() { }
 
 void IntakeSubsystem::StartIntake() {
     m_motorIntakeRotate.Set( 0.3 );
@@ -37,37 +35,29 @@ void IntakeSubsystem::LowerIntake()
     double extendMotorSpeed = 0.0;
     if ( IsBotLimitEngaged() == false )
     {
-        extendMotorSpeed = -0.5;
+        extendMotorSpeed = 1.0;
     }
+    //std::cout << "LowerIntake: " << extendMotorSpeed << "\n";
+    m_motorIntakeExtend.Set( extendMotorSpeed );
+}
+
+void IntakeSubsystem::HoldIntake() 
+{
+    double extendMotorSpeed = 0.0;
+    //std::cout << "HoldIntake: " << extendMotorSpeed << "\n";
     m_motorIntakeExtend.Set( extendMotorSpeed );
 }
 
 void IntakeSubsystem::RaiseIntake() 
 {
     double extendMotorSpeed = 0.0;
-
     if ( IsTopLimitEngaged() == false )
     {
-        extendMotorSpeed = 0.5;
+        extendMotorSpeed = -1.0;
     } 
+    //std::cout << "Raise: " << extendMotorSpeed << "\n";
     m_motorIntakeExtend.Set( extendMotorSpeed );
 }   
-
-void IntakeSubsystem::MoveIntake()
-{
-    double extendMotorSpeed = 0.0;
-
-    if ( m_engageIntake == true )
-    {
-
-    }
-    else
-    {
-
-    }
-
-}
-
 
 
 bool IntakeSubsystem::IsTopLimitEngaged() 

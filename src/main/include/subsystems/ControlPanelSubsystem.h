@@ -24,17 +24,14 @@ class ControlPanelSubsystem : public frc2::SubsystemBase {
   void LiftControlPanelArm();
   void LowerControlPanelArm();
   void StopLift();
+  bool IsTopLimitEngaged();
+  bool IsBotLimitEngaged();
+
 
  private:
-   frc::PWMVictorSPX m_liftMotor;
-   ctre::phoenix::motorcontrol::can::TalonSRX m_spinMotor;
-   frc::DigitalInput m_topLimitSwitch;
-   frc::DigitalInput m_botLimitSwitch;
-
-   bool m_engageControlPanelManipulator;
-   bool m_movementRequested;
-
-   bool IsTopLimitEngaged();
-   bool IsBotLimitEngaged();
+  frc::PWMVictorSPX m_liftMotor;
+  ctre::phoenix::motorcontrol::can::TalonSRX m_spinMotor;
+  frc::DigitalInput m_topLimitSwitch;
+  frc::DigitalInput m_botLimitSwitch;
 
 };
