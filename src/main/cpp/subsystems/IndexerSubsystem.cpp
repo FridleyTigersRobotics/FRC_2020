@@ -28,6 +28,8 @@ IndexerSubsystem::IndexerSubsystem():
     setPoint = 0;
     ballCounter = 0;
 
+    m_motorShooterLoader.SetNeutralMode( ctre::phoenix::motorcontrol::NeutralMode::Brake );
+
     m_conveyorEncoder.SetMaxPeriod(1);
     m_conveyorEncoder.SetMinRate(1);
     m_conveyorEncoder.SetDistancePerPulse(0.1);
@@ -67,17 +69,17 @@ void IndexerSubsystem::InitIndexer() {
 
 void IndexerSubsystem::StartIndexer() {
     m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.4 );
-    //m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -1.0 );
+    m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8 );
 }
 
 void IndexerSubsystem::StopIndexer() {
     m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0 );
-    //m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0 );
+    m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0 );
 }
 
 void IndexerSubsystem::StartIndexerReverse() {
     m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.4 );
-    //m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1.0 );
+    m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.8 );
 }
 
 
