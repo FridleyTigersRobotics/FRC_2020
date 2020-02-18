@@ -31,13 +31,13 @@ void ShooterSubsystem::SpinupShooter() {
         //ctre::phoenix::motorcontrol::ControlMode::Velocity,
         ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
         //-ShooterConstants::ShooterRpmTarget
-        -0.3
+        -0.9
     );
     m_motorShooterRight.Set( 
         //ctre::phoenix::motorcontrol::ControlMode::Velocity,
         ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
         //ShooterConstants::ShooterRpmTarget
-        0.3
+        0.9
     );
 }
 
