@@ -24,6 +24,8 @@
 #include <commands/ControlPanelRaise.h>
 #include <commands/IntakePowerCells.h>
 #include <commands/RaiseIntake.h>
+#include <commands/ChangeShooterAngle.h>
+#include <commands/StopShooter.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -59,4 +61,6 @@ class RobotContainer {
   ControlPanelRaise m_controlPanelRaiseCommand;
   ControlPanelLower m_controlPanelLowerCommand;
   RaiseIntake       m_raiseIntakeCommand;
+  ChangeShooterAngle m_changeShooterAngleComand;
+  StopShooter        m_stopShooterCommand;
 };

@@ -10,6 +10,8 @@
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
 #include <frc/PWMVictorSPX.h>
+#include <frc/DigitalInput.h>
+#include <frc/Encoder.h>
 
 class IndexerSubsystem : public frc2::SubsystemBase {
  public:
@@ -22,12 +24,16 @@ class IndexerSubsystem : public frc2::SubsystemBase {
   void StartIndexer();
   void StopIndexer();
   void StartIndexerReverse();
+  void InitIndexer();
+  void GetBalls();
 
  private:
   ctre::phoenix::motorcontrol::can::VictorSPX m_conveyorMotor;
   ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLoader;
-  
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
+  frc::DigitalInput                           m_ballDetector;
+  frc::Timer                                  m_timer;
+  frc::Encoder                                m_conveyorEncoder;
+  int                                         m_state;
+  bool                                        m_checkedBall;
 };
  

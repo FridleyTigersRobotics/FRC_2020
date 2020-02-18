@@ -11,8 +11,6 @@
 #include <frc2/command/CommandHelper.h>
 
 #include <subsystems/ShooterSubsystem.h>
-#include <subsystems/IntakeSubsystem.h>
-#include <subsystems/ControlPanelSubsystem.h>
 
 /**
  * An example command.
@@ -21,14 +19,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ChangeShooterAngle
-    : public frc2::CommandHelper<frc2::CommandBase, ChangeShooterAngle> {
+class StopShooter
+    : public frc2::CommandHelper<frc2::CommandBase, StopShooter> {
  public:
-  ChangeShooterAngle(ShooterSubsystem* shooterSubsystem,
-  ControlPanelSubsystem* controlPanelSubsystem,
-  IntakeSubsystem*  intakeSubsystem,
-  std::function<bool()> up,
-  std::function<bool()> down );
+  StopShooter(ShooterSubsystem* shooterSubsystem);
 
   void Initialize() override;
 
@@ -37,12 +31,7 @@ class ChangeShooterAngle
   void End(bool interrupted) override;
 
   bool IsFinished() override;
- private:
+
+  private:
   ShooterSubsystem* m_shooterSubsystem;
-  ControlPanelSubsystem* m_controlPanelSubsystem;
-  IntakeSubsystem*  m_intakeSubsystem;
-
-  std::function<bool()> m_up;
-  std::function<bool()> m_down;
-
 };

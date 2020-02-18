@@ -14,6 +14,7 @@
 #include <subsystems/IntakeSubsystem.h> 
 #include <subsystems/IndexerSubsystem.h> 
 #include <subsystems/ShooterSubsystem.h> 
+#include <subsystems/ControlPanelSubsystem.h> 
 
 
 /**
@@ -30,6 +31,7 @@ class PrepareToShoot
                   ShooterSubsystem* shooterSubsystem,
                   IntakeSubsystem*  intakeSubsystem,
                   IndexerSubsystem* indexerSubsystem,
+                  ControlPanelSubsystem* controlPanelSubsystem,
                   std::function<bool()> shoot  );
 
   void Initialize() override;
@@ -45,5 +47,6 @@ class PrepareToShoot
   ShooterSubsystem* m_shooterSubsystem;
   IntakeSubsystem*  m_intakeSubsystem;
   IndexerSubsystem* m_indexerSubsystem;
+  ControlPanelSubsystem* m_controlPanelSubsystem;
   std::function<bool()> m_shoot;
 };

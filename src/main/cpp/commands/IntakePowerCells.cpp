@@ -18,20 +18,24 @@ IntakePowerCells::IntakePowerCells( IntakeSubsystem*  intakeSubsystem,
 // Called when the command is initially scheduled.
 void IntakePowerCells::Initialize() 
 {
-
+  m_indexerSubsystem->InitIndexer();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void IntakePowerCells::Execute() 
 {
-  if ( m_intakeSubsystem->IsBotLimitEngaged() == false )
-  {
-      m_intakeSubsystem->LowerIntake();
-  }
-  else
+  //if ( m_intakeSubsystem->IsBotLimitEngaged() == false )
+  //{
+  //    m_intakeSubsystem->LowerIntake();
+  //}
+  //else
   {
     m_intakeSubsystem->HoldIntake();
-    m_intakeSubsystem->StartIntake();
+    //m_intakeSubsystem->StartIntake();
+
+    m_indexerSubsystem->GetBalls();
+
+
   }
 }
 
@@ -39,6 +43,7 @@ void IntakePowerCells::Execute()
 void IntakePowerCells::End(bool interrupted) 
 {
   m_intakeSubsystem->StopIntake();
+  m_indexerSubsystem->StopIndexer();
 }
 
 // Returns true when the command should end.

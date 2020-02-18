@@ -23,6 +23,7 @@ RobotContainer::RobotContainer() :
     &m_shooterSubsystem,
     &m_intakeSubsystem,
     &m_indexerSubsystem,
+    &m_controlPanelSubsystem,
     [this] { return m_driverController.GetBumper( frc::GenericHID::kLeftHand ); }
   },
   m_intakePowerCellsCommand{
@@ -37,6 +38,16 @@ RobotContainer::RobotContainer() :
   },
   m_raiseIntakeCommand{
     &m_intakeSubsystem
+  },
+  m_changeShooterAngleComand{
+    &m_shooterSubsystem,
+    &m_controlPanelSubsystem,
+    &m_intakeSubsystem,
+    [this] { return m_driverController.GetBumper( frc::GenericHID::kRightHand ); },
+    [this] { return m_driverController.GetBumper( frc::GenericHID::kLeftHand ); }
+  },
+  m_stopShooterCommand{
+    &m_shooterSubsystem
   }
 {
   // Initialize all of your commands and subsystems here
@@ -45,6 +56,7 @@ RobotContainer::RobotContainer() :
   m_driveSubsystem.SetDefaultCommand( m_defaultDriveCommand );
   m_controlPanelSubsystem.SetDefaultCommand( m_controlPanelLowerCommand );
   m_intakeSubsystem.SetDefaultCommand( m_raiseIntakeCommand );
+  m_shooterSubsystem.SetDefaultCommand( m_stopShooterCommand );
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -62,12 +74,16 @@ void RobotContainer::ConfigureButtonBindings() {
       .WhileHeld( m_prepareToShootCommand );
 
 
-  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kY )
       .WhileHeld( m_intakePowerCellsCommand );
 
 
-  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kY )
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
       .WhileHeld( m_controlPanelRaiseCommand );
+
+
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kX )
+      .WhileHeld( m_changeShooterAngleComand );
 
 #if 0
   // Spin up shooter when the 'A' button is pressed.

@@ -11,12 +11,14 @@ PrepareToShoot::PrepareToShoot( DriveSubsystem*   driveSubsystem,
                                 ShooterSubsystem* shooterSubsystem,
                                 IntakeSubsystem*  intakeSubsystem,
                                 IndexerSubsystem* indexerSubsystem,
+                                ControlPanelSubsystem* controlPanelSubsystem,
                                 std::function<bool()> shoot )
  :
   m_driveSubsystem{driveSubsystem},
   m_shooterSubsystem{shooterSubsystem},
   m_intakeSubsystem{intakeSubsystem},
   m_indexerSubsystem{indexerSubsystem},
+  m_controlPanelSubsystem{controlPanelSubsystem},
   m_shoot{shoot}
 {
   // Use addRequirements() here to declare subsystem dependencies.
@@ -35,12 +37,14 @@ void PrepareToShoot::Initialize() {
 void PrepareToShoot::Execute() {
   if ( m_intakeSubsystem->IsBotLimitEngaged() == false )
   {
+     m_controlPanelSubsystem->LiftControlPanelArm();
     m_intakeSubsystem->LowerIntake();
     m_driveSubsystem->ArcadeDrive( 0.0, 0.0 );
     m_indexerSubsystem->StopIndexer();
   }
   else
   {
+    m_controlPanelSubsystem->LiftControlPanelArm();
     m_intakeSubsystem->HoldIntake();
     m_driveSubsystem->RotateToTarget();
     m_shooterSubsystem->TiltToTarget();

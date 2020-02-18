@@ -22,7 +22,8 @@ IntakeSubsystem::IntakeSubsystem() :
 void IntakeSubsystem::Periodic() { }
 
 void IntakeSubsystem::StartIntake() {
-    m_motorIntakeRotate.Set( 0.3 );
+    m_motorIntakeRotate.Set( 0.25 );
+
 }
 
 void IntakeSubsystem::StopIntake() {
@@ -35,7 +36,7 @@ void IntakeSubsystem::LowerIntake()
     double extendMotorSpeed = 0.0;
     if ( IsBotLimitEngaged() == false )
     {
-        extendMotorSpeed = 1.0;
+        extendMotorSpeed = -1.0;
     }
     //std::cout << "LowerIntake: " << extendMotorSpeed << "\n";
     m_motorIntakeExtend.Set( extendMotorSpeed );
@@ -53,7 +54,7 @@ void IntakeSubsystem::RaiseIntake()
     double extendMotorSpeed = 0.0;
     if ( IsTopLimitEngaged() == false )
     {
-        extendMotorSpeed = -1.0;
+        extendMotorSpeed = 1.0;
     } 
     //std::cout << "Raise: " << extendMotorSpeed << "\n";
     m_motorIntakeExtend.Set( extendMotorSpeed );

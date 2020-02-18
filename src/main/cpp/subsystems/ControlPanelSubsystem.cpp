@@ -6,10 +6,13 @@
 /*----------------------------------------------------------------------------*/
 #include <stdio.h>
 
+#include <frc/I2C.h>
 #include <frc/PWMVictorSPX.h>
 #include <Constants.h>
 
 #include <subsystems/ControlPanelSubsystem.h>
+
+
 
 ControlPanelSubsystem::ControlPanelSubsystem():
    m_liftMotor      { Controlpanelconstants::kControlPanelLiftMotorCanId },
@@ -27,12 +30,12 @@ void ControlPanelSubsystem::LiftControlPanelArm()
     double extendMotorSpeed = 0.0;
     if ( IsTopLimitEngaged() == false )
     {
-        extendMotorSpeed = 1.0;
+        extendMotorSpeed = 0.4;
     } 
-    frc::Color detectedColor = m_colorSensor.GetColor();
+    //frc::Color detectedColor = m_colorSensor.GetColor();
 
-    std::cout << "color: " << detectedColor.red << " " << detectedColor.green << " " <<  detectedColor.blue << "\n";
-
+    //std::cout << "color: " << detectedColor.red << " " << detectedColor.green << " " <<  detectedColor.blue << "\n";
+    //std::cout << "RaiseControlPanelArm: " << extendMotorSpeed << " " << IsBotLimitEngaged() << IsTopLimitEngaged() << "\n";
     m_liftMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, extendMotorSpeed );
 }
 
@@ -41,8 +44,9 @@ void ControlPanelSubsystem::LowerControlPanelArm()
     double extendMotorSpeed = 0.0;
     if ( IsBotLimitEngaged() == false )
     {
-        extendMotorSpeed = -1.0;
+        extendMotorSpeed = -0.4;
     }
+    //std::cout << "LowerControlPanelArm: " << extendMotorSpeed << " " << IsBotLimitEngaged() << IsTopLimitEngaged() << "\n";
     m_liftMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, extendMotorSpeed );
 }
 
@@ -80,3 +84,5 @@ void ControlPanelSubsystem::StopSpinning()
 
 // This method will be called once per scheduler run
 void ControlPanelSubsystem::Periodic() { }
+
+

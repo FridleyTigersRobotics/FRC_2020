@@ -39,6 +39,10 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   void TiltToTarget();
 
+  double GetMaxAngle();
+
+  double GetMinAngle();
+
  private:
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterRight;

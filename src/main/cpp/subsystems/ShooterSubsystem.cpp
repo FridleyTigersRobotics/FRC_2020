@@ -20,7 +20,9 @@ ShooterSubsystem::ShooterSubsystem( )  :
     {}
 
 // This method will be called once per scheduler run
-void ShooterSubsystem::Periodic() {}
+void ShooterSubsystem::Periodic() {
+    //std::cout << "angle " << GetRotationDegreeA() << " " << GetRotationDegreeB() << "\n";
+}
 
 
 void ShooterSubsystem::SpinupShooter() {
@@ -45,17 +47,42 @@ void ShooterSubsystem::SpindownShooter() {
     m_motorShooterRight.NeutralOutput( );
 }
 
+double ShooterSubsystem::GetMaxAngle()
+{
+    return 2.8;
+}
+
+double ShooterSubsystem::GetMinAngle()
+{
+    return 2.22;
+}
 
 void ShooterSubsystem::AngleShooterUp() 
 {
-    //std::cout << "AngleShooterUp\n";
-    m_motorAngle.Set( 1.0 );
+    std::cout << "AngleShooterUp" << GetRotationDegreeB() << "\n";
+    if ( GetRotationDegreeB() < GetMaxAngle() ) 
+    {
+        m_motorAngle.Set( -0.5 );
+    }
+    else
+    {
+        StopShooterAngle();
+    }
+    
 }
 
 void ShooterSubsystem::AngleShooterDown() 
 {
-    //std::cout << "AngleShooterDown\n";
-    m_motorAngle.Set( -1.0 );
+    std::cout << "AngleShooterDown" << GetRotationDegreeB() << "\n";
+    if ( GetRotationDegreeB() > GetMinAngle() )
+    {
+        m_motorAngle.Set( 0.5 );
+    }
+    else
+    {
+        StopShooterAngle();
+    }
+    
 }
 
 void ShooterSubsystem::StopShooterAngle() 
@@ -110,7 +137,9 @@ void ShooterSubsystem::ResetEncoder() {
 
 double ShooterSubsystem::CalculateTargetAngleFromCameraValue( double cameraValue ) {
     double const cameraValueMax = 480;  
-    return 45.0 * ( cameraValueMax - cameraValue ) / cameraValueMax;
+    double const positionRatio =  ( cameraValueMax - cameraValue ) / cameraValueMax;
+    double const angleRange = GetMaxAngle() - GetMinAngle();
+    return GetMinAngle() + angleRange * positionRatio;
 }
 
 
@@ -118,7 +147,20 @@ void ShooterSubsystem::TiltToTarget() {
    extern nt::NetworkTableEntry yEntry;
    double const yVal = yEntry.GetDouble( -1.0 );
    double const angle = CalculateTargetAngleFromCameraValue( yVal );
-   //std::cout << "yVal: " << yVal << " " << angle << "\n"; 
+   std::cout << "yVal: " << yVal << " " << angle << "\n";
+
+   if ( GetRotationDegreeB() < ( angle - 0.05) )
+   {
+       AngleShooterUp();
+   }
+   else if (  GetRotationDegreeB() > ( angle + 0.05) )
+   {
+       AngleShooterDown();
+   }
+   else
+   {
+       StopShooterAngle();
+   }
 }
 
 
