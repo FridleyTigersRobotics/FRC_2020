@@ -68,18 +68,30 @@ void IndexerSubsystem::InitIndexer() {
 }
 
 void IndexerSubsystem::StartIndexer() {
-    m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.4 );
-    m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8 );
+    m_conveyorMotor.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        IndexerSubsystemConstants::kIndexerMotorSpeed );
+    m_motorShooterLoader.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
+        0.8 );
 }
 
 void IndexerSubsystem::StopIndexer() {
-    m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0 );
-    m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0 );
+    m_conveyorMotor.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
+        0.0 );
+    m_motorShooterLoader.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
+        0.0 );
 }
 
 void IndexerSubsystem::StartIndexerReverse() {
-    m_conveyorMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.4 );
-    m_motorShooterLoader.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.8 );
+    m_conveyorMotor.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
+        -IndexerSubsystemConstants::kIndexerMotorSpeed );
+    m_motorShooterLoader.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
+        -0.8 );
 }
 
 
@@ -90,103 +102,14 @@ void IndexerSubsystem::StartIndexerReverse() {
 
 void IndexerSubsystem::GetBalls()
 {
-    bool const kUseTime = false;
-    double time = m_timer.Get();
-    int long encoderValue = m_conveyorEncoder.GetDistance();
-    int long encoderDiff  = encoderValue - setPoint;
-
-    if ( m_state == 0 || m_state == 1 )
-    {
-        if ( m_state == 0 )
-        {
-            if (encoderDiff < 1500 ) //( time < 0.5 )
-            {
-                StartIndexer();
-            }
-            else
-            {
-                m_state = 1;
-                if ( kUseTime )
-                {
-                    m_timer.Reset();
-                    m_timer.Start();
-                }
-                else
-                {
-                    setPoint = encoderValue;
-                    //m_conveyorEncoder.Reset();
-                }
-                m_checkedBall = false;
-            }
-        }
-        else if ( m_state == 1)
-        {
-            if (encoderDiff > -1500 ) //( time < 1.0 )
-            {
-                #if 1
-                if ( ( m_checkedBall == false ) &&
-                    ( m_ballDetector.Get() > 0 ) )
-                {
-                    m_state = 2;
-                    if ( kUseTime )
-                    {
-                        m_timer.Reset();
-                        m_timer.Start();
-                    }
-                    else
-                    {
-                        setPoint = encoderValue;
-                        //m_conveyorEncoder.Reset();
-                    }
-                    m_checkedBall = false;
-                }
-                else
-                #endif
-                {
-                    StartIndexerReverse();
-                }
-                m_checkedBall = true;
-            }
-            else
-            {
-                m_state = 0;
-                if ( kUseTime )
-                {
-                    m_timer.Reset();
-                    m_timer.Start();
-                }
-                else
-                {
-                    setPoint = encoderValue;
-                    //m_conveyorEncoder.Reset();
-                }
-                m_checkedBall = false;
-            }
-
-        }
-    }
-    else if ( m_state == 2 )
-    {
-        if  (encoderValue < 1500 ) //( time < 0.5 )
-        {
-            StartIndexer();
-        }
-        else
-        {
-            m_state = 0;
-            if ( kUseTime )
-            {
-                m_timer.Reset();
-                m_timer.Start();
-            }
-            else
-            {
-                setPoint = encoderValue;
-                m_conveyorEncoder.Reset();
-            }
-
-            m_checkedBall = false;
-        }
-    }
+    if ( m_ballDetector.Get() > 0 )
+{
+   // Ball detected, pull it into the indexer
+   StartIndexer();
+}
+else
+{
+   StopIndexer();
+}
 }
 

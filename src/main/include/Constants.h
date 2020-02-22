@@ -58,6 +58,7 @@ namespace DriverStationConstants {
 
 namespace IndexerSubsystemConstants {
     constexpr int kIndexerMotorCanId  = 5;
+    constexpr int kIndexerMotorSpeed  = 1.0;
 }  // namespace IndexerSubsystemConstants
 
 namespace Controlpanelconstants {
@@ -67,3 +68,11 @@ namespace Controlpanelconstants {
     constexpr int kIntakeBotLimitDioPort      = 0;
     constexpr auto i2cPort = frc::I2C::Port::kOnboard;
 }  // namespace Controlpanelconstants
+
+namespace ClimbsubsystemConstants { 
+    constexpr int kClimbMotorPort = 7;
+    constexpr int kHookMotorPort =  8;
+
+
+
+}

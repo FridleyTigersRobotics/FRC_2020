@@ -24,14 +24,14 @@ void IntakePowerCells::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void IntakePowerCells::Execute() 
 {
-  //if ( m_intakeSubsystem->IsBotLimitEngaged() == false )
-  //{
-  //    m_intakeSubsystem->LowerIntake();
-  //}
-  //else
+  if ( m_intakeSubsystem->IsBotLimitEngaged() == false )
+  {
+      m_intakeSubsystem->LowerIntake();
+  }
+  else
   {
     m_intakeSubsystem->HoldIntake();
-    //m_intakeSubsystem->StartIntake();
+    m_intakeSubsystem->StartIntake();
 
     m_indexerSubsystem->GetBalls();
 
