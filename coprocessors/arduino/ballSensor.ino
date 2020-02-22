@@ -8,19 +8,19 @@ int outputPin = 12;
 
 void setup() {
   pinMode(outputPin, OUTPUT);
-  //Serial.begin(115200);
+  Serial.begin(115200);
 
   // wait for serial port to open on native usb devices
   while (!Serial) {
     delay(1);
   }
   
-  //Serial.println("Adafruit VL6180x test!");
+  Serial.println("Adafruit VL6180x test!");
   if (! vl.begin()) {
-    //Serial.println("Failed to find sensor");
+    Serial.println("Failed to find sensor");
     while (1);
   }
-  //Serial.println("Sensor found!");
+  Serial.println("Sensor found!");
 }
 
 void loop() {
@@ -36,7 +36,7 @@ void loop() {
   {
      // ball detected
      digitalWrite( outputPin, 1 );
-     //Serial.println("ball detected");
+     Serial.println("ball detected");
   }
   else
   {
@@ -45,7 +45,7 @@ void loop() {
   }
 
 
-#if 0
+#if 1
 
   if (status == VL6180X_ERROR_NONE) {
     Serial.print("Range: "); Serial.println(range);
