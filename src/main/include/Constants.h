@@ -39,7 +39,7 @@ namespace ShooterConstants {
     constexpr int kSensorId         = 0;
 
 
-    constexpr float ShooterRpmTarget = 500.0f;
+    constexpr float ShooterRpmTarget = 4000.0f; // 20000~30000
     constexpr float ShooterRpmMin    = 480.0f;
     constexpr float ShooterRpmMax    = 520.0f;
 
@@ -50,6 +50,8 @@ namespace IntakeConstants {
     constexpr int kIntakeExtendMotorPwmId = 1;
     constexpr int kIntakeTopLimitDioPort = 2;
     constexpr int kIntakeBotLimitDioPort = 3;
+
+    constexpr double kIntakeMotorSpeed  = 0.2;
 }  // namespace IntakeConstants
 
 namespace DriverStationConstants {
@@ -57,8 +59,9 @@ namespace DriverStationConstants {
 }  // namespace DriverStationConstants
 
 namespace IndexerSubsystemConstants {
-    constexpr int kIndexerMotorCanId  = 5;
-    constexpr int kIndexerMotorSpeed  = 1.0;
+    constexpr int    kIndexerMotorCanId  = 5;
+
+    constexpr double kIndexerMotorSpeed  = 0.3;
 }  // namespace IndexerSubsystemConstants
 
 namespace Controlpanelconstants {

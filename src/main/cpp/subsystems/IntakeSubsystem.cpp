@@ -23,9 +23,17 @@ void IntakeSubsystem::Periodic() { }
 
 void IntakeSubsystem::StartIntake() {
     
-    m_motorIntakeRotate.Set( 0.45 );
+    m_motorIntakeRotate.Set( IntakeConstants::kIntakeMotorSpeed );
 
 }
+
+
+void IntakeSubsystem::StartIntakeReverse() {
+    
+    m_motorIntakeRotate.Set( -IntakeConstants::kIntakeMotorSpeed );
+
+}
+
 
 void IntakeSubsystem::StopIntake() {
     m_motorIntakeRotate.Set( 0.0 );

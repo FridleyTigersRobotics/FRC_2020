@@ -227,7 +227,8 @@ def main(ntinst):
           time, img = cvSink.grabFrame(img)
           afterGrab =  tm.time()
           if time == 0:
-              xCoordTable.putNumber( 'val', -1 )
+              xCoordTable.putNumber( 'xVal', -1 )
+              xCoordTable.putNumber( 'yVal', -1 )
               # Send the output the error.
               outputStream.notifyError(cvSink.getError());
               # skip the rest of the current iteration
@@ -401,14 +402,16 @@ def main(ntinst):
 
 
               except:
-                  xCoordTable.putNumber( 'val', -1 )
+                  xCoordTable.putNumber( 'xVal', -1 )
+                  xCoordTable.putNumber( 'yVal', -1 )
                   print( traceback.format_exc() )
                   tm.sleep(1)
 
 
           else:
 
-              xCoordTable.putNumber( 'val', -1 )
+              xCoordTable.putNumber( 'xVal', -1 )
+              xCoordTable.putNumber( 'yVal', -1 )
               center = ( int(width / 2), int(height / 2) )
        
               cv2.circle(
@@ -424,7 +427,8 @@ def main(ntinst):
 
           outputStream.putFrame( img )
       except:
-        xCoordTable.putNumber( 'val', -1 )
+        xCoordTable.putNumber( 'xVal', -1 )
+        xCoordTable.putNumber( 'yVal', -1 )
         print( 'Main try block:' )
         print( traceback.format_exc() )
 

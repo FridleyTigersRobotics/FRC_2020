@@ -37,14 +37,15 @@ void PrepareToShoot::Initialize() {
 void PrepareToShoot::Execute() {
   if ( m_intakeSubsystem->IsBotLimitEngaged() == false )
   {
-     m_controlPanelSubsystem->LiftControlPanelArm();
+    m_shooterSubsystem->StopShooterAngle();
+    //m_controlPanelSubsystem->LiftControlPanelArm();
     m_intakeSubsystem->LowerIntake();
     m_driveSubsystem->ArcadeDrive( 0.0, 0.0 );
     m_indexerSubsystem->StopIndexer();
   }
   else
   {
-    m_controlPanelSubsystem->LiftControlPanelArm();
+    //m_controlPanelSubsystem->LiftControlPanelArm();
     m_intakeSubsystem->HoldIntake();
     m_driveSubsystem->RotateToTarget();
     m_shooterSubsystem->TiltToTarget();

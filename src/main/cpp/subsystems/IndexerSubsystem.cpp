@@ -29,6 +29,7 @@ IndexerSubsystem::IndexerSubsystem():
     ballCounter = 0;
 
     m_motorShooterLoader.SetNeutralMode( ctre::phoenix::motorcontrol::NeutralMode::Brake );
+    m_conveyorMotor.SetNeutralMode( ctre::phoenix::motorcontrol::NeutralMode::Brake );
 
     m_conveyorEncoder.SetMaxPeriod(1);
     m_conveyorEncoder.SetMinRate(1);
@@ -52,7 +53,7 @@ void IndexerSubsystem::Periodic()
         if ( count > 100 )
         {
             //std::cout << "ball: " << m_ballDetector.Get() << "\n";
-            std::cout << "m_conveyorEncoder: " << m_ballDetector.Get() << " " << m_conveyorEncoder.Get() << " " << m_conveyorEncoder.GetRaw() <<  " " << m_conveyorEncoder.GetDistance() << "\n";
+            //std::cout << "m_conveyorEncoder: " << m_ballDetector.Get() << " " << m_conveyorEncoder.Get() << " " << m_conveyorEncoder.GetRaw() <<  " " << m_conveyorEncoder.GetDistance() << "\n";
             count = 0;
         }
     }
@@ -73,7 +74,7 @@ void IndexerSubsystem::StartIndexer() {
         IndexerSubsystemConstants::kIndexerMotorSpeed );
     m_motorShooterLoader.Set( 
         ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
-        0.8 );
+        1.0 );
 }
 
 void IndexerSubsystem::StopIndexer() {
@@ -91,7 +92,7 @@ void IndexerSubsystem::StartIndexerReverse() {
         -IndexerSubsystemConstants::kIndexerMotorSpeed );
     m_motorShooterLoader.Set( 
         ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
-        -0.8 );
+        -1.0 );
 }
 
 
@@ -103,13 +104,13 @@ void IndexerSubsystem::StartIndexerReverse() {
 void IndexerSubsystem::GetBalls()
 {
     if ( m_ballDetector.Get() > 0 )
-{
-   // Ball detected, pull it into the indexer
-   StartIndexer();
-}
-else
-{
-   StopIndexer();
-}
+    {
+        // Ball detected, pull it into the indexer
+        StartIndexer();
+    }
+    else
+    {
+        StopIndexer();
+    }
 }
 

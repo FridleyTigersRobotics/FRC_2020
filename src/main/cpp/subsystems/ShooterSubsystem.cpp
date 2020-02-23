@@ -17,27 +17,71 @@ ShooterSubsystem::ShooterSubsystem( )  :
     m_ajdB       { ShooterConstants::kjdb },
     m_jdA        { m_ajdA },
     m_jdB        { m_ajdB }
-    {}
+{
+    int kTimeoutMs = 30;
+    m_motorShooterLeft.ConfigFactoryDefault();
+    m_motorShooterLeft.SetInverted(true);
+    /* first choose the sensor */
+    m_motorShooterLeft.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, ShooterConstants::kSensorId, kTimeoutMs);
+    m_motorShooterLeft.SetSensorPhase(true);
+
+    /* set the peak and nominal outputs */
+    m_motorShooterLeft.ConfigNominalOutputForward(0, kTimeoutMs);
+    m_motorShooterLeft.ConfigNominalOutputReverse(0, kTimeoutMs);
+    m_motorShooterLeft.ConfigPeakOutputForward(1, kTimeoutMs);
+    m_motorShooterLeft.ConfigPeakOutputReverse(-1, kTimeoutMs);
+    /* set closed loop gains in slot0 */
+    double const F = 0.0420;
+    double const P = 0.25;
+
+    m_motorShooterLeft.Config_kF(ShooterConstants::kSensorId, F, kTimeoutMs);
+    m_motorShooterLeft.Config_kP(ShooterConstants::kSensorId, P, kTimeoutMs);
+    m_motorShooterLeft.Config_kI(ShooterConstants::kSensorId, 0.0, kTimeoutMs);
+    m_motorShooterLeft.Config_kD(ShooterConstants::kSensorId, 0.0, kTimeoutMs);
+
+    m_motorShooterRight.ConfigFactoryDefault();
+    /* first choose the sensor */
+    m_motorShooterRight.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, ShooterConstants::kSensorId, kTimeoutMs);
+    m_motorShooterRight.SetSensorPhase(true);
+
+    /* set the peak and nominal outputs */
+    m_motorShooterRight.ConfigNominalOutputForward(0, kTimeoutMs);
+    m_motorShooterRight.ConfigNominalOutputReverse(0, kTimeoutMs);
+    m_motorShooterRight.ConfigPeakOutputForward(1, kTimeoutMs);
+    m_motorShooterRight.ConfigPeakOutputReverse(-1, kTimeoutMs);
+    /* set closed loop gains in slot0 */
+    m_motorShooterRight.Config_kF(ShooterConstants::kSensorId, F, kTimeoutMs);
+    m_motorShooterRight.Config_kP(ShooterConstants::kSensorId, P, kTimeoutMs);
+    m_motorShooterRight.Config_kI(ShooterConstants::kSensorId, 0.0, kTimeoutMs);
+    m_motorShooterRight.Config_kD(ShooterConstants::kSensorId, 0.0, kTimeoutMs);
+
+
+}
 
 // This method will be called once per scheduler run
 void ShooterSubsystem::Periodic() {
     //std::cout << "angle " << GetRotationDegreeA() << " " << GetRotationDegreeB() << "\n";
+    std::cout << "shoot " << 
+    m_motorShooterLeft.GetMotorOutputPercent() << " " << 
+    m_motorShooterLeft.GetSelectedSensorVelocity( ShooterConstants::kSensorId ) << " " << " " << 
+    m_motorShooterRight.GetMotorOutputPercent() << " " << 
+    m_motorShooterRight.GetSelectedSensorVelocity( ShooterConstants::kSensorId ) << "\n";
 }
 
 
 void ShooterSubsystem::SpinupShooter() {
 
     m_motorShooterLeft.Set(  
-        //ctre::phoenix::motorcontrol::ControlMode::Velocity,
-        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-        //-ShooterConstants::ShooterRpmTarget
-        -0.9
+        ctre::phoenix::motorcontrol::ControlMode::Velocity,
+        ShooterConstants::ShooterRpmTarget
+        //ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        //-1.0
     );
-    m_motorShooterRight.Set( 
-        //ctre::phoenix::motorcontrol::ControlMode::Velocity,
-        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-        //ShooterConstants::ShooterRpmTarget
-        0.9
+    m_motorShooterRight.Set(
+        ctre::phoenix::motorcontrol::ControlMode::Velocity,
+        ShooterConstants::ShooterRpmTarget
+        //ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        //1.0
     );
 }
 
@@ -62,7 +106,7 @@ void ShooterSubsystem::AngleShooterUp()
     std::cout << "AngleShooterUp" << GetRotationDegreeB() << "\n";
     if ( GetRotationDegreeB() < GetMaxAngle() ) 
     {
-        m_motorAngle.Set( -0.5 );
+        m_motorAngle.Set( -0.8 );
     }
     else
     {
@@ -76,7 +120,7 @@ void ShooterSubsystem::AngleShooterDown()
     std::cout << "AngleShooterDown" << GetRotationDegreeB() << "\n";
     if ( GetRotationDegreeB() > GetMinAngle() )
     {
-        m_motorAngle.Set( 0.5 );
+        m_motorAngle.Set( 0.8 );
     }
     else
     {
@@ -137,29 +181,32 @@ void ShooterSubsystem::ResetEncoder() {
 
 double ShooterSubsystem::CalculateTargetAngleFromCameraValue( double cameraValue ) {
     double const cameraValueMax = 480;  
-    double const positionRatio = 0.5 * ( cameraValueMax - cameraValue ) / cameraValueMax;
+    double const positionRatio = 0.6 * ( cameraValueMax - cameraValue ) / cameraValueMax;
     double const angleRange = GetMaxAngle() - GetMinAngle();
-    return GetMinAngle() + 0.2 + angleRange * positionRatio;
+    return GetMinAngle() + 0.12 + angleRange * positionRatio;
 }
 
 
 void ShooterSubsystem::TiltToTarget() {
    extern nt::NetworkTableEntry yEntry;
    double const yVal = yEntry.GetDouble( -1.0 );
-   double const angle = CalculateTargetAngleFromCameraValue( yVal );
-   std::cout << "yVal: " << yVal << " " << angle << "\n";
+   if ( yVal > 0 )
+   {
+    double const angle = CalculateTargetAngleFromCameraValue( yVal );
+    std::cout << "yVal: " << yVal << " " << angle << "\n";
 
-   if ( GetRotationDegreeB() < ( angle - 0.05) )
-   {
-       AngleShooterUp();
-   }
-   else if (  GetRotationDegreeB() > ( angle + 0.05) )
-   {
-       AngleShooterDown();
-   }
-   else
-   {
-       StopShooterAngle();
+    if ( GetRotationDegreeB() < ( angle - 0.005) )
+    {
+        AngleShooterUp();
+    }
+    else if (  GetRotationDegreeB() > ( angle + 0.005) )
+    {
+        AngleShooterDown();
+    }
+    else
+    {
+        StopShooterAngle();
+    }
    }
 }
 

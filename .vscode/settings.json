@@ -101,6 +101,7 @@
     "xutility": "cpp",
     "memory_resource": "cpp",
     "cinttypes": "cpp",
-    "*.inc": "cpp"
+    "*.inc": "cpp",
+    "*.rh": "cpp"
   },
 }

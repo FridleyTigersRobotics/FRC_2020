@@ -32,6 +32,8 @@ class ControlPanelSubsystem : public frc2::SubsystemBase {
 
 
  private:
+  //enum LiftState_e { eCtrlLiftHold, eCtrlLiftUp, eCtrlLiftDown } m_liftState;
+
   ctre::phoenix::motorcontrol::can::VictorSPX m_liftMotor;
   ctre::phoenix::motorcontrol::can::TalonSRX  m_spinMotor;
   frc::DigitalInput m_topLimitSwitch;

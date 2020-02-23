@@ -56,7 +56,7 @@ void ChangeShooterAngle::Execute()
 
   if ( angleCount > 20 )
   {
-    std::cout << "angle " << m_shooterSubsystem->GetRotationDegreeA() << " " << m_shooterSubsystem->GetRotationDegreeB() << "\n";
+    //std::cout << "angle " << m_shooterSubsystem->GetRotationDegreeA() << " " << m_shooterSubsystem->GetRotationDegreeB() << "\n";
     angleCount = 0;
   }
 }

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ControlPanelLower.h"
+#include "commands/ControlPanelManipulator/ControlPanelLower.h"
 
 ControlPanelLower::ControlPanelLower(ControlPanelSubsystem* Subsystem):
  m_ControlSubsystem{Subsystem}
@@ -14,20 +14,15 @@ ControlPanelLower::ControlPanelLower(ControlPanelSubsystem* Subsystem):
 }
 
 // Called when the command is initially scheduled.
-void ControlPanelLower::Initialize() 
-{
-  
-}
+void ControlPanelLower::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ControlPanelLower::Execute() 
-{
+void ControlPanelLower::Execute() {
   m_ControlSubsystem->LowerControlPanelArm();
 }
 
 // Called once the command ends or is interrupted.
-void ControlPanelLower::End(bool interrupted) 
-{
+void ControlPanelLower::End(bool interrupted) {
   m_ControlSubsystem->StopLift();
 }
 

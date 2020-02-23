@@ -22,6 +22,7 @@ class IntakeSubsystem : public frc2::SubsystemBase {
   void Periodic();
 
   void StartIntake();
+  void StartIntakeReverse();
   void StopIntake();
   
   void LowerIntake();

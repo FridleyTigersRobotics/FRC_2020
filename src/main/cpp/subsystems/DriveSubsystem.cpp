@@ -34,7 +34,7 @@ void DriveSubsystem::SetMaxOutput(double maxOutput) {
 
 void DriveSubsystem::RotateToTarget()
 {
-  bool const debugOutput = true;
+  bool const debugOutput = false;
 
   extern nt::NetworkTableEntry xEntry;
   double const xVal = xEntry.GetDouble( -1.0 );
@@ -60,9 +60,11 @@ void DriveSubsystem::RotateToTarget()
 
     if ( fabs( offset ) > 20 )
     {
-      double const minSpeed = 0.4;
+      double const minSpeed = 0.45;
+      double const maxSpeed = 0.9;
       double const speed = fabs( offset ) / 300;
-      double const finalSpeed = ( speed < minSpeed ) ? minSpeed : speed;
+      double const tempSpeed = ( speed < minSpeed ) ? minSpeed : speed;
+      double const finalSpeed = ( tempSpeed > maxSpeed ) ? maxSpeed : tempSpeed;
 
       if ( offset > 0 )
       {

@@ -30,7 +30,7 @@ void ControlPanelSubsystem::LiftControlPanelArm()
     double extendMotorSpeed = 0.0;
     if ( IsTopLimitEngaged() == false )
     {
-        extendMotorSpeed = 0.4;
+        extendMotorSpeed = 0.7;
     } 
     //frc::Color detectedColor = m_colorSensor.GetColor();
 
@@ -44,7 +44,7 @@ void ControlPanelSubsystem::LowerControlPanelArm()
     double extendMotorSpeed = 0.0;
     if ( IsBotLimitEngaged() == false )
     {
-        extendMotorSpeed = -0.4;
+        extendMotorSpeed = -0.7;
     }
     //std::cout << "LowerControlPanelArm: " << extendMotorSpeed << " " << IsBotLimitEngaged() << IsTopLimitEngaged() << "\n";
     m_liftMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, extendMotorSpeed );
@@ -70,7 +70,7 @@ void ControlPanelSubsystem::StopLift()
 
 void ControlPanelSubsystem::StartSpinning()
 {
-    double extendMotorSpeed = 0.5;
+    double extendMotorSpeed = 1.0;
     m_spinMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput, extendMotorSpeed );
 }
 
