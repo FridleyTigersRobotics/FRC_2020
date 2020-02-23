@@ -10,14 +10,21 @@
 
 using namespace DriveConstants;
 
-DriveSubsystem::DriveSubsystem()
+DriveSubsystem::DriveSubsystem( std::function<double()> currentAngle )
     : m_left1{kLeftMotor1Port},
       m_left2{kLeftMotor2Port},
       m_right1{kRightMotor1Port},
-      m_right2{kRightMotor2Port} 
+      m_right2{kRightMotor2Port},
+      m_currentAngle{currentAngle}
 {
   m_drive.SetMaxOutput(1);
 }
+
+double DriveSubsystem::GetAngle() 
+{
+  return m_currentAngle();
+}
+
 
 // This method will be called once per scheduler run
 void DriveSubsystem::Periodic() {}

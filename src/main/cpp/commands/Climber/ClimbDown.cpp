@@ -5,26 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ControlPanelManipulator/ControlPanelLower.h"
+#include "commands/Climber/ClimbDown.h"
 
-ControlPanelLower::ControlPanelLower(ControlPanelSubsystem* Subsystem):
- m_ControlSubsystem{Subsystem}
+ClimbDown::ClimbDown(ClimberSubsystem* climberSubsystem) :
+  m_climberSubsystem{ climberSubsystem }
 {
-  AddRequirements( { Subsystem } );
+  AddRequirements( { climberSubsystem } );
 }
 
 // Called when the command is initially scheduled.
-void ControlPanelLower::Initialize() {}
+void ClimbDown::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ControlPanelLower::Execute() {
-  m_ControlSubsystem->LowerControlPanelArm();
+void ClimbDown::Execute() 
+{
+  m_climberSubsystem->ClimbUp();
 }
 
 // Called once the command ends or is interrupted.
-void ControlPanelLower::End(bool interrupted) {
-  m_ControlSubsystem->StopLift();
+void ClimbDown::End(bool interrupted) {
+  m_climberSubsystem->ClimbHold();
 }
 
 // Returns true when the command should end.
-bool ControlPanelLower::IsFinished() { return false; }
+bool ClimbDown::IsFinished() { return false; }

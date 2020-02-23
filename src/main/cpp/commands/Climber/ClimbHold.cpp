@@ -5,28 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ControlPanelManipulator/ControlPanelRotate.h"
+#include "commands/Climber/ClimbHold.h"
 
-ControlPanelRotate::ControlPanelRotate(ControlPanelSubsystem* Subsystem):
- m_ControlSubsystem{Subsystem}
+ClimbHold::ClimbHold(ClimberSubsystem* climberSubsystem) :
+  m_climberSubsystem{ climberSubsystem }
 {
-  AddRequirements( { Subsystem } );
+  AddRequirements( { climberSubsystem } );
 }
 
 // Called when the command is initially scheduled.
-void ControlPanelRotate::Initialize() {
-  m_ControlSubsystem->StopLift();
-}
+void ClimbHold::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ControlPanelRotate::Execute() {
-  m_ControlSubsystem->StartSpinning();
+void ClimbHold::Execute() 
+{
+  m_climberSubsystem->ClimbUp();
 }
 
 // Called once the command ends or is interrupted.
-void ControlPanelRotate::End(bool interrupted) {
-  m_ControlSubsystem->StopSpinning();
+void ClimbHold::End(bool interrupted) {
+  m_climberSubsystem->ClimbHold();
 }
 
 // Returns true when the command should end.
-bool ControlPanelRotate::IsFinished() { return false; }
+bool ClimbHold::IsFinished() { return false; }

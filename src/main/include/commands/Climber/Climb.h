@@ -7,10 +7,10 @@
 
 #pragma once
 
+#include "subsystems/ClimberSubsystem.h"
+
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-
-#include <subsystems/ControlPanelSubsystem.h>
 
 /**
  * An example command.
@@ -19,10 +19,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ControlPanelRaise
-    : public frc2::CommandHelper<frc2::CommandBase, ControlPanelRaise> {
+class Climb
+    : public frc2::CommandHelper<frc2::CommandBase, Climb> {
  public:
-  ControlPanelRaise(ControlPanelSubsystem* Subsystem);
+  Climb(ClimberSubsystem* climberSubsystem);
 
   void Initialize() override;
 
@@ -31,9 +31,7 @@ class ControlPanelRaise
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-
-private:
-       ControlPanelSubsystem* m_ControlSubsystem;
+ private:
+  ClimberSubsystem* m_climberSubsystem;
 
 };
-

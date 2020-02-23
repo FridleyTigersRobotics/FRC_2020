@@ -10,19 +10,16 @@
 
 ChangeShooterAngle::ChangeShooterAngle( 
   ShooterSubsystem* shooterSubsystem,
-  ControlPanelSubsystem* controlPanelSubsystem,
   IntakeSubsystem*  intakeSubsystem,
   std::function<bool()> up,
   std::function<bool()> down 
  ) :
   m_shooterSubsystem{shooterSubsystem},
-  m_controlPanelSubsystem{controlPanelSubsystem},
   m_intakeSubsystem{intakeSubsystem},
   m_up{up},
   m_down{down}
 {
   AddRequirements( { shooterSubsystem } );
-  AddRequirements( { controlPanelSubsystem } );
   AddRequirements( { intakeSubsystem } );
 }
 
@@ -36,7 +33,6 @@ void ChangeShooterAngle::Initialize() {angleCount = 0;}
 // Called repeatedly when this Command is scheduled to run
 void ChangeShooterAngle::Execute() 
 {
-  m_controlPanelSubsystem->LiftControlPanelArm();
   m_intakeSubsystem->LowerIntake();
 
 

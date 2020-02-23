@@ -12,7 +12,6 @@
 
 #include <subsystems/ShooterSubsystem.h>
 #include <subsystems/IntakeSubsystem.h>
-#include <subsystems/ControlPanelSubsystem.h>
 
 /**
  * An example command.
@@ -25,7 +24,6 @@ class ChangeShooterAngle
     : public frc2::CommandHelper<frc2::CommandBase, ChangeShooterAngle> {
  public:
   ChangeShooterAngle(ShooterSubsystem* shooterSubsystem,
-  ControlPanelSubsystem* controlPanelSubsystem,
   IntakeSubsystem*  intakeSubsystem,
   std::function<bool()> up,
   std::function<bool()> down );
@@ -39,7 +37,6 @@ class ChangeShooterAngle
   bool IsFinished() override;
  private:
   ShooterSubsystem* m_shooterSubsystem;
-  ControlPanelSubsystem* m_controlPanelSubsystem;
   IntakeSubsystem*  m_intakeSubsystem;
 
   std::function<bool()> m_up;

@@ -6,26 +6,13 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include <subsystems/DriveSubsystem.h>
+#include <frc2/command/CommandHelper.h>
+#include <frc2/command/SequentialCommandGroup.h>
 
-#include <frc2/command/SubsystemBase.h>
-
-#include <rev/CANSparkMax.h>
-
-class ClimberSubsystem : public frc2::SubsystemBase {
+class ThreeBallShoot
+    : public frc2::CommandHelper<frc2::SequentialCommandGroup,
+                                 ThreeBallShoot> {
  public:
-  ClimberSubsystem();
-
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic();
-
-void ClimbUp();
-
-void ClimbDown();
-
-void ClimbHold();
-
- private:
-    rev::CANSparkMax m_climbMotor;
+  ThreeBallShoot( DriveSubsystem *driveSubsystem );
 };

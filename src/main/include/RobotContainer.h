@@ -10,20 +10,23 @@
 #include <frc2/command/Command.h>
 #include <frc/XboxController.h>
 #include <frc/JoyStick.h>
+#include <frc/Spi.h>
+#include <AHRS.h>
+
+#include <frc2/command/SequentialCommandGroup.h>
 
 #include <Constants.h>
 
 #include <subsystems/DriveSubsystem.h>
 #include <subsystems/ShooterSubsystem.h>
 #include <subsystems/IntakeSubsystem.h>
-#include <subsystems/ControlPanelSubsystem.h>
 #include <subsystems/IndexerSubsystem.h>
+#include <subsystems/ClimberSubsystem.h>
 
 
 
 #include <commands/DefaultDrive.h>
 #include <commands/PrepareToShoot.h>
-#include <commands/ControlPanelRaise.h>
 #include <commands/IntakePowerCells.h>
 #include <commands/DefaultIntakeControl.h>
 #include <commands/RaiseIntake.h>
@@ -43,10 +46,14 @@
 #include <commands/Shooter/AngleShooterDown.h>
 #include <commands/Shooter/ShooterHoldAngle.h>
 
-#include "commands/ControlPanelManipulator/ControlPanelHold.h"
-#include "commands/ControlPanelManipulator/ControlPanelLift.h"
-#include "commands/ControlPanelManipulator/ControlPanelLower.h"
-#include "commands/ControlPanelManipulator/ControlPanelRotate.h"
+#include "commands/Climber/Climb.h"
+#include "commands/Climber/ClimbDown.h"
+#include "commands/Climber/ClimbHold.h"
+
+#include "commands/RotateAngle.h"
+
+// Auto commands
+#include "commands/Auto/ThreeBallShoot.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -63,14 +70,16 @@ class RobotContainer {
 
  //private:
   // The robot's subsystems and commands are defined here...
-  DriveSubsystem   m_driveSubsystem;
-  ShooterSubsystem m_shooterSubsystem;
-  IntakeSubsystem  m_intakeSubsystem;
-  IndexerSubsystem  m_indexerSubsystem;
-  ControlPanelSubsystem m_controlPanelSubsystem; 
+  DriveSubsystem        m_driveSubsystem;
+  ShooterSubsystem      m_shooterSubsystem;
+  IntakeSubsystem       m_intakeSubsystem;
+  IndexerSubsystem      m_indexerSubsystem;
+  ClimberSubsystem      m_climberSubsystem;
 
   frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
   frc::Joystick       m_buttonBoard{ 1 };
+  AHRS                ahrs{ frc::SPI::Port::kMXP };
+
 
   void ConfigureButtonBindings();
 
@@ -79,7 +88,6 @@ class RobotContainer {
   DefaultDrive         m_defaultDriveCommand;
   PrepareToShoot       m_prepareToShootCommand;
   IntakePowerCells     m_intakePowerCellsCommand;
-  ControlPanelRaise    m_controlPanelRaiseCommand;
   DefaultIntakeControl m_defaultIntakeControlCommand;
   RaiseIntake          m_raiseIntakeCommand;
   LowerIntake          m_lowerIntakeCommand;
@@ -101,9 +109,12 @@ class RobotContainer {
   AngleShooterDown  m_angleShooterDown;
   ShooterHoldAngle  m_shooterHoldAngle;
 
-  // Control Panel Manipulator Commands
-  ControlPanelHold    m_controlPanelHold;
-  ControlPanelLift    m_controlPanelLift;
-  ControlPanelLower   m_controlPanelLower;
-  ControlPanelRotate  m_controlPanelRotate;
+  // Climb Commands
+  Climb      m_climb;
+  ClimbDown  m_climbDown;
+  ClimbHold  m_climbHold;
+
+  ThreeBallShoot      m_autoThreeBallShoot;
+
+  //frc2::SequentialCommandGroup ThreeBallShoot{ m_intakeInCommand, m_controlPanelLift };
 };

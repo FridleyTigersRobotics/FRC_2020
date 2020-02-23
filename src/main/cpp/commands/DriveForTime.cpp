@@ -5,25 +5,33 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ControlPanelManipulator/ControlPanelHold.h"
+#include "commands/DriveForTime.h"
 
-ControlPanelHold::ControlPanelHold(ControlPanelSubsystem* Subsystem):
- m_ControlSubsystem{Subsystem}
+
+
+DriveForTime::DriveForTime(double driveTime, DriveSubsystem* subsystem) :
+  m_drive{subsystem}
 {
-  AddRequirements( { Subsystem } );
+  // Use addRequirements() here to declare subsystem dependencies.
+  m_driveTime = driveTime;
+  m_timer.Reset();
+  m_timer.Start();
 }
 
 // Called when the command is initially scheduled.
-void ControlPanelHold::Initialize() {}
+void DriveForTime::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ControlPanelHold::Execute() 
-{
-  m_ControlSubsystem->StopLift();
-  m_ControlSubsystem->StopSpinning();
+void DriveForTime::Execute() {
+  m_drive->ArcadeDrive( 0.2, 0.0 );
 }
+
 // Called once the command ends or is interrupted.
-void ControlPanelHold::End(bool interrupted) {}
+void DriveForTime::End(bool interrupted) {
+  m_drive->ArcadeDrive( 0.0, 0.0 );
+}
 
 // Returns true when the command should end.
-bool ControlPanelHold::IsFinished() { return false; }
+bool DriveForTime::IsFinished() { 
+  return ( m_timer.Get() >= m_driveTime ); 
+}

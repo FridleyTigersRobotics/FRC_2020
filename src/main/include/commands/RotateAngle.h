@@ -9,8 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-
-#include <subsystems/ControlPanelSubsystem.h>
+#include <subsystems/DriveSubsystem.h>
 
 /**
  * An example command.
@@ -19,10 +18,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ControlPanelRotate
-    : public frc2::CommandHelper<frc2::CommandBase, ControlPanelRotate> {
+class RotateAngle
+    : public frc2::CommandHelper<frc2::CommandBase, RotateAngle> {
  public:
-  ControlPanelRotate(ControlPanelSubsystem* Subsystem);
+  RotateAngle(double angleChange, DriveSubsystem* subsystem);
 
   void Initialize() override;
 
@@ -32,6 +31,9 @@ class ControlPanelRotate
 
   bool IsFinished() override;
 
-private:
-       ControlPanelSubsystem* m_ControlSubsystem;
+ private:
+  double m_targetAngle;
+  double m_angleChange;
+  DriveSubsystem* m_drive;
+  unsigned int m_angleCorrectCount;
 };

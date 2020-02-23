@@ -5,9 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <Constants.h>
+
 #include "subsystems/ClimberSubsystem.h"
 
-ClimberSubsystem::ClimberSubsystem() {}
+ClimberSubsystem::ClimberSubsystem() :
+    m_climbMotor{ ClimbSubsystemConstants::kClimbMotorCanId, rev::CANSparkMax::MotorType::kBrushless }
+{}
+
+void ClimberSubsystem::ClimbUp() {
+    m_climbMotor.Set( 0.1 );
+}
+
+void ClimberSubsystem::ClimbDown() {
+    m_climbMotor.Set( 0.0 );
+}
+
+void ClimberSubsystem::ClimbHold() {
+    m_climbMotor.Set( -0.1 );
+}
 
 // This method will be called once per scheduler run
 void ClimberSubsystem::Periodic() {}

@@ -16,6 +16,9 @@
 
 
 RobotContainer::RobotContainer() :
+  m_driveSubsystem{
+    [this] { return ahrs.GetAngle(); }
+  }, 
   m_defaultDriveCommand{
     &m_driveSubsystem,
     [this] { return -m_driverController.GetY( frc::GenericHID::kLeftHand );  },
@@ -26,15 +29,11 @@ RobotContainer::RobotContainer() :
     &m_shooterSubsystem,
     &m_intakeSubsystem,
     &m_indexerSubsystem,
-    &m_controlPanelSubsystem,
     [this] { return m_buttonBoard.GetRawButton( 8 ); }
   },
   m_intakePowerCellsCommand{
     &m_intakeSubsystem,
     &m_indexerSubsystem
-  },
-  m_controlPanelRaiseCommand{
-    &m_controlPanelSubsystem
   },
   m_defaultIntakeControlCommand{
     &m_intakeSubsystem
@@ -47,7 +46,6 @@ RobotContainer::RobotContainer() :
   },
   m_changeShooterAngleComand{
     &m_shooterSubsystem,
-    &m_controlPanelSubsystem,
     &m_intakeSubsystem,
     [this] { return m_driverController.GetBumper( frc::GenericHID::kRightHand ); },
     [this] { return m_driverController.GetBumper( frc::GenericHID::kLeftHand ); }
@@ -82,27 +80,28 @@ RobotContainer::RobotContainer() :
   m_shooterHoldAngle{
      &m_shooterSubsystem
   },
-  m_controlPanelHold{
-     &m_controlPanelSubsystem
+  m_climb{
+     &m_climberSubsystem
   },
-  m_controlPanelLift{
-     &m_controlPanelSubsystem
+  m_climbDown{
+     &m_climberSubsystem
   },
-  m_controlPanelLower{
-     &m_controlPanelSubsystem
+  m_climbHold{
+     &m_climberSubsystem
   },
-  m_controlPanelRotate{
-     &m_controlPanelSubsystem
+  m_autoThreeBallShoot{
+    &m_driveSubsystem
   }
 {
   // Initialize all of your commands and subsystems here
-
+  
   // Set up default subsystem commands
   m_driveSubsystem.SetDefaultCommand( m_defaultDriveCommand );
-  m_controlPanelSubsystem.SetDefaultCommand( m_controlPanelHold );
   m_intakeSubsystem.SetDefaultCommand( m_lowerIntakeCommand );
   m_shooterSubsystem.SetDefaultCommand( m_stopShooterCommand );
   m_indexerSubsystem.SetDefaultCommand( m_indexerStopCommand );
+  m_climberSubsystem.SetDefaultCommand( m_climbHold );
+
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -152,8 +151,16 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton( &m_buttonBoard, (int)7 ).WhileHeld( m_prepareToShootCommand );
   //frc2::JoystickButton( &m_buttonBoard, (int)8 ).WhileHeld( shoot );
 
-  frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenPressed( m_controlPanelLift );
-  frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhileHeld( m_controlPanelRotate );
+  //frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenPressed( m_controlPanelLift );
+  //frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhileHeld( m_controlPanelRotate );
+
+  //frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed( RotateAngle( 90, &m_driveSubsystem ) );
+
+  frc2::JoystickButton( &m_buttonBoard, (int)2 ).WhenPressed( m_climb );
+  frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed( m_climbDown );
+
+  //frc2::InstantCommand 
+
 
 #if 0
   frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kA )
@@ -232,5 +239,5 @@ void RobotContainer::ConfigureButtonBindings() {
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
   //return &m_autonomousCommand;
-  return nullptr;
+  return &m_autoThreeBallShoot;
 }

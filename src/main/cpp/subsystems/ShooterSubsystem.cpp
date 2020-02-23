@@ -60,12 +60,15 @@ ShooterSubsystem::ShooterSubsystem( )  :
 
 // This method will be called once per scheduler run
 void ShooterSubsystem::Periodic() {
-    //std::cout << "angle " << GetRotationDegreeA() << " " << GetRotationDegreeB() << "\n";
-    std::cout << "shoot " << 
-    m_motorShooterLeft.GetMotorOutputPercent() << " " << 
-    m_motorShooterLeft.GetSelectedSensorVelocity( ShooterConstants::kSensorId ) << " " << " " << 
-    m_motorShooterRight.GetMotorOutputPercent() << " " << 
-    m_motorShooterRight.GetSelectedSensorVelocity( ShooterConstants::kSensorId ) << "\n";
+    if ( 0 )
+    {
+        //std::cout << "angle " << GetRotationDegreeA() << " " << GetRotationDegreeB() << "\n";
+        std::cout << "shoot " << 
+        m_motorShooterLeft.GetMotorOutputPercent() << " " << 
+        m_motorShooterLeft.GetSelectedSensorVelocity( ShooterConstants::kSensorId ) << " " << " " << 
+        m_motorShooterRight.GetMotorOutputPercent() << " " << 
+        m_motorShooterRight.GetSelectedSensorVelocity( ShooterConstants::kSensorId ) << "\n";
+    }
 }
 
 

@@ -5,27 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include <subsystems/DriveSubsystem.h>
 
-#include <frc2/command/SubsystemBase.h>
+#include "commands/Auto/ThreeBallShoot.h"
+#include "commands/RotateAngle.h"
 
-#include <rev/CANSparkMax.h>
+// NOTE:  Consider using this command inline, rather than writing a subclass.
+// For more information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+ThreeBallShoot::ThreeBallShoot( DriveSubsystem *driveSubsystem ) {
+  AddCommands(
+    RotateAngle( 90, driveSubsystem ),
+    RotateAngle( -90, driveSubsystem )
+  );
 
-class ClimberSubsystem : public frc2::SubsystemBase {
- public:
-  ClimberSubsystem();
-
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic();
-
-void ClimbUp();
-
-void ClimbDown();
-
-void ClimbHold();
-
- private:
-    rev::CANSparkMax m_climbMotor;
-};
+}

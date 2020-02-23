@@ -5,40 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ControlPanelRaise.h"
-#include "subsystems/ControlPanelSubsystem.h"
+#include "commands/Climber/Climb.h"
 
-ControlPanelRaise::ControlPanelRaise(ControlPanelSubsystem* Subsystem):
- m_ControlSubsystem{Subsystem}
+Climb::Climb(ClimberSubsystem* climberSubsystem) :
+  m_climberSubsystem{ climberSubsystem }
 {
-  AddRequirements( { Subsystem } );
+  AddRequirements( { climberSubsystem } );
 }
 
 // Called when the command is initially scheduled.
-void ControlPanelRaise::Initialize() {
-}
+void Climb::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ControlPanelRaise::Execute() 
+void Climb::Execute() 
 {
-  m_ControlSubsystem->LiftControlPanelArm();
-
-  if ( m_ControlSubsystem->IsTopLimitEngaged() )
-  {
-    m_ControlSubsystem->StartSpinning();
-  }
-  else
-  {
-    m_ControlSubsystem->StopSpinning();
-  }
+  m_climberSubsystem->ClimbUp();
 }
 
 // Called once the command ends or is interrupted.
-void ControlPanelRaise::End(bool interrupted) 
-{
-  m_ControlSubsystem->StopLift();
-  m_ControlSubsystem->StopSpinning();
+void Climb::End(bool interrupted) {
+  m_climberSubsystem->ClimbHold();
 }
 
 // Returns true when the command should end.
-bool ControlPanelRaise::IsFinished() { return false; }
+bool Climb::IsFinished() { return false; }

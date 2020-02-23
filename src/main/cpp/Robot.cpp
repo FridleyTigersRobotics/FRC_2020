@@ -47,7 +47,12 @@ void Robot::AutonomousInit() {
   m_autonomousCommand = m_container.GetAutonomousCommand();
 
   if (m_autonomousCommand != nullptr) {
+    std::cout << "CommandListScheduled\n";
     m_autonomousCommand->Schedule();
+  }
+  else
+  {
+      std::cout << "CommandList NOT Scheduled\n";
   }
 }
 
@@ -65,7 +70,7 @@ void Robot::TeleopInit() {
   xEntry = table->GetEntry("xVal");
   yEntry = table->GetEntry("yVal");
   ledStateEntry = ledTable->GetEntry("val");
-  
+  m_container.ahrs.Reset();
   // This makes sure that the autonomous stops running when
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
@@ -80,7 +85,25 @@ void Robot::TeleopInit() {
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic() {}
+
+int reportCount = 0;
+
+void Robot::TeleopPeriodic() {
+
+reportCount++;
+
+if ( reportCount == 20 )
+{
+
+  //std::cout << "x " << m_container.ahrs.GetRawGyroX() << " ";
+  //std::cout << "y " << m_container.ahrs.GetRawGyroY() << " ";
+  //std::cout << "z " << m_container.ahrs.GetRawGyroZ() << "\n";
+
+  //std::cout << "z " << m_container.ahrs.GetAngle() << "\n";
+  reportCount = 0;
+}
+
+}
 
 /**
  * This function is called periodically during test mode.

@@ -16,7 +16,7 @@
 
 class DriveSubsystem : public frc2::SubsystemBase {
  public:
-  DriveSubsystem();
+  DriveSubsystem( std::function<double()> currentAngle );
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -43,6 +43,9 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   void RotateToTarget();
 
+  double GetAngle();
+
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
@@ -61,4 +64,6 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   // The robot's drive
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
+
+  std::function<double()> m_currentAngle;
 };

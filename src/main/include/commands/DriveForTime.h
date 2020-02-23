@@ -9,8 +9,9 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <subsystems/DriveSubsystem.h>
 
-#include <subsystems/ControlPanelSubsystem.h>
+#include <frc/Timer.h>
 
 /**
  * An example command.
@@ -19,10 +20,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ControlPanelLower
-    : public frc2::CommandHelper<frc2::CommandBase, ControlPanelLower> {
+class DriveForTime
+    : public frc2::CommandHelper<frc2::CommandBase, DriveForTime> {
  public:
-  ControlPanelLower(ControlPanelSubsystem* Subsystem);
+  DriveForTime(double driveTime, DriveSubsystem* subsystem);
 
   void Initialize() override;
 
@@ -33,5 +34,7 @@ class ControlPanelLower
   bool IsFinished() override;
 
 private:
-       ControlPanelSubsystem* m_ControlSubsystem;
+  double m_driveTime;
+  frc::Timer m_timer;
+  DriveSubsystem* m_drive;
 };

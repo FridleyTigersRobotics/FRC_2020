@@ -72,10 +72,7 @@ namespace Controlpanelconstants {
     constexpr auto i2cPort = frc::I2C::Port::kOnboard;
 }  // namespace Controlpanelconstants
 
-namespace ClimbsubsystemConstants { 
-    constexpr int kClimbMotorPort = 7;
-    constexpr int kHookMotorPort =  8;
-
-
-
+namespace ClimbSubsystemConstants { 
+    constexpr int kClimbMotorCanId = 6;
+    constexpr int kHookMotorPort  =  7;
 }
