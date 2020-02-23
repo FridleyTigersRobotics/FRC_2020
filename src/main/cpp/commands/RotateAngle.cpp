@@ -28,20 +28,20 @@ void RotateAngle::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void RotateAngle::Execute() {
   double const angleDiffMaxPower    = 90;
-  double const angleDiff            = m_targetAngle - m_drive->GetAngle();
+  double const angleDiff            = m_drive->GetAngle() - m_targetAngle;
   double const rotateSpeedAbsMin    = 0.4;
-  double const rotateSpeedAbsMax    = 1.0;
+  double const rotateSpeedAbsMax    = 0.5;
   double const rotateSpeed          = angleDiff / angleDiffMaxPower;
   double const rotateSpeedSaturated =
     ( rotateSpeed > 0 ) ? 
         std::clamp( rotateSpeed,  rotateSpeedAbsMin,  rotateSpeedAbsMax ) :
         std::clamp( rotateSpeed, -rotateSpeedAbsMax, -rotateSpeedAbsMin );
 
-  std::cout << "Change Execute" << "\n";
-  m_angleCorrectCount = 5;
-  m_drive->ArcadeDrive( 0.0, 0.0 );
-  //m_drive->ArcadeDrive( 0.0, rotateSpeedSaturated );
-/*
+  std::cout << "Change Execute " << angleDiff << " " << rotateSpeedSaturated << "\n";
+  //m_angleCorrectCount = 5;
+  //m_drive->ArcadeDrive( 0.0, 0.0 );
+  m_drive->ArcadeDrive( 0.0, rotateSpeedSaturated );
+
   if ( fabs( angleDiff ) < 10.0 )
   {
     m_angleCorrectCount++;
@@ -49,7 +49,7 @@ void RotateAngle::Execute() {
   else
   {
     m_angleCorrectCount = 0;
-  }*/
+  }
 }
 
 // Called once the command ends or is interrupted.

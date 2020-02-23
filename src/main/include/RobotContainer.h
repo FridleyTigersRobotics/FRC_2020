@@ -11,6 +11,8 @@
 #include <frc/XboxController.h>
 #include <frc/JoyStick.h>
 #include <frc/Spi.h>
+#include <frc/AnalogGyro.h>
+#include <frc/AnalogInput.h>
 #include <AHRS.h>
 
 #include <frc2/command/SequentialCommandGroup.h>
@@ -46,10 +48,6 @@
 #include <commands/Shooter/AngleShooterDown.h>
 #include <commands/Shooter/ShooterHoldAngle.h>
 
-#include "commands/Climber/Climb.h"
-#include "commands/Climber/ClimbDown.h"
-#include "commands/Climber/ClimbHold.h"
-
 #include "commands/RotateAngle.h"
 
 // Auto commands
@@ -79,14 +77,18 @@ class RobotContainer {
 
   frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
   frc::Joystick       m_buttonBoard{ 1 };
-  AHRS                ahrs{ frc::SPI::Port::kMXP };
-
+  frc::AnalogGyro     m_gyro{ 0 };
+  //frc::AnalogInput     m_gyro{ 0 };
 
   void ConfigureButtonBindings();
 
-  frc2::InstantCommand m_liftHook{  [this] { m_climberHookLiftSubsystem.Lift(); }, {&m_climberHookLiftSubsystem}};
+  frc2::InstantCommand m_liftHook{  [this] { m_climberHookLiftSubsystem.Lift(); },  {&m_climberHookLiftSubsystem}};
   frc2::InstantCommand m_lowerHook{ [this] { m_climberHookLiftSubsystem.Lower(); }, {&m_climberHookLiftSubsystem}};
-  frc2::InstantCommand m_holdHook{  [this] { m_climberHookLiftSubsystem.Hold(); }, {&m_climberHookLiftSubsystem}};
+  frc2::InstantCommand m_holdHook{  [this] { m_climberHookLiftSubsystem.Hold(); },  {&m_climberHookLiftSubsystem}};
+
+  frc2::InstantCommand m_climbUp  { [this] { m_climberSubsystem.ClimbUp();   },  {&m_climberSubsystem}};
+  frc2::InstantCommand m_climbDown{ [this] { m_climberSubsystem.ClimbDown(); },  {&m_climberSubsystem}};
+  frc2::InstantCommand m_climbHold{ [this] { m_climberSubsystem.ClimbHold(); },  {&m_climberSubsystem}};
 
   // Commands
   DefaultDrive         m_defaultDriveCommand;
@@ -112,11 +114,6 @@ class RobotContainer {
   AngleShooterUp    m_angleShooterUp;
   AngleShooterDown  m_angleShooterDown;
   ShooterHoldAngle  m_shooterHoldAngle;
-
-  // Climb Commands
-  Climb      m_climb;
-  ClimbDown  m_climbDown;
-  ClimbHold  m_climbHold;
 
   ThreeBallShoot      m_autoThreeBallShoot;
 

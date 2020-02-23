@@ -14,16 +14,17 @@ DriveForTime::DriveForTime(double driveTime, DriveSubsystem* subsystem) :
 {
   // Use addRequirements() here to declare subsystem dependencies.
   m_driveTime = driveTime;
+}
+
+// Called when the command is initially scheduled.
+void DriveForTime::Initialize()  {
   m_timer.Reset();
   m_timer.Start();
 }
 
-// Called when the command is initially scheduled.
-void DriveForTime::Initialize() {}
-
 // Called repeatedly when this Command is scheduled to run
 void DriveForTime::Execute() {
-  m_drive->ArcadeDrive( 0.2, 0.0 );
+  m_drive->ArcadeDrive( 0.3, 0.0 );
 }
 
 // Called once the command ends or is interrupted.

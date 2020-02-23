@@ -99,7 +99,7 @@ if ( reportCount == 20 )
   //std::cout << "y " << m_container.ahrs.GetRawGyroY() << " ";
   //std::cout << "z " << m_container.ahrs.GetRawGyroZ() << "\n";
 
-  //std::cout << "z " << m_container.ahrs.GetAngle() << "\n";
+  std::cout << "angle " << m_container.m_gyro.GetAngle() << "\n";
   reportCount = 0;
 }
 

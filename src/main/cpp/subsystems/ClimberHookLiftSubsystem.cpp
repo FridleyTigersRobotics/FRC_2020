@@ -17,13 +17,13 @@ ClimberHookLiftSubsystem::ClimberHookLiftSubsystem() :
 
 void ClimberHookLiftSubsystem::Lift() {
     m_hookMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-    0.1 );
+    0.5 );
     std::cout << "Hook Lift\n";
 }
 
 void ClimberHookLiftSubsystem::Lower() {
     m_hookMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-    -0.1 );
+    -0.5 );
     std::cout << "Hook Lower\n";
 }
 

@@ -9,6 +9,7 @@
 
 #include "commands/Auto/ThreeBallShoot.h"
 #include "commands/RotateAngle.h"
+#include "commands/DriveForTime.h"
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
@@ -16,6 +17,7 @@
 ThreeBallShoot::ThreeBallShoot( DriveSubsystem *driveSubsystem ) {
   AddCommands(
     RotateAngle( 90, driveSubsystem ),
+    DriveForTime( 3.0, driveSubsystem ),
     RotateAngle( -90, driveSubsystem )
   );
 

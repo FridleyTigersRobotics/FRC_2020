@@ -53,7 +53,7 @@ void IndexerSubsystem::Periodic()
         if ( count > 100 )
         {
             //std::cout << "ball: " << m_ballDetector.Get() << "\n";
-            //std::cout << "m_conveyorEncoder: " << m_ballDetector.Get() << " " << m_conveyorEncoder.Get() << " " << m_conveyorEncoder.GetRaw() <<  " " << m_conveyorEncoder.GetDistance() << "\n";
+            std::cout << "m_conveyorEncoder: " << m_ballDetector.Get() << " " << m_conveyorEncoder.Get() << " " << m_conveyorEncoder.GetRaw() <<  " " << m_conveyorEncoder.GetDistance() << "\n";
             count = 0;
         }
     }

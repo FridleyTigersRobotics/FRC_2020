@@ -29,8 +29,8 @@ namespace DriveConstants {
 namespace ShooterConstants {
     constexpr int kLeftMotorCanId  = 1;
     constexpr int kRightMotorCanId = 2;
-    constexpr int kjda = 0; //analog input channel A for John Deere rotation sensor
-    constexpr int kjdb = 1; //analog input channel B for John Deere rotation sensor
+    constexpr int kjda = 1; //analog input channel A for John Deere rotation sensor
+    constexpr int kjdb = 2; //analog input channel B for John Deere rotation sensor
     constexpr double kDistPerRotation = 360;  //how far the nechanism travels in 1 rotation of the encoder in angular degrees
 
     constexpr int kLoaderMotorCanId = 3;
@@ -39,7 +39,7 @@ namespace ShooterConstants {
     constexpr int kSensorId         = 0;
 
 
-    constexpr float ShooterRpmTarget = 4000.0f; // 20000~30000
+    constexpr float ShooterRpmTarget = 10000.0f; // 20000~30000
     constexpr float ShooterRpmMin    = 480.0f;
     constexpr float ShooterRpmMax    = 520.0f;
 
@@ -63,14 +63,6 @@ namespace IndexerSubsystemConstants {
 
     constexpr double kIndexerMotorSpeed  = 0.3;
 }  // namespace IndexerSubsystemConstants
-
-namespace Controlpanelconstants {
-    constexpr int kControlPanelLiftMotorCanId = 6;
-    constexpr int kControlPanelSpinMotorCanId = 4;
-    constexpr int kIntakeTopLimitDioPort      = 1;
-    constexpr int kIntakeBotLimitDioPort      = 0;
-    constexpr auto i2cPort = frc::I2C::Port::kOnboard;
-}  // namespace Controlpanelconstants
 
 namespace ClimbSubsystemConstants { 
     constexpr int kClimbMotorCanId = 6;

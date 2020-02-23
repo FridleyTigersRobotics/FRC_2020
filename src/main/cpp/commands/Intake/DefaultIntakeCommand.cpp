@@ -5,31 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Climber/Climb.h"
+#include "commands/Intake/DefaultIntakeCommand.h"
 
-Climb::Climb(ClimberSubsystem* climberSubsystem) :
-  m_climberSubsystem{ climberSubsystem }
+DefaultIntakeCommand::DefaultIntakeCommand( IntakeSubsystem*  intakeSubsystem ) :
+  m_intakeSubsystem {intakeSubsystem}
 {
-  AddRequirements( { climberSubsystem } );
+  AddRequirements( { intakeSubsystem } );
 }
 
 // Called when the command is initially scheduled.
-void Climb::Initialize() {
-  m_climberSubsystem->ClimbUp();
-  std::cout << "ClimbUp\n" << std::flush;
-}
+void DefaultIntakeCommand::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void Climb::Execute() 
-{
-  //std::cout << "ClimbUp\n";
+void DefaultIntakeCommand::Execute() {
   
 }
 
 // Called once the command ends or is interrupted.
-void Climb::End(bool interrupted) {
-  m_climberSubsystem->ClimbHold();
-}
+void DefaultIntakeCommand::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool Climb::IsFinished() { return false; }
+bool DefaultIntakeCommand::IsFinished() { return false; }
