@@ -70,7 +70,7 @@ void Robot::TeleopInit() {
   xEntry = table->GetEntry("xVal");
   yEntry = table->GetEntry("yVal");
   ledStateEntry = ledTable->GetEntry("val");
-  m_container.ahrs.Reset();
+  //m_container.ahrs.Reset();
   // This makes sure that the autonomous stops running when
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove

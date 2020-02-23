@@ -74,5 +74,5 @@ namespace Controlpanelconstants {
 
 namespace ClimbSubsystemConstants { 
     constexpr int kClimbMotorCanId = 6;
-    constexpr int kHookMotorPort  =  7;
+    constexpr int kHookMotorCanId  = 7;
 }

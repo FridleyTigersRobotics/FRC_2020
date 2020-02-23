@@ -14,12 +14,16 @@ Climb::Climb(ClimberSubsystem* climberSubsystem) :
 }
 
 // Called when the command is initially scheduled.
-void Climb::Initialize() {}
+void Climb::Initialize() {
+  m_climberSubsystem->ClimbUp();
+  std::cout << "ClimbUp\n" << std::flush;
+}
 
 // Called repeatedly when this Command is scheduled to run
 void Climb::Execute() 
 {
-  m_climberSubsystem->ClimbUp();
+  //std::cout << "ClimbUp\n";
+  
 }
 
 // Called once the command ends or is interrupted.

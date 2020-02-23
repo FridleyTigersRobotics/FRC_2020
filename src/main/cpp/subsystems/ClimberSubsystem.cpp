@@ -11,19 +11,21 @@
 
 ClimberSubsystem::ClimberSubsystem() :
     m_climbMotor{ ClimbSubsystemConstants::kClimbMotorCanId, rev::CANSparkMax::MotorType::kBrushless }
-{}
+{ 
+}
 
 void ClimberSubsystem::ClimbUp() {
     m_climbMotor.Set( 0.1 );
 }
 
 void ClimberSubsystem::ClimbDown() {
-    m_climbMotor.Set( 0.0 );
+    m_climbMotor.Set( -0.1 );
 }
 
 void ClimberSubsystem::ClimbHold() {
-    m_climbMotor.Set( -0.1 );
+    m_climbMotor.Set( 0.0 );
 }
+
 
 // This method will be called once per scheduler run
 void ClimberSubsystem::Periodic() {}

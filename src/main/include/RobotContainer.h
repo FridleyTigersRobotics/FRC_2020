@@ -14,6 +14,7 @@
 #include <AHRS.h>
 
 #include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/InstantCommand.h>
 
 #include <Constants.h>
 
@@ -22,8 +23,7 @@
 #include <subsystems/IntakeSubsystem.h>
 #include <subsystems/IndexerSubsystem.h>
 #include <subsystems/ClimberSubsystem.h>
-
-
+#include <subsystems/ClimberHookLiftSubsystem.h>
 
 #include <commands/DefaultDrive.h>
 #include <commands/PrepareToShoot.h>
@@ -70,11 +70,12 @@ class RobotContainer {
 
  //private:
   // The robot's subsystems and commands are defined here...
-  DriveSubsystem        m_driveSubsystem;
-  ShooterSubsystem      m_shooterSubsystem;
-  IntakeSubsystem       m_intakeSubsystem;
-  IndexerSubsystem      m_indexerSubsystem;
-  ClimberSubsystem      m_climberSubsystem;
+  DriveSubsystem           m_driveSubsystem;
+  ShooterSubsystem         m_shooterSubsystem;
+  IntakeSubsystem          m_intakeSubsystem;
+  IndexerSubsystem         m_indexerSubsystem;
+  ClimberSubsystem         m_climberSubsystem;
+  ClimberHookLiftSubsystem m_climberHookLiftSubsystem;
 
   frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
   frc::Joystick       m_buttonBoard{ 1 };
@@ -83,6 +84,9 @@ class RobotContainer {
 
   void ConfigureButtonBindings();
 
+  frc2::InstantCommand m_liftHook{  [this] { m_climberHookLiftSubsystem.Lift(); }, {&m_climberHookLiftSubsystem}};
+  frc2::InstantCommand m_lowerHook{ [this] { m_climberHookLiftSubsystem.Lower(); }, {&m_climberHookLiftSubsystem}};
+  frc2::InstantCommand m_holdHook{  [this] { m_climberHookLiftSubsystem.Hold(); }, {&m_climberHookLiftSubsystem}};
 
   // Commands
   DefaultDrive         m_defaultDriveCommand;

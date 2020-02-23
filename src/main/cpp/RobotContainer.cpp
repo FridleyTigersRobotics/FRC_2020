@@ -101,7 +101,7 @@ RobotContainer::RobotContainer() :
   m_shooterSubsystem.SetDefaultCommand( m_stopShooterCommand );
   m_indexerSubsystem.SetDefaultCommand( m_indexerStopCommand );
   m_climberSubsystem.SetDefaultCommand( m_climbHold );
-
+  m_climberHookLiftSubsystem.SetDefaultCommand( m_holdHook );
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -156,9 +156,13 @@ void RobotContainer::ConfigureButtonBindings() {
 
   //frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed( RotateAngle( 90, &m_driveSubsystem ) );
 
-  frc2::JoystickButton( &m_buttonBoard, (int)2 ).WhenPressed( m_climb );
-  frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed( m_climbDown );
+  frc2::JoystickButton( &m_buttonBoard, (int)2 ).WhileHeld( m_climb );
+  frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhileHeld( m_climbDown );
 
+  frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenPressed( m_liftHook  );
+  frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenReleased( m_holdHook  );
+  frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhenPressed( m_lowerHook  );
+  frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhenReleased( m_holdHook  );
   //frc2::InstantCommand 
 
 

@@ -5,6 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <stdio.h>
+
 #include "commands/Climber/ClimbHold.h"
 
 ClimbHold::ClimbHold(ClimberSubsystem* climberSubsystem) :
@@ -14,12 +16,16 @@ ClimbHold::ClimbHold(ClimberSubsystem* climberSubsystem) :
 }
 
 // Called when the command is initially scheduled.
-void ClimbHold::Initialize() {}
+void ClimbHold::Initialize() {
+  m_climberSubsystem->ClimbHold();
+  std::cout << "ClimbHold\n" << std::flush;
+}
 
 // Called repeatedly when this Command is scheduled to run
 void ClimbHold::Execute() 
 {
-  m_climberSubsystem->ClimbUp();
+  //std::cout << "ClimbHold\n";
+  
 }
 
 // Called once the command ends or is interrupted.
