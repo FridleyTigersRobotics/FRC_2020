@@ -10,14 +10,17 @@
 PrepareToShoot::PrepareToShoot( 
   DriveSubsystem*   driveSubsystem,
   ShooterSubsystem* shooterSubsystem,
-  IntakeSubsystem*  intakeSubsystem )
+  IntakeSubsystem*  intakeSubsystem,
+  bool              endWhenReadyToShoot )
  :
   m_driveSubsystem{driveSubsystem},
   m_shooterSubsystem{shooterSubsystem},
-  m_intakeSubsystem{intakeSubsystem}
+  m_intakeSubsystem{intakeSubsystem},
+  m_endWhenReadyToShoot{endWhenReadyToShoot}
 {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({driveSubsystem, shooterSubsystem, intakeSubsystem});
+  m_readyToShoot = false;
 }
 
 
@@ -39,8 +42,10 @@ void PrepareToShoot::Execute() {
   else
   {
     m_intakeSubsystem->HoldIntake();
-    m_driveSubsystem->RotateToTarget();
-    m_shooterSubsystem->TiltToTarget();
+    bool xReady = m_driveSubsystem->RotateToTarget();
+    bool yReady = m_shooterSubsystem->TiltToTarget();
+
+    m_readyToShoot = xReady && yReady;
   }
 }
 
@@ -55,4 +60,6 @@ void PrepareToShoot::End(bool interrupted) {
 }
 
 // Returns true when the command should end.
-bool PrepareToShoot::IsFinished() { return false; }
+bool PrepareToShoot::IsFinished() { 
+  return m_endWhenReadyToShoot && m_readyToShoot; 
+}

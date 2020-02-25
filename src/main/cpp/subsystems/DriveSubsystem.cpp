@@ -39,7 +39,7 @@ void DriveSubsystem::SetMaxOutput(double maxOutput) {
 }
 
 
-void DriveSubsystem::RotateToTarget()
+bool DriveSubsystem::RotateToTarget()
 {
   bool const debugOutput = false;
 
@@ -54,6 +54,7 @@ void DriveSubsystem::RotateToTarget()
 
   if ( xVal < 0 )
   {
+    m_goodAngleCount = 0;
     m_drive.ArcadeDrive( 0.0, 0.0 );
   }
   else
@@ -73,6 +74,9 @@ void DriveSubsystem::RotateToTarget()
       double const tempSpeed = ( speed < minSpeed ) ? minSpeed : speed;
       double const finalSpeed = ( tempSpeed > maxSpeed ) ? maxSpeed : tempSpeed;
 
+
+      m_goodAngleCount = 0;
+
       if ( offset > 0 )
       {
         std::cout << "rot: " << -finalSpeed  << "\n";
@@ -87,9 +91,12 @@ void DriveSubsystem::RotateToTarget()
     }
     else
     {
+      m_goodAngleCount++;
       m_drive.ArcadeDrive( 0.0, 0.0 );
     } 
   }
+
+  return m_goodAngleCount > 5;
 }
 
 

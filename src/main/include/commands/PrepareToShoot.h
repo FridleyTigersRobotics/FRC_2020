@@ -28,7 +28,8 @@ class PrepareToShoot
  public:
   PrepareToShoot( DriveSubsystem*   driveSubsystem,
                   ShooterSubsystem* shooterSubsystem,
-                  IntakeSubsystem*  intakeSubsystem );
+                  IntakeSubsystem*  intakeSubsystem,
+                  bool              endWhenReadyToShoot );
 
   void Initialize() override;
 
@@ -42,4 +43,6 @@ class PrepareToShoot
   DriveSubsystem*   m_driveSubsystem; 
   ShooterSubsystem* m_shooterSubsystem;
   IntakeSubsystem*  m_intakeSubsystem;
+  bool              m_endWhenReadyToShoot;
+  bool m_readyToShoot;
 };

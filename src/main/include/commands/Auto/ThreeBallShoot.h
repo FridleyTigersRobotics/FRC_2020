@@ -7,6 +7,9 @@
 
 #pragma once
 #include <subsystems/DriveSubsystem.h>
+#include <subsystems/ShooterSubsystem.h>
+#include <subsystems/IntakeSubsystem.h>
+#include <subsystems/IndexerSubsystem.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/SequentialCommandGroup.h>
 
@@ -14,5 +17,10 @@ class ThreeBallShoot
     : public frc2::CommandHelper<frc2::SequentialCommandGroup,
                                  ThreeBallShoot> {
  public:
-  ThreeBallShoot( DriveSubsystem *driveSubsystem );
+  ThreeBallShoot( 
+    DriveSubsystem   *driveSubsystem,
+    ShooterSubsystem *shooterSubsystem,
+    IntakeSubsystem  *intakeSubsystem,
+    IndexerSubsystem *indexerSubsystem
+  );
 };

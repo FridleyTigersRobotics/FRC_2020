@@ -55,7 +55,7 @@ ShooterSubsystem::ShooterSubsystem( )  :
     m_motorShooterRight.Config_kI(ShooterConstants::kSensorId, 0.0, kTimeoutMs);
     m_motorShooterRight.Config_kD(ShooterConstants::kSensorId, 0.0, kTimeoutMs);
 
-
+    m_goodAngleCount = 0;
 }
 
 // This method will be called once per scheduler run
@@ -191,33 +191,39 @@ double ShooterSubsystem::CalculateTargetAngleFromCameraValue( double cameraValue
 
 
 
-void ShooterSubsystem::TiltToAngle( double angle ) {
+bool ShooterSubsystem::TiltToAngle( double angle ) {
     if ( GetRotationDegreeB() < ( angle - 0.005) )
     {
+        m_goodAngleCount = 0;
         AngleShooterUp();
     }
     else if (  GetRotationDegreeB() > ( angle + 0.005) )
     {
+        m_goodAngleCount = 0;
         AngleShooterDown();
     }
     else
     {
+        m_goodAngleCount++;
         StopShooterAngle();
     }
+    return m_goodAngleCount > 5;
 }
 
 
 
-void ShooterSubsystem::TiltToTarget() {
+bool ShooterSubsystem::TiltToTarget() {
    extern nt::NetworkTableEntry yEntry;
    double const yVal = yEntry.GetDouble( -1.0 );
+   bool goodAngle = false;
    if ( yVal > 0 )
    {
     double const angle = CalculateTargetAngleFromCameraValue( yVal );
     std::cout << "yVal: " << yVal << " " << angle << "\n";
 
-    TiltToAngle( angle );
+     goodAngle = TiltToAngle( angle );
    }
+   return goodAngle;
 }
 
 

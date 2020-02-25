@@ -6,19 +6,37 @@
 /*----------------------------------------------------------------------------*/
 
 #include <subsystems/DriveSubsystem.h>
+#include <subsystems/ShooterSubsystem.h>
+#include <subsystems/IntakeSubsystem.h>
+#include <subsystems/IndexerSubsystem.h>
+
+#include <frc2/command/WaitCommand.h>
 
 #include "commands/Auto/ThreeBallShoot.h"
 #include "commands/RotateAngle.h"
 #include "commands/DriveForTime.h"
+#include "commands/PrepareToShoot.h"
+#include "commands/Indexer/IndexerInCommand.h"
+#include "commands/Indexer/IndexerStopCommand.h"
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-ThreeBallShoot::ThreeBallShoot( DriveSubsystem *driveSubsystem ) {
+ThreeBallShoot::ThreeBallShoot( 
+  DriveSubsystem   *driveSubsystem,
+  ShooterSubsystem *shooterSubsystem,
+  IntakeSubsystem  *intakeSubsystem,
+  IndexerSubsystem *indexerSubsystem
+) 
+{
   AddCommands(
     RotateAngle( 90, driveSubsystem ),
     DriveForTime( 3.0, driveSubsystem ),
-    RotateAngle( -90, driveSubsystem )
+    RotateAngle( -90, driveSubsystem ),
+    PrepareToShoot( driveSubsystem, shooterSubsystem, intakeSubsystem, true ),
+    IndexerInCommand( indexerSubsystem ),
+    frc2::WaitCommand( (units::second_t)3.0 ),
+    IndexerStopCommand( indexerSubsystem )
   );
 
 }

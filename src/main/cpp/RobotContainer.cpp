@@ -27,7 +27,8 @@ RobotContainer::RobotContainer() :
   m_prepareToShootCommand{
     &m_driveSubsystem,
     &m_shooterSubsystem,
-    &m_intakeSubsystem
+    &m_intakeSubsystem,
+    false
   },
   m_intakePowerCellsCommand{
     &m_intakeSubsystem,
@@ -79,7 +80,10 @@ RobotContainer::RobotContainer() :
      &m_shooterSubsystem
   },
   m_autoThreeBallShoot{
-    &m_driveSubsystem
+    &m_driveSubsystem,
+    &m_shooterSubsystem,
+    &m_intakeSubsystem,
+    &m_indexerSubsystem
   }
 {
   // Initialize all of your commands and subsystems here

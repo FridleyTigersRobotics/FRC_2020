@@ -37,9 +37,9 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   void ResetEncoder();
 
-  void TiltToAngle( double angle );
+  bool TiltToAngle( double angle );
 
-  void TiltToTarget();
+  bool TiltToTarget();
 
   double GetMaxAngle();
 
@@ -55,5 +55,7 @@ class ShooterSubsystem : public frc2::SubsystemBase {
    frc::AnalogEncoder                          m_jdB;
 
   double CalculateTargetAngleFromCameraValue( double );
+
+  int m_goodAngleCount;
 
 };

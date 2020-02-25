@@ -41,7 +41,7 @@ class DriveSubsystem : public frc2::SubsystemBase {
    */
   void SetMaxOutput(double maxOutput);
 
-  void RotateToTarget();
+  bool RotateToTarget();
 
   double GetAngle();
 
@@ -66,4 +66,6 @@ class DriveSubsystem : public frc2::SubsystemBase {
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
 
   std::function<double()> m_currentAngle;
+
+  int m_goodAngleCount;
 };
