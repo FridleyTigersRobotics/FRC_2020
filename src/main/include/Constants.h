@@ -65,6 +65,12 @@ namespace IndexerSubsystemConstants {
 }  // namespace IndexerSubsystemConstants
 
 namespace ClimbSubsystemConstants { 
-    constexpr int kClimbMotorCanId = 6;
-    constexpr int kHookMotorCanId  = 7;
+    constexpr int    kClimbMotorCanId     = 6;
+    constexpr double kClimbUpMotorSpeed   = 1.0;
+    constexpr double kClimbDownMotorSpeed = 0.2;
+}
+
+namespace HookLiftSubsystemConstants { 
+    constexpr int    kHookMotorCanId     = 7;
+    constexpr double kHookMotorLiftSpeed = 0.5;
 }

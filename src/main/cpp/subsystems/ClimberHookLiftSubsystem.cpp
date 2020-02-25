@@ -10,20 +10,20 @@
 
 
 ClimberHookLiftSubsystem::ClimberHookLiftSubsystem() :
-    m_hookMotor { ClimbSubsystemConstants::kHookMotorCanId }
+    m_hookMotor { HookLiftSubsystemConstants::kHookMotorCanId }
 {
     m_hookMotor.SetNeutralMode( ctre::phoenix::motorcontrol::NeutralMode::Brake );
 }
 
 void ClimberHookLiftSubsystem::Lift() {
     m_hookMotor.Set( ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-    0.5 );
+    HookLiftSubsystemConstants::kHookMotorLiftSpeed );
     std::cout << "Hook Lift\n";
 }
 
 void ClimberHookLiftSubsystem::Lower() {
     m_hookMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-    -0.5 );
+    -HookLiftSubsystemConstants::kHookMotorLiftSpeed );
     std::cout << "Hook Lower\n";
 }
 

@@ -15,11 +15,11 @@ ClimberSubsystem::ClimberSubsystem() :
 }
 
 void ClimberSubsystem::ClimbUp() {
-    m_climbMotor.Set( -1.0 );
+    m_climbMotor.Set( -ClimbSubsystemConstants::kClimbUpMotorSpeed );
 }
 
 void ClimberSubsystem::ClimbDown() {
-    m_climbMotor.Set( 0.2 );
+    m_climbMotor.Set( ClimbSubsystemConstants::kClimbDownMotorSpeed );
 }
 
 void ClimberSubsystem::ClimbHold() {

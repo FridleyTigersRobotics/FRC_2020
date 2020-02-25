@@ -101,7 +101,7 @@ double ShooterSubsystem::GetMaxAngle()
 
 double ShooterSubsystem::GetMinAngle()
 {
-    return 2.18;
+    return 2.19;
 }
 
 void ShooterSubsystem::AngleShooterUp() 
