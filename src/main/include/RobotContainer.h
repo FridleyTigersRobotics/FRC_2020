@@ -13,7 +13,6 @@
 #include <frc/Spi.h>
 #include <frc/AnalogGyro.h>
 #include <frc/AnalogInput.h>
-#include <AHRS.h>
 
 #include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/InstantCommand.h>
@@ -78,7 +77,6 @@ class RobotContainer {
   frc::XboxController m_driverController{ DriverStationConstants::kDriverControllerPort };
   frc::Joystick       m_buttonBoard{ 1 };
   frc::AnalogGyro     m_gyro{ 0 };
-  //frc::AnalogInput     m_gyro{ 0 };
 
   void ConfigureButtonBindings();
 
