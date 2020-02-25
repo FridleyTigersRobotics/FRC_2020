@@ -7,20 +7,17 @@
 
 #include "commands/PrepareToShoot.h"
 
-PrepareToShoot::PrepareToShoot( DriveSubsystem*   driveSubsystem,
-                                ShooterSubsystem* shooterSubsystem,
-                                IntakeSubsystem*  intakeSubsystem,
-                                IndexerSubsystem* indexerSubsystem,
-                                std::function<bool()> shoot )
+PrepareToShoot::PrepareToShoot( 
+  DriveSubsystem*   driveSubsystem,
+  ShooterSubsystem* shooterSubsystem,
+  IntakeSubsystem*  intakeSubsystem )
  :
   m_driveSubsystem{driveSubsystem},
   m_shooterSubsystem{shooterSubsystem},
-  m_intakeSubsystem{intakeSubsystem},
-  m_indexerSubsystem{indexerSubsystem},
-  m_shoot{shoot}
+  m_intakeSubsystem{intakeSubsystem}
 {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({driveSubsystem, shooterSubsystem, intakeSubsystem, m_indexerSubsystem});
+  AddRequirements({driveSubsystem, shooterSubsystem, intakeSubsystem});
 }
 
 
@@ -38,21 +35,12 @@ void PrepareToShoot::Execute() {
     m_shooterSubsystem->StopShooterAngle();
     m_intakeSubsystem->LowerIntake();
     m_driveSubsystem->ArcadeDrive( 0.0, 0.0 );
-    m_indexerSubsystem->StopIndexer();
   }
   else
   {
     m_intakeSubsystem->HoldIntake();
     m_driveSubsystem->RotateToTarget();
     m_shooterSubsystem->TiltToTarget();
-    if ( m_shoot() )
-    {
-      m_indexerSubsystem->StartIndexer();
-    }
-    else
-    {
-      m_indexerSubsystem->StopIndexer();
-    }
   }
 }
 
@@ -63,7 +51,6 @@ void PrepareToShoot::End(bool interrupted) {
 
   m_driveSubsystem->ArcadeDrive( 0.0, 0.0 );
   m_shooterSubsystem->SpindownShooter();
-  m_indexerSubsystem->StopIndexer();
   //m_shooterSubsystem->StopShooterAngle();
 }
 

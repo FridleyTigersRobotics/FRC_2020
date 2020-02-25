@@ -46,7 +46,6 @@ class ShooterSubsystem : public frc2::SubsystemBase {
  private:
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterRight;
-   //frc::PWMVictorSPX                           m_motorShooterLoader;
    frc::PWMVictorSPX                           m_motorAngle;
    frc::AnalogInput                            m_ajdA;
    frc::AnalogInput                            m_ajdB;

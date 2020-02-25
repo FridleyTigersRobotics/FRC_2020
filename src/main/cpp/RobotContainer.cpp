@@ -27,9 +27,7 @@ RobotContainer::RobotContainer() :
   m_prepareToShootCommand{
     &m_driveSubsystem,
     &m_shooterSubsystem,
-    &m_intakeSubsystem,
-    &m_indexerSubsystem,
-    [this] { return m_buttonBoard.GetRawButton( 8 ); }
+    &m_intakeSubsystem
   },
   m_intakePowerCellsCommand{
     &m_intakeSubsystem,
@@ -143,7 +141,7 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton( &m_buttonBoard, (int)10 ).WhileHeld( m_intakeOutCommand );
 
   frc2::JoystickButton( &m_buttonBoard, (int)7 ).WhileHeld( m_prepareToShootCommand );
-  //frc2::JoystickButton( &m_buttonBoard, (int)8 ).WhileHeld( shoot );
+  frc2::JoystickButton( &m_buttonBoard, (int)8 ).WhileHeld( m_loadShooter );
 
   //frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenPressed( m_controlPanelLift );
   //frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhileHeld( m_controlPanelRotate );

@@ -26,6 +26,7 @@ class IndexerSubsystem : public frc2::SubsystemBase {
   void StartIndexerReverse();
   void InitIndexer();
   void GetBalls();
+  void LoadShooter();
 
  private:
   ctre::phoenix::motorcontrol::can::VictorSPX m_conveyorMotor;

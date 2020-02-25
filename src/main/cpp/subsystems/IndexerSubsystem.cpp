@@ -95,12 +95,6 @@ void IndexerSubsystem::StartIndexerReverse() {
         -1.0 );
 }
 
-
-
-
-
-
-
 void IndexerSubsystem::GetBalls()
 {
     if ( m_ballDetector.Get() > 0 )
@@ -114,3 +108,14 @@ void IndexerSubsystem::GetBalls()
     }
 }
 
+
+
+void IndexerSubsystem::LoadShooter()
+{
+    m_conveyorMotor.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        IndexerSubsystemConstants::kIndexerMotorSpeed );
+    m_motorShooterLoader.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
+        1.0 );
+}

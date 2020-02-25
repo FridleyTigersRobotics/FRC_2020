@@ -28,9 +28,7 @@ class PrepareToShoot
  public:
   PrepareToShoot( DriveSubsystem*   driveSubsystem,
                   ShooterSubsystem* shooterSubsystem,
-                  IntakeSubsystem*  intakeSubsystem,
-                  IndexerSubsystem* indexerSubsystem,
-                  std::function<bool()> shoot  );
+                  IntakeSubsystem*  intakeSubsystem );
 
   void Initialize() override;
 
@@ -44,6 +42,4 @@ class PrepareToShoot
   DriveSubsystem*   m_driveSubsystem; 
   ShooterSubsystem* m_shooterSubsystem;
   IntakeSubsystem*  m_intakeSubsystem;
-  IndexerSubsystem* m_indexerSubsystem;
-  std::function<bool()> m_shoot;
 };

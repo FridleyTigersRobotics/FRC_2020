@@ -88,6 +88,9 @@ class RobotContainer {
   frc2::InstantCommand m_climbDown{ [this] { m_climberSubsystem.ClimbDown(); },  {&m_climberSubsystem}};
   frc2::InstantCommand m_climbHold{ [this] { m_climberSubsystem.ClimbHold(); },  {&m_climberSubsystem}};
 
+  frc2::InstantCommand m_loadShooter{ [this] { m_indexerSubsystem.LoadShooter(); },  {&m_indexerSubsystem}};
+
+
   // Commands
   DefaultDrive         m_defaultDriveCommand;
   PrepareToShoot       m_prepareToShootCommand;
