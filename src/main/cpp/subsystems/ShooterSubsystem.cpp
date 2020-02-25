@@ -190,14 +190,8 @@ double ShooterSubsystem::CalculateTargetAngleFromCameraValue( double cameraValue
 }
 
 
-void ShooterSubsystem::TiltToTarget() {
-   extern nt::NetworkTableEntry yEntry;
-   double const yVal = yEntry.GetDouble( -1.0 );
-   if ( yVal > 0 )
-   {
-    double const angle = CalculateTargetAngleFromCameraValue( yVal );
-    std::cout << "yVal: " << yVal << " " << angle << "\n";
 
+void ShooterSubsystem::TiltToAngle( double angle ) {
     if ( GetRotationDegreeB() < ( angle - 0.005) )
     {
         AngleShooterUp();
@@ -210,6 +204,19 @@ void ShooterSubsystem::TiltToTarget() {
     {
         StopShooterAngle();
     }
+}
+
+
+
+void ShooterSubsystem::TiltToTarget() {
+   extern nt::NetworkTableEntry yEntry;
+   double const yVal = yEntry.GetDouble( -1.0 );
+   if ( yVal > 0 )
+   {
+    double const angle = CalculateTargetAngleFromCameraValue( yVal );
+    std::cout << "yVal: " << yVal << " " << angle << "\n";
+
+    TiltToAngle( angle );
    }
 }
 

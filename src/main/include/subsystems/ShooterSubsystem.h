@@ -37,6 +37,8 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   void ResetEncoder();
 
+  void TiltToAngle( double angle );
+
   void TiltToTarget();
 
   double GetMaxAngle();
