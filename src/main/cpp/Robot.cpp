@@ -90,16 +90,25 @@ int reportCount = 0;
 
 void Robot::TeleopPeriodic() {
 
+
+
+
 reportCount++;
 
 if ( reportCount == 20 )
 {
-
+  /*for ( int idx = 1; idx < 16; idx++ )
+  {
+    if ( m_container.m_buttonBoard.GetRawButtonPressed( idx ) )
+    {
+      //std::cout << "Button: " << idx << "\n";
+    }
+  }*/
   //std::cout << "x " << m_container.ahrs.GetRawGyroX() << " ";
   //std::cout << "y " << m_container.ahrs.GetRawGyroY() << " ";
   //std::cout << "z " << m_container.ahrs.GetRawGyroZ() << "\n";
 
-  std::cout << "angle " << m_container.m_gyro.GetAngle() << "\n";
+  //std::cout << "angle " << m_container.m_gyro.GetAngle() << "\n";
   reportCount = 0;
 }
 

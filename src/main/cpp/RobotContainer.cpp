@@ -131,39 +131,37 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kBumperRight )
       .WhileHeld( m_angleShooterUp );
 
-
+  frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kX ).WhileHeld( m_prepareToShootCommand );
 
   /*  Button board mapping
-      3  4
-      2  5
-      1  6
-              9  10
-              7  8     
+          5
+    2     4        10    12
+    1     3        11 
   */
 
-  frc2::JoystickButton( &m_buttonBoard, (int)9 ).WhileHeld( m_intakeInCommand );
-  frc2::JoystickButton( &m_buttonBoard, (int)10 ).WhileHeld( m_intakeOutCommand );
+  frc2::JoystickButton( &m_buttonBoard, (int)10 ).WhileHeld( m_intakeInCommand );
+  frc2::JoystickButton( &m_buttonBoard, (int)12 ).WhileHeld( m_intakeOutCommand );
 
-  frc2::JoystickButton( &m_buttonBoard, (int)7 ).WhileHeld( m_prepareToShootCommand );
-  frc2::JoystickButton( &m_buttonBoard, (int)8 ).WhileHeld( m_loadShooter );
+
+  frc2::JoystickButton( &m_buttonBoard, (int)11 ).WhileHeld( m_loadShooter );
 
   //frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenPressed( m_controlPanelLift );
   //frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhileHeld( m_controlPanelRotate );
 
   //frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed( RotateAngle( 90, &m_driveSubsystem ) );
 
-  frc2::JoystickButton( &m_buttonBoard, (int)2 ).WhenPressed(  m_climbUp );
-  frc2::JoystickButton( &m_buttonBoard, (int)2 ).WhenReleased( m_climbHold );
-  frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed(  m_climbDown );
+  frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed(  m_climbUp );
   frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenReleased( m_climbHold );
+  //frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed(  m_climbDown );
+  //frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenReleased( m_climbHold );
 
 
 
 
-  frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenPressed( m_liftHook  );
-  frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenReleased( m_holdHook  );
-  frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhenPressed( m_lowerHook  );
+  frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhenPressed( m_liftHook  );
   frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhenReleased( m_holdHook  );
+  frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenPressed( m_lowerHook  );
+  frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenReleased( m_holdHook  );
   //frc2::InstantCommand 
 
 
