@@ -46,6 +46,8 @@
 #include <commands/Shooter/AngleShooterUp.h>
 #include <commands/Shooter/AngleShooterDown.h>
 #include <commands/Shooter/ShooterHoldAngle.h>
+#include <commands/Shooter/FullyLowerShooter.h>
+
 
 #include "commands/RotateAngle.h"
 
@@ -64,6 +66,8 @@ class RobotContainer {
   RobotContainer();
 
   frc2::Command* GetAutonomousCommand();
+
+  bool InTestMode;
 
  //private:
   // The robot's subsystems and commands are defined here...
@@ -85,7 +89,7 @@ class RobotContainer {
   frc2::InstantCommand m_holdHook{  [this] { m_climberHookLiftSubsystem.Hold(); },  {&m_climberHookLiftSubsystem}};
 
   frc2::InstantCommand m_climbUp  { [this] { m_climberSubsystem.ClimbUp();   },  {&m_climberSubsystem}};
-  frc2::InstantCommand m_climbDown{ [this] { m_climberSubsystem.ClimbDown(); },  {&m_climberSubsystem}};
+  frc2::InstantCommand m_climbDown{ [this] { if (InTestMode) m_climberSubsystem.ClimbDown(); },  {&m_climberSubsystem}};
   frc2::InstantCommand m_climbHold{ [this] { m_climberSubsystem.ClimbHold(); },  {&m_climberSubsystem}};
 
   frc2::InstantCommand m_loadShooter{ [this] { m_indexerSubsystem.LoadShooter(); },  {&m_indexerSubsystem}};
@@ -115,6 +119,7 @@ class RobotContainer {
   AngleShooterUp    m_angleShooterUp;
   AngleShooterDown  m_angleShooterDown;
   ShooterHoldAngle  m_shooterHoldAngle;
+  FullyLowerShooter m_fullyLowerShooter;
 
   ThreeBallShoot      m_autoThreeBallShoot;
 

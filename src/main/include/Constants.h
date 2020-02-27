@@ -39,7 +39,7 @@ namespace ShooterConstants {
     constexpr int kSensorId         = 0;
 
 
-    constexpr float ShooterRpmTarget = 15000.0f; // 20000~30000
+    constexpr float ShooterRpmTarget = 30000.0f; // 20000~30000
     constexpr float ShooterRpmMin    = 480.0f;
     constexpr float ShooterRpmMax    = 520.0f;
 
@@ -67,7 +67,7 @@ namespace IndexerSubsystemConstants {
 namespace ClimbSubsystemConstants { 
     constexpr int    kClimbMotorCanId     = 6;
     constexpr double kClimbUpMotorSpeed   = 1.0;
-    constexpr double kClimbDownMotorSpeed = 0.2;
+    constexpr double kClimbDownMotorSpeed = 0.4;
 }
 
 namespace HookLiftSubsystemConstants { 

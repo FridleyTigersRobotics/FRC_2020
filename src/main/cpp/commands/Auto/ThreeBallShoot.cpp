@@ -30,13 +30,14 @@ ThreeBallShoot::ThreeBallShoot(
 ) 
 {
   AddCommands(
-    RotateAngle( 90, driveSubsystem ),
-    DriveForTime( 3.0, driveSubsystem ),
-    RotateAngle( -90, driveSubsystem ),
+    //RotateAngle( 90, driveSubsystem ),
+    //DriveForTime( 3.0, driveSubsystem ),
+    //RotateAngle( -90, driveSubsystem ),
     PrepareToShoot( driveSubsystem, shooterSubsystem, intakeSubsystem, true ),
     IndexerInCommand( indexerSubsystem ),
     frc2::WaitCommand( (units::second_t)3.0 ),
-    IndexerStopCommand( indexerSubsystem )
+    IndexerStopCommand( indexerSubsystem ),
+    DriveForTime( 3.0, driveSubsystem )
   );
 
 }

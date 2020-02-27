@@ -45,6 +45,8 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   double GetMinAngle();
 
+  bool IsShooterFullyLowered();
+
  private:
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterLeft;
    ctre::phoenix::motorcontrol::can::TalonSRX  m_motorShooterRight;

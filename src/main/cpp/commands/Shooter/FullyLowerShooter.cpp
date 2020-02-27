@@ -5,34 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/DriveForTime.h"
+#include "commands/Shooter/FullyLowerShooter.h"
 
-
-
-DriveForTime::DriveForTime(double driveTime, DriveSubsystem* subsystem) :
-  m_drive{subsystem}
+FullyLowerShooter::FullyLowerShooter( ShooterSubsystem* shooterSubsystem ) :
+  m_shooterSubsystem{shooterSubsystem}
 {
-  // Use addRequirements() here to declare subsystem dependencies.
-  m_driveTime = driveTime;
+  AddRequirements( { shooterSubsystem } );
 }
 
 // Called when the command is initially scheduled.
-void DriveForTime::Initialize()  {
-  m_timer.Reset();
-  m_timer.Start();
-}
+void FullyLowerShooter::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void DriveForTime::Execute() {
-  m_drive->ArcadeDrive( 0.4, 0.0 );
+void FullyLowerShooter::Execute() {
+  m_shooterSubsystem->AngleShooterDown();
 }
 
 // Called once the command ends or is interrupted.
-void DriveForTime::End(bool interrupted) {
-  m_drive->ArcadeDrive( 0.0, 0.0 );
+void FullyLowerShooter::End(bool interrupted) {
+  m_shooterSubsystem->StopShooterAngle();
 }
 
 // Returns true when the command should end.
-bool DriveForTime::IsFinished() { 
-  return ( m_timer.Get() >= m_driveTime ); 
-}
+bool FullyLowerShooter::IsFinished() { return m_shooterSubsystem->IsShooterFullyLowered(); }

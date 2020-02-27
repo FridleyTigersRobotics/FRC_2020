@@ -35,6 +35,7 @@ void PrepareToShoot::Initialize() {
 void PrepareToShoot::Execute() {
   if ( m_intakeSubsystem->IsBotLimitEngaged() == false )
   {
+    std::cout << "LowerIntake" << "\n";
     m_shooterSubsystem->StopShooterAngle();
     m_intakeSubsystem->LowerIntake();
     m_driveSubsystem->ArcadeDrive( 0.0, 0.0 );
@@ -44,7 +45,7 @@ void PrepareToShoot::Execute() {
     m_intakeSubsystem->HoldIntake();
     bool xReady = m_driveSubsystem->RotateToTarget();
     bool yReady = m_shooterSubsystem->TiltToTarget();
-
+    std::cout << "ready" << xReady << " " << yReady << m_endWhenReadyToShoot << "\n";
     m_readyToShoot = xReady && yReady;
   }
 }

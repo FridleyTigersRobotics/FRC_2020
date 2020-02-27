@@ -72,9 +72,9 @@ void IndexerSubsystem::StartIndexer() {
     m_conveyorMotor.Set( 
         ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
         IndexerSubsystemConstants::kIndexerMotorSpeed );
-    m_motorShooterLoader.Set( 
+    /*m_motorShooterLoader.Set( 
         ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
-        1.0 );
+        1.0 );*/
 }
 
 void IndexerSubsystem::StopIndexer() {
@@ -90,9 +90,9 @@ void IndexerSubsystem::StartIndexerReverse() {
     m_conveyorMotor.Set( 
         ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
         -IndexerSubsystemConstants::kIndexerMotorSpeed );
-    m_motorShooterLoader.Set( 
+    /*m_motorShooterLoader.Set( 
         ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
-        -1.0 );
+        -1.0 );*/
 }
 
 void IndexerSubsystem::GetBalls()

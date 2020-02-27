@@ -22,9 +22,7 @@ IntakeSubsystem::IntakeSubsystem() :
 void IntakeSubsystem::Periodic() { }
 
 void IntakeSubsystem::StartIntake() {
-    
     m_motorIntakeRotate.Set( IntakeConstants::kIntakeMotorSpeed );
-
 }
 
 

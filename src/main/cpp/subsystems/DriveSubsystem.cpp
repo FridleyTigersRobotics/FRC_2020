@@ -17,7 +17,9 @@ DriveSubsystem::DriveSubsystem( std::function<double()> currentAngle )
       m_right2{kRightMotor2Port},
       m_currentAngle{currentAngle}
 {
-  m_drive.SetMaxOutput(1);
+  m_drive.SetMaxOutput(0.5);
+  //m_left1.SetInverted(true);
+  //m_right1.SetInverted(true);
 }
 
 double DriveSubsystem::GetAngle() 
@@ -30,7 +32,7 @@ double DriveSubsystem::GetAngle()
 void DriveSubsystem::Periodic() {}
 
 void DriveSubsystem::ArcadeDrive(double fwd, double rot) {
-  //std::cout << "ArcadeDrive: " << fwd << " " << rot << "\n";
+  std::cout << "ArcadeDrive: " << fwd << " " << rot << "\n";
   m_drive.ArcadeDrive(-fwd, rot);
 }
 
@@ -66,16 +68,28 @@ bool DriveSubsystem::RotateToTarget()
       std::cout << "offset: " << offset << " " << fabs( offset ) << "\n";
     }
 
-    if ( fabs( offset ) > 20 )
+    if ( fabs( offset ) < 20 )
     {
-      double const minSpeed = 0.45;
-      double const maxSpeed = 0.9;
+      m_goodAngleCount++;
+    }
+    else
+    {
+      {
+        m_goodAngleCount = 0;
+      }
+    }
+    
+
+    if ( fabs( offset ) > 15 )
+    {
+      double const minSpeed = 0.52;
+      double const maxSpeed = 1.0;
       double const speed = fabs( offset ) / 300;
       double const tempSpeed = ( speed < minSpeed ) ? minSpeed : speed;
       double const finalSpeed = ( tempSpeed > maxSpeed ) ? maxSpeed : tempSpeed;
 
 
-      m_goodAngleCount = 0;
+      
 
       if ( offset > 0 )
       {
@@ -91,12 +105,11 @@ bool DriveSubsystem::RotateToTarget()
     }
     else
     {
-      m_goodAngleCount++;
       m_drive.ArcadeDrive( 0.0, 0.0 );
     } 
   }
 
-  return m_goodAngleCount > 5;
+  return m_goodAngleCount > 2;
 }
 
 

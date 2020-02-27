@@ -101,7 +101,7 @@ double ShooterSubsystem::GetMaxAngle()
 
 double ShooterSubsystem::GetMinAngle()
 {
-    return 2.19;
+    return 2.20;
 }
 
 void ShooterSubsystem::AngleShooterUp() 
@@ -118,6 +118,13 @@ void ShooterSubsystem::AngleShooterUp()
     
 }
 
+
+bool ShooterSubsystem::IsShooterFullyLowered() 
+{
+    return ( GetRotationDegreeB() < GetMinAngle() );
+}
+
+
 void ShooterSubsystem::AngleShooterDown() 
 {
     std::cout << "AngleShooterDown" << GetRotationDegreeB() << "\n";
@@ -131,6 +138,10 @@ void ShooterSubsystem::AngleShooterDown()
     }
     
 }
+
+
+
+
 
 void ShooterSubsystem::StopShooterAngle() 
 {   

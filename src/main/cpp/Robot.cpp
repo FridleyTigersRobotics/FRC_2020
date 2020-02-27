@@ -27,7 +27,7 @@ void Robot::RobotInit() {
   xEntry = table->GetEntry("xVal");
   yEntry = table->GetEntry("yVal");
   ledStateEntry = ledTable->GetEntry("val");
-
+  m_container.InTestMode = false;
 }
 
 /**
@@ -83,6 +83,24 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
   }
+
+  m_container.InTestMode = false;
+}
+
+
+
+void Robot::TestInit() {
+  //m_container.ahrs.Reset();
+  // This makes sure that the autonomous stops running when
+  // teleop starts running. If you want the autonomous to
+  // continue until interrupted by another command, remove
+  // this line or comment it out.
+  if (m_autonomousCommand != nullptr) {
+    m_autonomousCommand->Cancel();
+    m_autonomousCommand = nullptr;
+  }
+
+  m_container.InTestMode = true;
 }
 
 
@@ -121,7 +139,9 @@ if ( reportCount == 20 )
 /**
  * This function is called periodically during test mode.
  */
-void Robot::TestPeriodic() {}
+void Robot::TestPeriodic() {
+  frc2::CommandScheduler::GetInstance().Run(); 
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }

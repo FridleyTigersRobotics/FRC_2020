@@ -79,6 +79,9 @@ RobotContainer::RobotContainer() :
   m_shooterHoldAngle{
      &m_shooterSubsystem
   },
+  m_fullyLowerShooter{
+    &m_shooterSubsystem
+  },
   m_autoThreeBallShoot{
     &m_driveSubsystem,
     &m_shooterSubsystem,
@@ -88,6 +91,8 @@ RobotContainer::RobotContainer() :
 {
   // Initialize all of your commands and subsystems here
   
+  InTestMode = false;
+
   m_gyro.InitGyro();
   m_gyro.Calibrate();
 
@@ -106,6 +111,7 @@ RobotContainer::RobotContainer() :
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
   frc::XboxController* driverController = &m_driverController;
+  frc::Joystick*       buttonBoard      = &m_buttonBoard;
 
   frc2::Button LeftTrigger = frc2::Button([driverController] {
           return ( driverController->GetTriggerAxis( frc::GenericHID::kLeftHand ) > 0.1 );
@@ -114,6 +120,12 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::Button RightTrigger = frc2::Button([driverController] {
           return ( driverController->GetTriggerAxis( frc::GenericHID::kRightHand ) > 0.8 );
         }); 
+
+
+  frc2::Button ButtonBoardJoystickX0 = frc2::Button([buttonBoard] {
+          return ( buttonBoard->GetX( ) > 0.8 );
+        }); 
+
 
   LeftTrigger.WhenHeld( m_indexerInCommand );
   RightTrigger.WhenHeld( m_indexerOutCommand );
@@ -139,11 +151,14 @@ void RobotContainer::ConfigureButtonBindings() {
     1     3        11 
   */
 
-  frc2::JoystickButton( &m_buttonBoard, (int)10 ).WhileHeld( m_intakeInCommand );
+  frc2::JoystickButton( &m_buttonBoard, (int)10 ).WhileHeld( m_intakePowerCellsCommand );
   frc2::JoystickButton( &m_buttonBoard, (int)12 ).WhileHeld( m_intakeOutCommand );
 
 
   frc2::JoystickButton( &m_buttonBoard, (int)11 ).WhileHeld( m_loadShooter );
+
+
+  ButtonBoardJoystickX0.WhenPressed( m_fullyLowerShooter );
 
   //frc2::JoystickButton( &m_buttonBoard, (int)3 ).WhenPressed( m_controlPanelLift );
   //frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhileHeld( m_controlPanelRotate );
@@ -155,8 +170,10 @@ void RobotContainer::ConfigureButtonBindings() {
   //frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed(  m_climbDown );
   //frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenReleased( m_climbHold );
 
-
-
+frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
+      .WhenPressed( m_climbDown );
+frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
+      .WhenReleased( m_climbHold );
 
   frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhenPressed( m_liftHook  );
   frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhenReleased( m_holdHook  );
