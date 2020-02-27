@@ -16,7 +16,19 @@
 #include "networktables/NetworkTableEntry.h"
 #include "networktables/NetworkTableInstance.h"
 
-void Robot::RobotInit() {}
+nt::NetworkTableEntry xEntry;
+nt::NetworkTableEntry yEntry;
+nt::NetworkTableEntry ledStateEntry;
+
+void Robot::RobotInit() {
+  auto inst  = nt::NetworkTableInstance::GetDefault();
+  auto table = inst.GetTable("targetCoords");
+  auto ledTable = inst.GetTable("ledState");
+  xEntry = table->GetEntry("xVal");
+  yEntry = table->GetEntry("yVal");
+  ledStateEntry = ledTable->GetEntry("val");
+
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -57,19 +69,11 @@ void Robot::AutonomousInit() {
 }
 
 
-nt::NetworkTableEntry xEntry;
-nt::NetworkTableEntry yEntry;
-nt::NetworkTableEntry ledStateEntry;
+
 
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {
-  auto inst  = nt::NetworkTableInstance::GetDefault();
-  auto table = inst.GetTable("targetCoords");
-  auto ledTable = inst.GetTable("ledState");
-  xEntry = table->GetEntry("xVal");
-  yEntry = table->GetEntry("yVal");
-  ledStateEntry = ledTable->GetEntry("val");
   //m_container.ahrs.Reset();
   // This makes sure that the autonomous stops running when
   // teleop starts running. If you want the autonomous to
