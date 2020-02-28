@@ -29,6 +29,8 @@ void PrepareToShoot::Initialize() {
   extern nt::NetworkTableEntry ledStateEntry;
   ledStateEntry.SetDouble( 1 );
   m_shooterSubsystem->SpinupShooter();
+  m_timer.Reset();
+  m_timer.Start();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -62,5 +64,22 @@ void PrepareToShoot::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool PrepareToShoot::IsFinished() { 
-  return m_endWhenReadyToShoot && m_readyToShoot; 
+  if ( m_endWhenReadyToShoot )
+  {
+    if ( m_readyToShoot ||
+        ( m_timer.Get() >= 3.0 ) )
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+  }
+  else
+  {
+    return false;
+  }
+  
+  return m_endWhenReadyToShoot && ( m_readyToShoot ); 
 }

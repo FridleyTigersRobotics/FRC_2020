@@ -45,4 +45,5 @@ class PrepareToShoot
   IntakeSubsystem*  m_intakeSubsystem;
   bool              m_endWhenReadyToShoot;
   bool m_readyToShoot;
+  frc::Timer m_timer;  
 };

@@ -171,7 +171,7 @@ def main(ntinst):
     cvSink = cs.getVideo()
     # (optional) Setup a CvSource. This will send images back to the Dashboard
 
-    outputStream = cs.putVideo("Name", width, height)
+    #outputStream = cs.putVideo("Name", width, height)
     # Allocating new images is very expensive, always try to preallocate
 
     pipeline = GripPipeline()
@@ -230,7 +230,7 @@ def main(ntinst):
               xCoordTable.putNumber( 'xVal', -1 )
               xCoordTable.putNumber( 'yVal', -1 )
               # Send the output the error.
-              outputStream.notifyError(cvSink.getError());
+              #outputStream.notifyError(cvSink.getError());
               # skip the rest of the current iteration
               continue
 
@@ -425,7 +425,7 @@ def main(ntinst):
 
           #outputStream.putFrame( pipeline.hsl_threshold_output )
 
-          outputStream.putFrame( img )
+          #outputStream.putFrame( img )
       except:
         xCoordTable.putNumber( 'xVal', -1 )
         xCoordTable.putNumber( 'yVal', -1 )
