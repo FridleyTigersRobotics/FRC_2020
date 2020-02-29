@@ -22,7 +22,9 @@ void AngleShooterUp::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void AngleShooterUp::End(bool interrupted) {}
+void AngleShooterUp::End(bool interrupted) {
+  m_shooterSubsystem->StopShooterAngle();
+}
 
 // Returns true when the command should end.
 bool AngleShooterUp::IsFinished() { return false; }

@@ -96,7 +96,7 @@ void ShooterSubsystem::SpindownShooter() {
 
 double ShooterSubsystem::GetMaxAngle()
 {
-    return 2.7;
+    return 2.59;
 }
 
 double ShooterSubsystem::GetMinAngle()

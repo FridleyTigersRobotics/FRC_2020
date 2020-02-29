@@ -32,7 +32,7 @@ double DriveSubsystem::GetAngle()
 void DriveSubsystem::Periodic() {}
 
 void DriveSubsystem::ArcadeDrive(double fwd, double rot) {
-  std::cout << "ArcadeDrive: " << fwd << " " << rot << "\n";
+  //std::cout << "ArcadeDrive: " << fwd << " " << rot << "\n";
   m_drive.ArcadeDrive(-fwd, rot);
 }
 
@@ -80,9 +80,9 @@ bool DriveSubsystem::RotateToTarget()
     }
     
 
-    if ( fabs( offset ) > 15 )
+    if ( fabs( offset ) > 5 )
     {
-      double const minSpeed = 0.52;
+      double const minSpeed = 0.5;
       double const maxSpeed = 1.0;
       double const speed = fabs( offset ) / 300;
       double const tempSpeed = ( speed < minSpeed ) ? minSpeed : speed;

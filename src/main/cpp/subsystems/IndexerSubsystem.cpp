@@ -119,3 +119,13 @@ void IndexerSubsystem::LoadShooter()
         ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
         1.0 );
 }
+
+void IndexerSubsystem::StopLoadShooter()
+{
+    m_conveyorMotor.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        0 );
+    m_motorShooterLoader.Set( 
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 
+        0.0 );
+}

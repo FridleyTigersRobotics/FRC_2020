@@ -170,9 +170,9 @@ void RobotContainer::ConfigureButtonBindings() {
   //frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenPressed(  m_climbDown );
   //frc2::JoystickButton( &m_buttonBoard, (int)5 ).WhenReleased( m_climbHold );
 
-frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
+frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kBack )
       .WhenPressed( m_climbDown );
-frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kB )
+frc2::JoystickButton( &m_driverController, (int)frc::XboxController::Button::kBack )
       .WhenReleased( m_climbHold );
 
   frc2::JoystickButton( &m_buttonBoard, (int)4 ).WhenPressed( m_liftHook  );

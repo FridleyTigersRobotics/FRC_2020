@@ -89,7 +89,7 @@ class RobotContainer {
   frc2::InstantCommand m_holdHook{  [this] { m_climberHookLiftSubsystem.Hold(); },  {&m_climberHookLiftSubsystem}};
 
   frc2::InstantCommand m_climbUp  { [this] { m_climberSubsystem.ClimbUp();   },  {&m_climberSubsystem}};
-  frc2::InstantCommand m_climbDown{ [this] { if (InTestMode) m_climberSubsystem.ClimbDown(); },  {&m_climberSubsystem}};
+  frc2::InstantCommand m_climbDown{ [this] { /*if (InTestMode)*/ m_climberSubsystem.ClimbDown(); },  {&m_climberSubsystem}};
   frc2::InstantCommand m_climbHold{ [this] { m_climberSubsystem.ClimbHold(); },  {&m_climberSubsystem}};
 
   frc2::InstantCommand m_loadShooter{ [this] { m_indexerSubsystem.LoadShooter(); },  {&m_indexerSubsystem}};

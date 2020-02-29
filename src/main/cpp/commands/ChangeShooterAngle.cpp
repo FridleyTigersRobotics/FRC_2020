@@ -58,7 +58,9 @@ void ChangeShooterAngle::Execute()
 }
 
 // Called once the command ends or is interrupted.
-void ChangeShooterAngle::End(bool interrupted) {}
+void ChangeShooterAngle::End(bool interrupted) {
+  m_shooterSubsystem->StopShooterAngle();
+}
 
 // Returns true when the command should end.
 bool ChangeShooterAngle::IsFinished() { return false; }

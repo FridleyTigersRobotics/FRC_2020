@@ -18,6 +18,9 @@
 #include "commands/PrepareToShoot.h"
 #include "commands/Indexer/IndexerInCommand.h"
 #include "commands/Indexer/IndexerStopCommand.h"
+#include "commands/Shooter/Shoot.h"
+#include "commands/Shooter/StopShoot.h"
+
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
@@ -34,10 +37,10 @@ ThreeBallShoot::ThreeBallShoot(
     //DriveForTime( 3.0, driveSubsystem ),
     //RotateAngle( -90, driveSubsystem ),
     PrepareToShoot( driveSubsystem, shooterSubsystem, intakeSubsystem, true ),
-    IndexerInCommand( indexerSubsystem ),
+    Shoot( indexerSubsystem ),
     frc2::WaitCommand( (units::second_t)3.0 ),
-    IndexerStopCommand( indexerSubsystem ),
-    DriveForTime( 3.0, driveSubsystem )
+    StopShoot( indexerSubsystem ),
+    DriveForTime( 4.0, driveSubsystem )
   );
 
 }

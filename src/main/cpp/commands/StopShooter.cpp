@@ -22,7 +22,9 @@ void StopShooter::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void StopShooter::End(bool interrupted) {}
+void StopShooter::End(bool interrupted) {
+  m_shooterSubsystem->StopShooterAngle();
+}
 
 // Returns true when the command should end.
 bool StopShooter::IsFinished() { return false; }

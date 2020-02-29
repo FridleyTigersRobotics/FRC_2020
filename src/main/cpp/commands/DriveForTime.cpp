@@ -24,7 +24,7 @@ void DriveForTime::Initialize()  {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveForTime::Execute() {
-  m_drive->ArcadeDrive( 0.4, 0.0 );
+  m_drive->ArcadeDrive( 0.8, 0.0 );
 }
 
 // Called once the command ends or is interrupted.

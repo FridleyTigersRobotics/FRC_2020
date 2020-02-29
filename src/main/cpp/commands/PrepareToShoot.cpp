@@ -58,8 +58,12 @@ void PrepareToShoot::End(bool interrupted) {
   ledStateEntry.SetDouble( 0 );
 
   m_driveSubsystem->ArcadeDrive( 0.0, 0.0 );
-  m_shooterSubsystem->SpindownShooter();
-  //m_shooterSubsystem->StopShooterAngle();
+  if ( !m_endWhenReadyToShoot )
+  {
+    m_shooterSubsystem->SpindownShooter();
+  }
+  
+  m_shooterSubsystem->StopShooterAngle();
 }
 
 // Returns true when the command should end.
