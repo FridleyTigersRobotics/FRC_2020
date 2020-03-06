@@ -194,10 +194,10 @@ void ShooterSubsystem::ResetEncoder() {
 
 
 double ShooterSubsystem::CalculateTargetAngleFromCameraValue( double cameraValue ) {
-    double const cameraValueMax = 480;  
+    double const cameraValueMax = 240;  
     double const positionRatio = 0.6 * ( cameraValueMax - cameraValue ) / cameraValueMax;
     double const angleRange = GetMaxAngle() - GetMinAngle();
-    return GetMinAngle() + 0.12 + angleRange * positionRatio;
+    return GetMinAngle() + 0.15 + angleRange * positionRatio;
 }
 
 

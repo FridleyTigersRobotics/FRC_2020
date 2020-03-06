@@ -17,7 +17,7 @@ DriveSubsystem::DriveSubsystem( std::function<double()> currentAngle )
       m_right2{kRightMotor2Port},
       m_currentAngle{currentAngle}
 {
-  m_drive.SetMaxOutput(0.5);
+  m_drive.SetMaxOutput(0.65);
   //m_left1.SetInverted(true);
   //m_right1.SetInverted(true);
 }
@@ -61,14 +61,14 @@ bool DriveSubsystem::RotateToTarget()
   }
   else
   {
-    double const center = 320;
+    double const center = 150;
     double const offset = xVal - center;
     if ( debugOutput )
     {
       std::cout << "offset: " << offset << " " << fabs( offset ) << "\n";
     }
 
-    if ( fabs( offset ) < 20 )
+    if ( fabs( offset ) < 8 )
     {
       m_goodAngleCount++;
     }
@@ -84,7 +84,7 @@ bool DriveSubsystem::RotateToTarget()
     {
       double const minSpeed = 0.5;
       double const maxSpeed = 1.0;
-      double const speed = fabs( offset ) / 300;
+      double const speed = fabs( offset ) / 150;
       double const tempSpeed = ( speed < minSpeed ) ? minSpeed : speed;
       double const finalSpeed = ( tempSpeed > maxSpeed ) ? maxSpeed : tempSpeed;
 

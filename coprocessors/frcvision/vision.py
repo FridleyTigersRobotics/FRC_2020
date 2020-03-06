@@ -159,8 +159,8 @@ def main(ntinst):
     #width  = 1280 / 2
     #height = 720 / 2
 
-    width  = 640
-    height = 480
+    width  = 320
+    height = 240
 
     camera = cs.startAutomaticCapture()
     camera.setResolution(width, height)
@@ -238,11 +238,11 @@ def main(ntinst):
           pipeline.process( img ) 
           afterProcess =  tm.time()
 
-          grabTimes[idx]    = afterGrab - beforeGrab
-          processTimes[idx] = afterProcess - afterGrab
+          #grabTimes[idx]    = afterGrab - beforeGrab
+          #processTimes[idx] = afterProcess - afterGrab
 
-          idx += 1
-          if idx > 9:
+          #idx += 1
+          if 0: #idx > 9:
             idx = 0
 
             averageTime     = sum( loopTimes ) * 1000 / len( loopTimes )
@@ -324,13 +324,14 @@ def main(ntinst):
               #    int(8)
               #)
               #print( len(pipeline.find_contours_output) )
-              cv2.drawContours( 
-                  img, 
-                  pipeline.filter_contours_output, 
-                  -1, 
-                  (0, 255, 0),
-                   3 
-               )
+              if False:
+                cv2.drawContours( 
+                    img, 
+                    pipeline.filter_contours_output, 
+                    -1, 
+                    (0, 255, 0),
+                    3 
+                )
               print( len(pipeline.find_contours_output) )
               try:
                   print( len(pipeline.find_contours_output) )
@@ -377,27 +378,27 @@ def main(ntinst):
                   #print( box2 )
                   #print( type( box2[0][0] ) )
 
-                  
-                  cv2.drawContours(img,[box2],0,(0,0,255),2)
-                  cv2.line(
-                     img,
-                     ( int(rect[0] + rect[2] / 2), int(0) ),
-                     ( int(rect[0] + rect[2] / 2), int(height) ),
-                     (0, 255, 255),
-                     int(3),
-                     int(8),
-                     int(0)
-                  )
+                  if False:
+                    cv2.drawContours(img,[box2],0,(0,0,255),2)
+                    cv2.line(
+                        img,
+                        ( int(rect[0] + rect[2] / 2), int(0) ),
+                        ( int(rect[0] + rect[2] / 2), int(height) ),
+                        (0, 255, 255),
+                        int(3),
+                        int(8),
+                        int(0)
+                    )
 
-                  cv2.line(
-                     img,
-                     ( int(0),     int(rect[1] + rect[3] / 2) ),
-                     ( int(width), int(rect[1] + rect[3] / 2) ),
-                     (0, 255, 255),
-                     int(3),
-                     int(8),
-                     int(0)
-                  )
+                    cv2.line(
+                        img,
+                        ( int(0),     int(rect[1] + rect[3] / 2) ),
+                        ( int(width), int(rect[1] + rect[3] / 2) ),
+                        (0, 255, 255),
+                        int(3),
+                        int(8),
+                        int(0)
+                    )
 
 
 
