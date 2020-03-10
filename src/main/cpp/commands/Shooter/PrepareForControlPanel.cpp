@@ -14,7 +14,9 @@ PrepareForControlPanel::PrepareForControlPanel( ShooterSubsystem* shooterSubsyst
 }
 
 // Called when the command is initially scheduled.
-void PrepareForControlPanel::Initialize() {}
+void PrepareForControlPanel::Initialize() {
+   m_shooterSubsystem->ResetAnglePid();
+}
 
 // Called repeatedly when this Command is scheduled to run
 void PrepareForControlPanel::Execute() {

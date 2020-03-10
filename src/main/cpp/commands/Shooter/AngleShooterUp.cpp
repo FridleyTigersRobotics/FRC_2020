@@ -18,7 +18,7 @@ void AngleShooterUp::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void AngleShooterUp::Execute() {
-  m_shooterSubsystem->AngleShooterUp();
+  m_shooterSubsystem->AngleShooterUp( 1.0 );
 }
 
 // Called once the command ends or is interrupted.

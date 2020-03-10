@@ -16,7 +16,8 @@ ShooterSubsystem::ShooterSubsystem( )  :
     m_ajdA       { ShooterConstants::kjda },
     m_ajdB       { ShooterConstants::kjdb },
     m_jdA        { m_ajdA },
-    m_jdB        { m_ajdB }
+    m_jdB        { m_ajdB },
+    m_shooterAngleController{ShooterConstants::kAngleP,ShooterConstants::kAngleI,ShooterConstants::kAngleD}
 {
     int kTimeoutMs = 30;
     m_motorShooterLeft.ConfigFactoryDefault();
@@ -55,6 +56,10 @@ ShooterSubsystem::ShooterSubsystem( )  :
     m_motorShooterRight.Config_kI(ShooterConstants::kSensorId, 0.0, kTimeoutMs);
     m_motorShooterRight.Config_kD(ShooterConstants::kSensorId, 0.0, kTimeoutMs);
 
+    m_shooterAngleController.SetSetpoint( 0.0 );
+    m_shooterAngleController.SetTolerance( 0.01 );
+    m_shooterAngleController.SetIntegratorRange( -0.1, 0.1 );
+
     m_goodAngleCount = 0;
 }
 
@@ -77,14 +82,10 @@ void ShooterSubsystem::SpinupShooter() {
     m_motorShooterLeft.Set(  
         ctre::phoenix::motorcontrol::ControlMode::Velocity,
         ShooterConstants::ShooterRpmTarget
-        //ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-        //-1.0
     );
     m_motorShooterRight.Set(
         ctre::phoenix::motorcontrol::ControlMode::Velocity,
         ShooterConstants::ShooterRpmTarget
-        //ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-        //1.0
     );
 }
 
@@ -96,20 +97,39 @@ void ShooterSubsystem::SpindownShooter() {
 
 double ShooterSubsystem::GetMaxAngle()
 {
-    return 2.59;
+    return ShooterConstants::kMaxAngleValue;
 }
 
 double ShooterSubsystem::GetMinAngle()
 {
-    return 2.20;
+    return ShooterConstants::kMinAngleValue;
 }
 
-void ShooterSubsystem::AngleShooterUp() 
+void ShooterSubsystem::AngleShooter( double speed ) 
 {
+    std::cout << "AngleShooter" << GetRotationDegreeB() << "\n";
+    if ( speed > 0 )
+    {
+        AngleShooterUp( speed );
+    }
+    else if ( speed < 0 )
+    {
+        AngleShooterDown( speed );
+    }
+    else
+    {
+        StopShooterAngle();
+    }
+    
+}
+
+void ShooterSubsystem::AngleShooterUp( double speed ) 
+{
+
     std::cout << "AngleShooterUp" << GetRotationDegreeB() << "\n";
     if ( GetRotationDegreeB() < GetMaxAngle() ) 
     {
-        m_motorAngle.Set( -0.8 );
+        m_motorAngle.Set( -fabs( speed ) );
     }
     else
     {
@@ -125,12 +145,12 @@ bool ShooterSubsystem::IsShooterFullyLowered()
 }
 
 
-void ShooterSubsystem::AngleShooterDown() 
+void ShooterSubsystem::AngleShooterDown( double speed ) 
 {
     std::cout << "AngleShooterDown" << GetRotationDegreeB() << "\n";
     if ( GetRotationDegreeB() > GetMinAngle() )
     {
-        m_motorAngle.Set( 0.8 );
+        m_motorAngle.Set( fabs( speed ) );
     }
     else
     {
@@ -202,23 +222,20 @@ double ShooterSubsystem::CalculateTargetAngleFromCameraValue( double cameraValue
 
 
 
+void ShooterSubsystem::ResetAnglePid( ) {
+    m_shooterAngleController.Reset();
+}
+
+
 bool ShooterSubsystem::TiltToAngle( double angle ) {
-    if ( GetRotationDegreeB() < ( angle - 0.005) )
-    {
-        m_goodAngleCount = 0;
-        AngleShooterUp();
-    }
-    else if (  GetRotationDegreeB() > ( angle + 0.005) )
-    {
-        m_goodAngleCount = 0;
-        AngleShooterDown();
-    }
-    else
-    {
-        m_goodAngleCount++;
-        StopShooterAngle();
-    }
-    return m_goodAngleCount > 5;
+
+    double const speed = m_shooterAngleController.Calculate( GetRotationDegreeB(), angle );
+
+    AngleShooter( speed );
+
+    m_shooterAngleController.AtSetpoint();
+
+    return m_shooterAngleController.AtSetpoint();
 }
 
 

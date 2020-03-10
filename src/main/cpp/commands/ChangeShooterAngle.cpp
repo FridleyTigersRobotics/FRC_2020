@@ -38,11 +38,11 @@ void ChangeShooterAngle::Execute()
 
   if ( m_up() )
   {
-    m_shooterSubsystem->AngleShooterUp();
+    m_shooterSubsystem->AngleShooterUp( 1.0 );
   }
   else if ( m_down() )
   {
-    m_shooterSubsystem->AngleShooterDown();
+    m_shooterSubsystem->AngleShooterDown( 1.0 );
   }
   else
   {

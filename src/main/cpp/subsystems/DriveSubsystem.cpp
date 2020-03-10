@@ -15,11 +15,13 @@ DriveSubsystem::DriveSubsystem( std::function<double()> currentAngle )
       m_left2{kLeftMotor2Port},
       m_right1{kRightMotor1Port},
       m_right2{kRightMotor2Port},
+      m_angleController{kRotationP,kRotationI,kRotationD},
       m_currentAngle{currentAngle}
 {
-  m_drive.SetMaxOutput(0.65);
-  //m_left1.SetInverted(true);
-  //m_right1.SetInverted(true);
+  m_drive.SetMaxOutput( kMaxDriveOutput );
+  m_angleController.SetSetpoint( 0.0 );
+  m_angleController.SetTolerance( 5.0 );
+  m_angleController.SetIntegratorRange( -0.1, 0.1 );
 }
 
 double DriveSubsystem::GetAngle() 
@@ -41,12 +43,19 @@ void DriveSubsystem::SetMaxOutput(double maxOutput) {
 }
 
 
+void DriveSubsystem::ResetRotationPid()
+{
+  m_angleController.Reset();
+}
+
 bool DriveSubsystem::RotateToTarget()
 {
   bool const debugOutput = false;
 
   extern nt::NetworkTableEntry xEntry;
   double const xVal = xEntry.GetDouble( -1.0 );
+
+  bool atTarget = false;
 
   if ( debugOutput )
   {
@@ -56,60 +65,26 @@ bool DriveSubsystem::RotateToTarget()
 
   if ( xVal < 0 )
   {
-    m_goodAngleCount = 0;
     m_drive.ArcadeDrive( 0.0, 0.0 );
+    atTarget = true;
   }
   else
   {
     double const center = 150;
     double const offset = xVal - center;
+
     if ( debugOutput )
     {
       std::cout << "offset: " << offset << " " << fabs( offset ) << "\n";
     }
 
-    if ( fabs( offset ) < 8 )
-    {
-      m_goodAngleCount++;
-    }
-    else
-    {
-      {
-        m_goodAngleCount = 0;
-      }
-    }
-    
+    double const speed = m_angleController.Calculate( offset );
+    m_drive.ArcadeDrive( 0.0, speed );
 
-    if ( fabs( offset ) > 5 )
-    {
-      double const minSpeed = 0.5;
-      double const maxSpeed = 1.0;
-      double const speed = fabs( offset ) / 150;
-      double const tempSpeed = ( speed < minSpeed ) ? minSpeed : speed;
-      double const finalSpeed = ( tempSpeed > maxSpeed ) ? maxSpeed : tempSpeed;
-
-
-      
-
-      if ( offset > 0 )
-      {
-        std::cout << "rot: " << -finalSpeed  << "\n";
-        m_drive.ArcadeDrive( 0.0, -finalSpeed );
-      }
-      else
-      {
-        std::cout << "rot: " << finalSpeed  << "\n";
-        m_drive.ArcadeDrive( 0.0, finalSpeed );
-      }
-      
-    }
-    else
-    {
-      m_drive.ArcadeDrive( 0.0, 0.0 );
-    } 
+    atTarget = m_angleController.AtSetpoint();
   }
 
-  return m_goodAngleCount > 2;
+  return atTarget;
 }
 
 

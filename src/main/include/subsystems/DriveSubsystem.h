@@ -11,6 +11,7 @@
 #include <frc/PWMVictorSPX.h>
 #include <frc/SpeedControllerGroup.h>
 #include <frc/drive/DifferentialDrive.h>
+#include <frc/controller/PIDController.h>
 
 #include "Constants.h"
 
@@ -41,6 +42,8 @@ class DriveSubsystem : public frc2::SubsystemBase {
    */
   void SetMaxOutput(double maxOutput);
 
+  void ResetRotationPid();
+
   bool RotateToTarget();
 
   double GetAngle();
@@ -64,6 +67,8 @@ class DriveSubsystem : public frc2::SubsystemBase {
 
   // The robot's drive
   frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
+
+  frc2::PIDController m_angleController;
 
   std::function<double()> m_currentAngle;
 

@@ -31,6 +31,8 @@ void PrepareToShoot::Initialize() {
   m_shooterSubsystem->SpinupShooter();
   m_timer.Reset();
   m_timer.Start();
+  m_shooterSubsystem->ResetAnglePid();
+  m_driveSubsystem->ResetRotationPid();
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -12,6 +12,7 @@
 #include <ctre/Phoenix.h>
 #include <frc/AnalogEncoder.h>
 #include <frc/AnalogInput.h>
+#include <frc/controller/PIDController.h>
 
 class ShooterSubsystem : public frc2::SubsystemBase {
  public:
@@ -25,9 +26,11 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   bool IsShooterReady();
 
-  void AngleShooterUp(); 
+  void AngleShooter( double speed );
 
-  void AngleShooterDown();
+  void AngleShooterUp( double speed ); 
+
+  void AngleShooterDown( double speed );
 
   void StopShooterAngle() ;
 
@@ -36,6 +39,8 @@ class ShooterSubsystem : public frc2::SubsystemBase {
   double GetRotationDegreeB();
 
   void ResetEncoder();
+
+  void ResetAnglePid();
 
   bool TiltToAngle( double angle );
 
@@ -55,6 +60,7 @@ class ShooterSubsystem : public frc2::SubsystemBase {
    frc::AnalogInput                            m_ajdB;
    frc::AnalogEncoder                          m_jdA;
    frc::AnalogEncoder                          m_jdB;
+   frc2::PIDController                         m_shooterAngleController;
 
   double CalculateTargetAngleFromCameraValue( double );
 
